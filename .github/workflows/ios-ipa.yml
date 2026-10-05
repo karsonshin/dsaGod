@@ -23,8 +23,10 @@ jobs:
       - name: Build without signing
         working-directory: ios-app/ios/App
         run: |
-          xcodebuild -project App.xcodeproj -scheme App -configuration Release -sdk iphoneos \
-            -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build
+          ls
+          if [ -d App.xcworkspace ]; then TARGET="-workspace App.xcworkspace"; else TARGET="-project App.xcodeproj"; fi
+          set -o pipefail
+          xcodebuild $TARGET -scheme App -configuration Release -sdk iphoneos -derivedDataPath build CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build 2>&1 | tee build.log | tail -n 40 || { grep -E "error:" build.log | head -n 20; exit 1; }
       - name: Package .ipa
         working-directory: ios-app/ios/App
         run: |
