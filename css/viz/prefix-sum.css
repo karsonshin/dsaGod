@@ -1,0 +1,9 @@
+/* Offer Ready: prefix-sum visualizer styles. */
+
+/* prefix-sum visualizer (namespaced .ps-) */
+.va.ps { --cell: 40px; --gap: 5px; }
+.ps-lbl { font: 600 var(--text-2xs)/1 var(--font-mono); font-stretch: var(--stretch-mono); }
+.ps .va-cell b { font-size: var(--text-sm); }
+.ps-k { max-width: 6rem; flex: none; }
+.va-kv.ps-lit { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+@media (max-width: 760px) { .va.ps { --cell: 32px; --gap: 4px; } }

@@ -1,0 +1,56 @@
+/* Offer Ready: Career & offers and Wellbeing. Uses tokens only. */
+.cr-page > * + *, .wb-page > * + * { margin-top: var(--s-6); }
+.cr-page .page-head, .wb-page .page-head { margin-bottom: var(--s-4); }
+.cr-prose, .wb-prose { max-width: var(--measure); }
+.cr-prose .table-wrap, .wb-prose .table-wrap { margin-top: 1em; }
+.cr-h { font-size: var(--text-lg); margin-top: var(--s-8); margin-bottom: var(--s-3); }
+
+.cr-tabs { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.cr-tabs .chip { height: 30px; padding: 0 var(--s-3); text-decoration: none; }
+.cr-tabs .chip:hover { color: var(--ink); border-color: var(--line-strong); }
+
+.cr-index { list-style: none; padding: 0; display: grid; gap: 0; border-top: 1px solid var(--line); }
+.cr-card { display: grid; grid-template-columns: 48px minmax(0, 1fr) auto; align-items: center; gap: var(--s-4); padding: var(--s-4) var(--s-2); border-bottom: 1px solid var(--line); color: var(--ink); text-decoration: none; }
+.cr-card:hover { background: var(--accent-wash); }
+.cr-card strong { display: block; font-size: var(--text-md); }
+.cr-card .muted { display: block; font-size: var(--text-sm); margin-top: 2px; }
+.cr-card .bib { font-size: var(--text-xl); color: var(--accent-text); }
+
+.cr-scripts { display: grid; gap: var(--s-4); }
+.cr-script { border: 1px solid var(--line); border-radius: var(--r-3); background: var(--surface); padding: var(--s-4); display: grid; gap: var(--s-3); min-width: 0; }
+.cr-script header { display: flex; gap: var(--s-3); align-items: start; justify-content: space-between; }
+.cr-script h3 { font-size: var(--text-base); }
+.cr-fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--s-3); }
+.cr-text { margin: 0; padding: var(--s-3) var(--s-4); background: var(--code-bg); border: 1px solid var(--code-line); border-radius: var(--r-2); font: 400 var(--text-sm)/1.65 var(--font-ui); white-space: pre-wrap; overflow-wrap: anywhere; color: var(--ink); }
+.cr-fill { background: var(--accent-soft); color: var(--accent-soft-ink); border-radius: 2px; padding: 0 2px; }
+.cr-blank { color: var(--ink-3); border-bottom: 1px dashed var(--line-strong); }
+
+.cr-check { list-style: none; padding: 0; display: grid; gap: var(--s-2); }
+.cr-check label { display: flex; gap: var(--s-3); align-items: start; cursor: pointer; padding: var(--s-1) 0; }
+.cr-check input { margin-top: 3px; flex: none; }
+.cr-check input:checked + span { color: var(--ink-3); text-decoration: line-through; }
+
+.cr-links { list-style: none; padding: 0; display: grid; gap: var(--s-3); }
+.cr-links li { display: grid; gap: var(--s-1); justify-items: start; }
+
+.cr-calc { display: grid; gap: var(--s-4); min-width: 0; }
+.cr-offers { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: var(--s-4); }
+.cr-offer { border: 1px solid var(--line); border-radius: var(--r-3); background: var(--surface); padding: var(--s-4); display: grid; gap: var(--s-3); align-content: start; min-width: 0; margin: 0; }
+.cr-offer-head { display: flex; gap: var(--s-2); align-items: center; }
+.cr-name { font-weight: 700; }
+.cr-note { min-height: 56px; }
+.cr-empty { color: var(--ink-2); padding: var(--s-5); border: 1px dashed var(--line-strong); border-radius: var(--r-3); }
+.cr-compare th[scope="row"] { font-weight: 600; white-space: nowrap; }
+.cr-compare .num { text-align: right; }
+.cr-compare th.num { text-align: right; vertical-align: bottom; }
+.cr-total th, .cr-total td { border-top: 2px solid var(--line-strong); font-weight: 700; }
+.cr-detail { margin-top: var(--s-3); }
+.cr-detail summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); padding: var(--s-2) 0; }
+.cr-detail .num { text-align: right; }
+
+.cr-pager { display: flex; justify-content: space-between; gap: var(--s-3); flex-wrap: wrap; padding-top: var(--s-6); border-top: 1px solid var(--line); }
+
+@media (max-width: 520px) {
+  .cr-card { grid-template-columns: 36px minmax(0, 1fr) auto; gap: var(--s-3); }
+  .cr-script header { flex-direction: column; }
+}

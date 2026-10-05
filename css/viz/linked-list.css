@@ -1,0 +1,23 @@
+/* Offer Ready: linked-list visualizer styles (.ll-*). Nodes keep fixed columns; only arrows and badges change. */
+.ll { --cell: 42px; display: grid; gap: var(--s-4); overflow-x: auto; padding: 2px 3px 6px; }
+.ll-row { display: flex; align-items: flex-start; width: max-content; }
+.ll-col { display: grid; justify-items: center; gap: 6px; width: var(--cell); }
+.ll-gap { display: grid; place-items: center; width: 24px; height: var(--cell); color: var(--ink-2); font: 500 var(--text-base)/1 var(--font-mono); }
+.ll-tile {
+  display: grid; align-content: center; justify-items: center; gap: 3px; width: var(--cell); height: var(--cell);
+  border: 1px solid var(--line); border-radius: var(--r-1); background: var(--surface);
+  font-family: var(--font-mono); font-stretch: var(--stretch-mono);
+  transition: background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.ll-tile b { font-size: var(--text-base); font-weight: 500; line-height: 1; }
+.ll-tile small { font-size: var(--text-2xs); line-height: 1; color: var(--ink-3); }
+.ll-tile.null { border-style: dashed; color: var(--ink-3); font-size: var(--text-2xs); }
+.ll-tile.rev { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.ll-tile.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.ll-tile.lost { background: var(--hard-soft); border-color: var(--hard); border-style: dashed; color: var(--hard); }
+.ll-ptrs { display: grid; justify-items: center; gap: 3px; min-height: 40px; align-content: start; }
+.ll-b { padding: 1px 5px; border: 1px solid var(--line); border-radius: var(--r-1); background: var(--surface); color: var(--ink); font: 600 var(--text-2xs)/1.3 var(--font-mono); font-stretch: var(--stretch-mono); }
+.ll-b[data-b="cur"] { border-color: var(--accent-line); background: var(--accent-soft); color: var(--accent-soft-ink); }
+.ll-b[data-b="next"] { border-style: dashed; color: var(--ink-2); }
+.ll-bug { display: inline-flex; align-items: center; gap: var(--s-2); font-size: var(--text-sm); }
+@media (max-width: 760px) { .ll { --cell: 34px; } .ll-gap { width: 16px; } }

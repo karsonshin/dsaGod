@@ -1,0 +1,25 @@
+/* Offer Ready: recursion-tree visualizer styles (reuses .va-input, .va-read, .va-kv from app.css). */
+.va-presets .chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent-line); }
+.rt { display: grid; grid-template-columns: minmax(0, 1fr) 11rem; gap: var(--s-5); align-items: start; }
+.rt-tree { overflow-x: auto; scrollbar-width: thin; padding-bottom: var(--s-2); }
+.rt-tree svg { display: block; }
+.rt-edge { stroke: var(--line-strong, var(--ink-3)); stroke-width: 1.5; transition: opacity var(--dur-2) var(--ease-out); }
+.rt-edge.new { opacity: 0; }
+.rt-node { transition: opacity var(--dur-2) var(--ease-out); }
+.rt-node.new { opacity: 0; }
+.rt-node circle { fill: var(--surface); stroke: var(--line); stroke-width: 1.5; transition: fill var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.rt-node text { text-anchor: middle; dominant-baseline: central; font-family: var(--font-mono); font-stretch: var(--stretch-mono); fill: var(--ink); }
+.rt-k { font-size: 13px; font-weight: 600; }
+.rt-v { font-size: 10px; fill: var(--ink-3); }
+.rt-node.active circle { fill: var(--accent-soft); stroke: var(--accent); }
+.rt-node.done circle { fill: var(--ok-soft); stroke: var(--ok); }
+.rt-node.base circle { fill: var(--hard-soft); stroke: var(--hard); }
+.rt-node.hit circle { fill: var(--accent-soft); stroke: var(--accent); stroke-dasharray: 3 3; }
+.rt-node.cur circle { stroke-width: 3; }
+.rt-side { display: grid; gap: var(--s-3); }
+.rt-cap { font: 600 var(--text-2xs)/1 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+.rt-stack-wrap { display: grid; gap: var(--s-2); }
+.rt-stack { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; justify-content: flex-end; gap: 3px; min-height: calc(var(--rows) * 29px); border-bottom: 2px solid var(--line); }
+.rt-frame { padding: 4px 8px; border: 1px solid var(--line); border-radius: var(--r-1); background: var(--surface); font: var(--text-xs)/1.2 var(--font-mono); font-stretch: var(--stretch-mono); }
+.rt-frame.top { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-soft-ink); }
+@media (max-width: 760px) { .rt { grid-template-columns: minmax(0, 1fr); } }
