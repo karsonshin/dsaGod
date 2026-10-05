@@ -1,0 +1,21 @@
+/* Offer Ready: minimum spanning tree visualizer styles. Chips reuse .va-kv from app.css. */
+.ms-svg { display: block; width: 100%; max-width: 30rem; margin: 0 auto; height: auto; }
+.ms-e line { stroke: var(--line-strong, var(--ink-3)); stroke-width: 1.75; transition: stroke var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.ms-e text { font: 600 11px/1 var(--font-mono); fill: var(--ink-2, var(--ink)); paint-order: stroke; stroke: var(--surface); stroke-width: 4px; stroke-linejoin: round; }
+.ms-e.cand line { stroke: var(--accent-line); }
+.ms-e.cur line { stroke: var(--accent); stroke-width: 3; }
+.ms-e.ok line { stroke: var(--ok); stroke-width: 3.5; }
+.ms-e.ok text { fill: var(--ok); }
+.ms-e.skip line { stroke: var(--hard); stroke-dasharray: 4 4; opacity: .7; }
+.ms-e.skip text { fill: var(--hard); }
+.ms-n circle { fill: var(--surface); stroke: var(--line-strong, var(--ink-3)); stroke-width: 1.5; transition: fill var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.ms-n text { font: 600 12px/1 var(--font-mono); fill: var(--ink); }
+.ms-n.tree circle { fill: var(--ok-soft); stroke: var(--ok); }
+.ms-n.cur circle { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 2.5; }
+.ms-chip b { font-weight: 600; }
+.ms-chip.cand { border-color: var(--accent-line); }
+.ms-chip.cur { background: var(--accent-soft); border-color: var(--accent); color: var(--accent-soft-ink); }
+.ms-chip.ok { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.ms-chip.skip { background: var(--hard-soft); border-color: var(--hard); color: var(--hard); text-decoration: line-through; }
+.ms-mode { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2) var(--s-3); font-size: var(--text-xs); }
+.ms .va-read + .va-read { margin-top: var(--s-2); }

@@ -1,0 +1,37 @@
+/* Offer Ready: segment tree visualizer styles. Array cells reuse .va-cell from app.css. */
+.seg-tree { position: relative; width: 100%; max-width: 40rem; margin: 0 auto 1.25rem; }
+.seg-edges { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.seg-edges line { stroke: var(--line-strong, var(--ink-3)); stroke-width: 1.5; transition: opacity var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.seg-edges line.off { opacity: 0.15; }
+.seg-edges line.on { stroke: var(--accent); stroke-width: 2; }
+.seg-edges line.on.prune { stroke: var(--ink-3); stroke-dasharray: 3 3; }
+.seg-edges line.on.cover { stroke: var(--ok); }
+.seg-n {
+  position: absolute; width: 34px; height: 34px; margin-left: -17px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 50%; background: var(--surface);
+  font: 500 var(--text-sm)/1 var(--font-mono); font-stretch: var(--stretch-mono);
+  transition: background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out);
+}
+.seg-n b { font-weight: 500; }
+.seg-n i {
+  position: absolute; left: calc(100% + 3px); top: 50%; transform: translateY(-50%);
+  font: 400 10px/1 var(--font-mono); font-style: normal; color: var(--ink-3); white-space: nowrap; pointer-events: none;
+}
+.seg-n.off { border-style: dashed; opacity: 0.45; }
+.seg-n.path, .seg-n.part { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-soft-ink); }
+.seg-n.cov { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.seg-n.prune { border-style: dashed; color: var(--ink-3); opacity: 0.55; }
+.seg-n.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.seg-arr { flex-wrap: wrap; }
+.seg-key { list-style: none; margin: 0.75rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1rem; font-size: var(--text-xs, 0.75rem); color: var(--ink-3); }
+.seg-key li { display: inline-flex; align-items: center; gap: 0.4rem; }
+.seg-sw { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--line); display: inline-block; }
+.seg-sw.cov { background: var(--ok-soft); border-color: var(--ok); }
+.seg-sw.part, .seg-sw.path { background: var(--accent-soft); border-color: var(--accent-line); }
+.seg-sw.prn { border-style: dashed; opacity: 0.6; }
+.seg-op code { font-family: var(--font-mono); }
+@media (max-width: 480px) {
+  .seg-n { width: 30px; height: 30px; margin-left: -15px; font-size: var(--text-xs, 0.75rem); }
+  .seg-n i { font-size: 9px; }
+}
+@media (prefers-reduced-motion: reduce) { .seg-n, .seg-edges line { transition: none; } }

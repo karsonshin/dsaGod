@@ -1,0 +1,19 @@
+/* Offer Ready: union-find visualizer styles. Prefix uf-. Colours from tokens, so light and dark both work. */
+.uf { gap: var(--s-4); }
+.uf-lab { font-size: var(--text-2xs); }
+.uf-arr { flex-wrap: wrap; }
+.uf-forest { display: block; width: 100%; height: auto; min-height: 60px; }
+.uf-edge { stroke: var(--line-strong); stroke-width: 1.5; transition: stroke var(--dur-2) var(--ease-out); }
+.uf-edge.new { stroke: var(--ok); stroke-width: 2.5; }
+.uf-node circle { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; transition: fill var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.uf-node text { fill: var(--ink); font: 500 13px/1 var(--font-mono); font-stretch: var(--stretch-mono); text-anchor: middle; }
+.uf-node.root circle { fill: var(--accent-soft); stroke: var(--accent-line); }
+.uf-node.root text { fill: var(--accent-soft-ink); }
+.uf-node.hot circle { stroke: var(--accent); stroke-width: 2.5; }
+.uf-node.chg circle { fill: var(--ok-soft); stroke: var(--ok); stroke-width: 2.5; }
+.uf-node.chg text { fill: var(--ok); }
+.uf-node.bad circle { fill: var(--hard-soft); stroke: var(--hard); }
+.uf-node.bad text { fill: var(--hard); }
+.uf-toggles { display: flex; flex-wrap: wrap; gap: var(--s-2) var(--s-6); font-size: var(--text-sm); }
+.uf-sw { display: inline-flex; align-items: center; gap: var(--s-2); min-height: 32px; cursor: pointer; }
+.uf-sw input { width: 16px; height: 16px; accent-color: var(--accent); }

@@ -1,0 +1,48 @@
+/* Offer Ready: bit manipulation visualizer styles (.bit-*). Inputs and presets reuse .va-input, .va-presets, .va-read. */
+.bit-ctl { display: grid; gap: var(--s-3); }
+.bit-chips { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-2); font-size: var(--text-xs); }
+.bit-chips .chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent-line); }
+.bit-ops { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.bit-ops .chip { font-family: var(--font-mono); font-stretch: var(--stretch-mono); }
+.bit-ops .chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent-line); }
+.bit-ops[hidden], .bit-op[hidden], .bit-list[hidden] { display: none; }
+.bit-nums { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-6); }
+.bit-op { display: grid; gap: var(--s-1); min-width: 0; flex: 1 1 15rem; max-width: 22rem; }
+.bit-op-head { display: flex; align-items: center; gap: var(--s-2); }
+.bit-op-head .input { width: 6.5rem; min-width: 0; }
+.bit-op-sub { font: var(--text-2xs)/1.3 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+.bit-list { display: grid; gap: var(--s-1); max-width: 28rem; }
+.bit-toggles { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+.bit-t {
+  display: grid; place-items: center; height: 40px; min-width: 0; padding: 0; border: 1px solid var(--line-strong); border-radius: var(--r-1); background: var(--surface); color: var(--ink-2);
+  font: 500 var(--text-base)/1 var(--font-mono); font-stretch: var(--stretch-mono); cursor: pointer;
+  transition: background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.bit-t[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-soft-ink); }
+.bit-t:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.bit-pos { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; text-align: center; font: var(--text-2xs)/1 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+
+.bit { display: grid; gap: var(--s-3); padding: 2px 3px; max-width: 30rem; }
+.bit-row { display: grid; gap: 4px; }
+.bit-cap { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s-1) var(--s-3); margin: 0; font: var(--text-xs)/1.3 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-2); }
+.bit-cap b { font-weight: 600; color: var(--ink); }
+.bit-cap span { color: var(--ink-3); }
+.bit-cells { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 4px; }
+.bit-c {
+  display: grid; place-items: center; height: 40px; min-width: 0; border: 1px solid var(--line); border-radius: var(--r-1); background: var(--surface); color: var(--ink-3);
+  font: 500 var(--text-base)/1 var(--font-mono); font-stretch: var(--stretch-mono);
+  transition: background-color var(--dur-2) var(--ease-out), border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+.bit-c.on { color: var(--ink); background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-soft-ink); }
+.bit-c.chg { background: var(--hard-soft); border-color: var(--hard); color: var(--hard); }
+.bit-c.out { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); }
+.bit-c.gone { border-style: dashed; color: var(--ink-3); background: transparent; }
+.bit-c.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.bit-rule { height: 0; margin: 0; border: 0; border-top: 2px solid var(--line-strong); }
+.bit-key { display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-4); font: var(--text-2xs)/1.3 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+.bit-key i { display: inline-block; width: 10px; height: 10px; margin-right: 5px; vertical-align: -1px; border: 1px solid; border-radius: 2px; }
+.bit-key .k1 { background: var(--accent-soft); border-color: var(--accent-line); }
+.bit-key .k2 { background: var(--hard-soft); border-color: var(--hard); }
+.bit-key .k3 { background: var(--ok-soft); border-color: var(--ok); }
+@media (max-width: 760px) { .bit-c, .bit-t { height: 36px; font-size: var(--text-sm); } }
+@media (prefers-reduced-motion: reduce) { .bit-c, .bit-t { transition: none; } }
