@@ -1,7 +1,0 @@
-/* Offer Ready: deque / ring-queue visualizer styles (.dq-*; cells and pointers reuse .va-* from app.css). */
-.dq-k { flex: none; width: 4.5rem; }
-.dq-ring { padding-top: 2px; }
-.va-ptr[data-p="h"] { color: var(--accent-text); }
-.dq-ops { flex-wrap: wrap; }
-.dq-ops .va-cell { --cell: 34px; width: var(--cell); height: var(--cell); }
-.dq-ops .va-cell b { font-size: var(--text-sm); }

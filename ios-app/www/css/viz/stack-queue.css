@@ -1,6 +1,0 @@
-/* Offer Ready: stack-queue visualizer styles (.sq-*; the cells reuse .va-* from app.css). */
-.sq-wrap { display: flex; align-items: center; gap: var(--s-2); flex-wrap: wrap; }
-.sq-row { min-height: calc(var(--cell) + 8px); align-items: center; padding: 4px 0 4px var(--s-2); border-left: 3px solid var(--ink-3); border-bottom: 1px solid var(--line); }
-.sq-row.q { border-left: 0; border-right: 3px solid var(--ink-3); padding: 4px var(--s-2) 4px 0; }
-.sq-end { font: 600 var(--text-2xs)/1 var(--font-mono); color: var(--ink-3); }
-.sq-empty { font-size: var(--text-xs); color: var(--ink-3); }

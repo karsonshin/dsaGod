@@ -1,0 +1,5 @@
+[
+  [64, "Min path sum (cheaper of above and left, plus own cost)"],
+  [63, "Grid path count with obstacles (wall = 0 paths)"],
+  [221, "Largest square ending at a cell (1 + min of three neighbours)"]
+]

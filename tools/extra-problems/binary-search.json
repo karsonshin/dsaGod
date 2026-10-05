@@ -1,0 +1,11 @@
+[
+  [35, "lower_bound (first index >= target)"],
+  [744, "upper_bound with wrap-around"],
+  [69, "Binary search on the answer (last x with x*x <= n)"],
+  [34, "lower_bound and upper_bound"],
+  [162, "Binary search on the slope"],
+  [540, "Binary search on pair parity"],
+  [1011, "Binary search on the answer (capacity)"],
+  [1482, "Binary search on the answer (days)"],
+  [410, "Binary search on the answer (largest sum)"]
+]

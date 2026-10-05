@@ -1,0 +1,6 @@
+[
+  [14, "Column scan (a trie works too, but is overkill)"],
+  [648, "Trie of stems: the first flag is the shortest"],
+  [720, "Buildable words (sort, or a trie of flagged nodes)"],
+  [1268, "Prefix suggestions (sort and bisect, or a trie)"]
+]

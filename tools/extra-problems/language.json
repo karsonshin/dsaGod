@@ -1,0 +1,6 @@
+[
+  [387, "Hash map of letter counts, then a second pass"],
+  [557, "String split, reverse and join"],
+  [692, "Hash map count plus a two-key comparator"],
+  [1636, "Count, then sort by a two-part key"]
+]

@@ -1,0 +1,10 @@
+[
+  [232, "Queue from two stacks (inbox and outbox)"],
+  [225, "Stack from one queue (rotate after push)"],
+  [933, "Queue of timestamps (expire from the front)"],
+  [622, "Circular buffer (head and size)"],
+  [641, "Circular buffer with both ends open"],
+  [1700, "Queue rotation reduced to counts"],
+  [649, "Two queues of indices (earliest acts first)"],
+  [950, "Deque of positions (simulate the reveal)"]
+]

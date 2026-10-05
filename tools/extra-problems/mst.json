@@ -1,0 +1,5 @@
+[
+  [1489, "Ban and force each edge (critical and pseudo-critical)"],
+  [1579, "Two union-finds, shared edges first"],
+  [1631, "Bottleneck path: Kruskal until the corners join"]
+]

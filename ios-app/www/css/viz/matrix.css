@@ -1,3 +1,0 @@
-/* Offer Ready: matrix visualizer. Cells reuse .va-cell from app.css; this only lays them out as a grid. */
-.mx-grid { display: grid; grid-template-columns: repeat(var(--c), var(--cell)); gap: var(--gap); width: max-content; max-width: 100%; }
-.mx-grid .va-cell small:empty::before { content: "\00a0"; }

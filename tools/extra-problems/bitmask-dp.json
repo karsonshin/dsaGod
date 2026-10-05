@@ -1,0 +1,6 @@
+[
+  [698, "Partition into k equal sums: dp[mask] = fill of the current bucket"],
+  [847, "BFS over (node, visited-mask) states"],
+  [526, "Count permutations with a divisibility rule: dp over used-number masks"],
+  [464, "Game states as a mask of picked numbers (memoized win/lose)"]
+]

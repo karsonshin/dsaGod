@@ -1,0 +1,6 @@
+[
+  [28, "First index of a pattern in a text (KMP or Z)"],
+  [459, "Repeated substring pattern (prefix function period)"],
+  [214, "Shortest palindrome by prepending (prefix function on s + # + reverse)"],
+  [1392, "Longest happy prefix (last value of the prefix function)"]
+]

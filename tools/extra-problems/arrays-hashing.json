@@ -1,0 +1,6 @@
+[
+  [383, "Frequency count (subtract from a pool)"],
+  [169, "Frequency count (or Boyer-Moore vote)"],
+  [205, "Two maps (one-to-one mapping)"],
+  [448, "In-place marking (array as hash table)"]
+]

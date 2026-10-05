@@ -1,0 +1,5 @@
+[
+  [122, "State per day (hold or free), or sum the rises"],
+  [343, "Best split into parts (DP, then the pattern of 3s)"],
+  [279, "Min count over square sizes (DP, or number theory)"]
+]

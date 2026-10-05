@@ -1,0 +1,10 @@
+[
+  [1475, "Monotonic stack (next smaller or equal)"],
+  [901, "Monotonic stack (span, online)"],
+  [907, "Monotonic stack (contribution, tie-breaking)"],
+  [402, "Monotonic stack (greedy smallest number)"],
+  [456, "Monotonic stack (scan from the right)"],
+  [1438, "Two monotonic deques (window max and min)"],
+  [85, "Histogram per row + monotonic stack"],
+  [862, "Prefix sums + monotonic deque"]
+]

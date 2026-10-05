@@ -1,0 +1,10 @@
+[
+  [682, "Stack of scores (undo and combine)"],
+  [1047, "Stack (cancel adjacent pairs)"],
+  [844, "Stack (backspace simulation)"],
+  [71, "Stack of path segments"],
+  [394, "Stack of (string, repeat count) frames"],
+  [735, "Stack (collision resolution)"],
+  [227, "Stack of numbers with a pending operator"],
+  [1249, "Stack of indices (unmatched brackets)"]
+]

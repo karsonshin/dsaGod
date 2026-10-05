@@ -1,0 +1,5 @@
+[
+  [990, "Union-find (equality classes, then check the not-equals)"],
+  [1319, "Union-find (count components, spare edges)"],
+  [1202, "Union-find (swap groups, sort within each)"]
+]

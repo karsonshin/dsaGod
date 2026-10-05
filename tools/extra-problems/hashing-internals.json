@@ -1,0 +1,14 @@
+[
+  [705, "Hash set from scratch (chaining)"],
+  [706, "Hash map from scratch (chaining or open addressing)"],
+  [2001, "Exact hash key (reduced fraction, not a float)"],
+  [2352, "Hashable row key (tuple, not list)"],
+  [187, "Rolling hash (2 bits per letter)"],
+  [1461, "Rolling bitmask hash"],
+  [2261, "Hashing distinct subarrays"],
+  [2156, "Rolling hash from the right"],
+  [1316, "Rolling hash (compare halves)"],
+  [1044, "Binary search + Rabin-Karp"],
+  [1147, "Rolling hash from both ends"],
+  [1923, "Binary search + rolling hash over many arrays"]
+]
