@@ -1,0 +1,289 @@
+/* Offer Ready: design tokens (Training Block).
+   Every color, type, space, radius and motion value used by css/app.css lives here. */
+
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-var.woff2") format("woff2");
+  font-weight: 100 900;
+  font-stretch: 62% 125%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Literata";
+  src: url("../fonts/literata-var.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Literata";
+  src: url("../fonts/literata-italic-var.woff2") format("woff2");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Martian Mono";
+  src: url("../fonts/martian-mono-var.woff2") format("woff2");
+  font-weight: 100 800;
+  font-stretch: 75% 112.5%;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: light;
+
+  /* Type families */
+  --font-ui: "Archivo", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
+  --font-read: "Literata", Georgia, "Times New Roman", serif;
+  --font-mono: "Martian Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+
+  /* Width axis: condensed display, race-bib numerals, narrow code */
+  --stretch-display: 74%;
+  --stretch-bib: 62%;
+  --stretch-mono: 84%;
+
+  /* Type scale (UI) */
+  --text-2xs: 0.6875rem; /* 11 */
+  --text-xs: 0.75rem;    /* 12 */
+  --text-sm: 0.8125rem;  /* 13 */
+  --text-base: 0.9375rem;/* 15 */
+  --text-md: 1.0625rem;  /* 17 */
+  --text-lg: 1.25rem;    /* 20 */
+  --text-xl: 1.5rem;     /* 24 */
+  --text-2xl: 1.9375rem; /* 31 */
+  --text-3xl: 2.5rem;    /* 40 */
+  --text-4xl: 3.25rem;   /* 52 */
+  --text-bib: clamp(3.75rem, 2.4rem + 4.2vw, 6rem);
+
+  /* Reading (lessons) */
+  --read-size: 1.125rem;
+  --read-leading: 1.68;
+  --measure: 68ch;
+
+  /* Space, 4px base */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-8: 32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+
+  /* Radii: small, instrument-like */
+  --r-1: 3px;
+  --r-2: 5px;
+  --r-3: 8px;
+
+  /* Motion */
+  --dur-1: 120ms;
+  --dur-2: 200ms;
+  --dur-3: 320ms;
+  --dur-4: 560ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* Shell geometry */
+  --rail-w: 236px;
+  --rail-w-compact: 68px;
+  --top-h: 56px;
+  --tab-h: 62px;
+  --page-max: 1320px;
+  --gutter: clamp(16px, 2.6vw, 40px);
+
+  /* Color: day session (light) */
+  --bg: #f3f4f6;
+  --surface: #ffffff;
+  --surface-2: #eceef2;
+  --surface-3: #e1e4ea;
+  --line: #d5d9e0;
+  --line-strong: #b2b8c3;
+  --ink: #11141b;
+  --ink-2: #454c5b;
+  --ink-3: #5f6778;
+  --rail: #151922;
+  --rail-2: #1e2330;
+  --rail-3: #2a3040;
+  --rail-ink: #e8ebf2;
+  --rail-ink-2: #a3abbb;
+  --rail-accent: #8e9bff;   /* focus rings and active icons on the always-dark rail */
+  --rail-chip: #3a4260;
+
+  --accent: #2b3fe0;
+  --accent-hover: #2131c0;
+  --accent-ink: #ffffff;
+  --accent-text: #2735cc;
+  --accent-soft: #e5e9ff;
+  --accent-soft-ink: #1e2ba8;
+  --accent-line: #8e9bff;
+  --accent-wash: rgb(43 63 224 / 0.08);
+
+  --easy: #0d7a5c;
+  --easy-soft: #dcf2e9;
+  --medium: #975700;
+  --medium-soft: #f9ead1;
+  --hard: #bd2440;
+  --hard-soft: #fbe0e5;
+
+  --ok: #0d7a5c;
+  --ok-soft: #dcf2e9;
+  --warn: #975700;
+  --warn-soft: #f9ead1;
+  --danger: #bd2440;
+  --danger-soft: #fbe0e5;
+
+  --code-bg: #f8f9fb;
+  --code-line: #e7eaf0;
+  --code-hl: rgb(43 63 224 / 0.1);
+  --tok-comment: #6a7284;
+  --tok-keyword: #2735cc;
+  --tok-string: #9a4a0b;
+  --tok-number: #8a2fb0;
+  --tok-func: #11141b;
+  --tok-builtin: #0b6a86;
+  --tok-punct: #4a5160;
+
+  --shadow-1: 0 1px 2px rgb(17 20 27 / 0.06), 0 2px 6px rgb(17 20 27 / 0.05);
+  --shadow-2: 0 2px 6px rgb(17 20 27 / 0.08), 0 16px 40px rgb(17 20 27 / 0.14);
+  --scrim: rgb(13 16 23 / 0.45);
+  --selection: rgb(43 63 224 / 0.2);
+}
+
+/* Night session (dark): default when the OS prefers dark, unless the owner picked light. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #0f121a;
+    --surface: #161a24;
+    --surface-2: #1c212d;
+    --surface-3: #252b39;
+    --line: #2a3141;
+    --line-strong: #3d4558;
+    --ink: #e4e7ee;
+    --ink-2: #aab1c0;
+    --ink-3: #8a92a4;
+    --rail: #0a0d13;
+    --rail-2: #131722;
+    --rail-3: #1e2331;
+    --rail-ink: #e4e7ee;
+    --rail-ink-2: #8f97a8;
+
+    --accent: #8391ff;
+    --accent-hover: #9aa6ff;
+    --accent-ink: #0b0e15;
+    --accent-text: #9aa6ff;
+    --accent-soft: rgb(131 145 255 / 0.15);
+    --accent-soft-ink: #b6beff;
+    --accent-line: #5563d6;
+    --accent-wash: rgb(131 145 255 / 0.08);
+
+    --easy: #4fcfa3;
+    --easy-soft: rgb(79 207 163 / 0.13);
+    --medium: #f0b44c;
+    --medium-soft: rgb(240 180 76 / 0.13);
+    --hard: #ff7b8b;
+    --hard-soft: rgb(255 123 139 / 0.13);
+
+    --ok: #4fcfa3;
+    --ok-soft: rgb(79 207 163 / 0.13);
+    --warn: #f0b44c;
+    --warn-soft: rgb(240 180 76 / 0.13);
+    --danger: #ff7b8b;
+    --danger-soft: rgb(255 123 139 / 0.13);
+
+    --code-bg: #121620;
+    --code-line: #222837;
+    --code-hl: rgb(131 145 255 / 0.14);
+    --tok-comment: #7d8699;
+    --tok-keyword: #9aa6ff;
+    --tok-string: #efb477;
+    --tok-number: #d0a8ff;
+    --tok-func: #e4e7ee;
+    --tok-builtin: #6cc5df;
+    --tok-punct: #a2a9b8;
+
+    --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.25);
+    --shadow-2: 0 4px 10px rgb(0 0 0 / 0.45), 0 18px 44px rgb(0 0 0 / 0.5);
+    --scrim: rgb(3 5 9 / 0.6);
+    --selection: rgb(131 145 255 / 0.3);
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0f121a;
+  --surface: #161a24;
+  --surface-2: #1c212d;
+  --surface-3: #252b39;
+  --line: #2a3141;
+  --line-strong: #3d4558;
+  --ink: #e4e7ee;
+  --ink-2: #aab1c0;
+  --ink-3: #8a92a4;
+  --rail: #0a0d13;
+  --rail-2: #131722;
+  --rail-3: #1e2331;
+  --rail-ink: #e4e7ee;
+  --rail-ink-2: #8f97a8;
+
+  --accent: #8391ff;
+  --accent-hover: #9aa6ff;
+  --accent-ink: #0b0e15;
+  --accent-text: #9aa6ff;
+  --accent-soft: rgb(131 145 255 / 0.15);
+  --accent-soft-ink: #b6beff;
+  --accent-line: #5563d6;
+  --accent-wash: rgb(131 145 255 / 0.08);
+
+  --easy: #4fcfa3;
+  --easy-soft: rgb(79 207 163 / 0.13);
+  --medium: #f0b44c;
+  --medium-soft: rgb(240 180 76 / 0.13);
+  --hard: #ff7b8b;
+  --hard-soft: rgb(255 123 139 / 0.13);
+
+  --ok: #4fcfa3;
+  --ok-soft: rgb(79 207 163 / 0.13);
+  --warn: #f0b44c;
+  --warn-soft: rgb(240 180 76 / 0.13);
+  --danger: #ff7b8b;
+  --danger-soft: rgb(255 123 139 / 0.13);
+
+  --code-bg: #121620;
+  --code-line: #222837;
+  --code-hl: rgb(131 145 255 / 0.14);
+  --tok-comment: #7d8699;
+  --tok-keyword: #9aa6ff;
+  --tok-string: #efb477;
+  --tok-number: #d0a8ff;
+  --tok-func: #e4e7ee;
+  --tok-builtin: #6cc5df;
+  --tok-punct: #a2a9b8;
+
+  --shadow-1: 0 1px 2px rgb(0 0 0 / 0.4), 0 2px 8px rgb(0 0 0 / 0.25);
+  --shadow-2: 0 4px 10px rgb(0 0 0 / 0.45), 0 18px 44px rgb(0 0 0 / 0.5);
+  --scrim: rgb(3 5 9 / 0.6);
+  --selection: rgb(131 145 255 / 0.3);
+}
+
+/* Reduced motion: honored from the OS, and forced by the in-app override. */
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion="full"]) {
+    --dur-1: 0ms;
+    --dur-2: 0ms;
+    --dur-3: 0ms;
+    --dur-4: 0ms;
+  }
+}
+:root[data-motion="reduce"] {
+  --dur-1: 0ms;
+  --dur-2: 0ms;
+  --dur-3: 0ms;
+  --dur-4: 0ms;
+}

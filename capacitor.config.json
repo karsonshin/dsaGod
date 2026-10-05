@@ -1,0 +1,6 @@
+{
+  "appId": "com.offerready.app",
+  "appName": "Offer Ready",
+  "webDir": "www",
+  "ios": { "contentInset": "never", "backgroundColor": "#151922" }
+}
