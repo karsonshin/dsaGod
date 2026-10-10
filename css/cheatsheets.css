@@ -86,6 +86,11 @@
 .gt-cx { font-family: var(--font-mono); font-stretch: var(--stretch-mono); font-size: var(--text-2xs); color: var(--ink-2); }
 .gt-links { font-size: var(--text-xs); }
 
+/* Short code blocks and multi-page sheets */
+.cs-code { margin: 0; padding: var(--s-2) var(--s-3); background: var(--code-bg, var(--surface-2)); border: 1px solid var(--line); border-radius: var(--r-1); overflow-x: auto; font: 0.78rem/1.45 var(--font-mono); white-space: pre; tab-size: 4; }
+.cs-code code { font: inherit; }
+.cs-col { display: grid; gap: var(--s-4); align-content: start; min-width: 0; }
+
 /* ---------- Print: one page per sheet, black on white, no chrome ---------- */
 @media print {
   @page { margin: 8mm; }
@@ -130,5 +135,12 @@
   .cs-sheet.cs-sorting { --pf: 8.4pt; }
   .cs-sheet.cs-dp-catalog { --pf: 8pt; }
   .cs-sheet.cs-big-o { --pf: 7.8pt; }
+  .cs-sheet.cs-edge-cases { --pf: 10.2pt; }
+  .cs-sheet.cs-study-playbook { --pf: 10.8pt; }
+  .cs-sheet.cs-talk-track { --pf: 10.8pt; }
   .cs-check input { appearance: none; width: 7pt; height: 7pt; border: 0.8pt solid #000; margin-top: 1pt; }
+  .cs-code { border: 0.4pt solid #666; padding: 1.5pt 3pt; font-size: calc(var(--pf) - 0.4pt); line-height: 1.2; overflow: visible; white-space: pre-wrap; break-inside: avoid; }
+  .cs-sheet.cs-multi { --pf: 8.2pt; break-inside: auto; }
+  .cs-multi .cs-sec { break-inside: avoid-page; }
+  .cs-multi .cs-sec > h3 { break-after: avoid; }
 }

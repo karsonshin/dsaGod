@@ -5,7 +5,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'dp-1d',
 
-    hook: 'Dynamic programming is the topic candidates fear most and interviewers use most to see how you think. The good news: the 1-D kind is one idea, repeated. **Decide what a single cell of a table means, write how a cell comes from earlier cells, fill the table in order.** Climbing stairs, house robber, decode ways and word break all follow that script, and each one looks like a brand-new trick until you notice the table. Practise recognising the shape, and about a third of the “hard” DP questions turn into five-minute questions.',
+    hook: 'Dynamic programming is the topic candidates fear most and interviewers use most to see how you think. The good news: the 1-D kind is one idea, repeated. **Decide what a single cell of a table means, write how a cell comes from earlier cells, fill the table in order.** Climbing stairs, house robber, decode ways and word break all follow that script, and each one looks like a brand-new trick until you notice the table. Practise recognising the shape, and many questions that look hard turn into short exercises.',
 
     cues: [
       'The question asks for a **count** (how many ways), a **best value** (min cost, max profit) or a **yes or no** (can it be done), over a sequence of choices.',

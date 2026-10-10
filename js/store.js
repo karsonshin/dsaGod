@@ -184,6 +184,11 @@
       var d = mem.detective, b = d.byPattern[topic] = d.byPattern[topic] || { right: 0, total: 0 }, ok = pick === topic;
       b.total += 1; if (ok) b.right += 1;
       d.log.push({ key: key, topic: topic, pick: pick, ok: ok, date: OR.today() });
+      // Spaced repetition per case: a miss comes back today, a hit comes back after 1, 3, 7, 14, then 30 days.
+      var cs = d.cases = d.cases || {}, c = cs[key] = cs[key] || { stage: 0, right: 0, wrong: 0 };
+      if (ok) { c.right += 1; c.due = OR.addDays(OR.today(), [1, 3, 7, 14, 30][Math.min(c.stage, 4)]); c.stage += 1; }
+      else { c.wrong += 1; c.stage = 0; c.due = OR.today(); }
+      c.last = OR.today();
       if (d.log.length > 300) d.log = d.log.slice(-300);
       schedule(); OR.emit('state');
       return ok;
@@ -311,6 +316,8 @@
       }
       OR.emit('state'); OR.emit('restored');
     },
+    // Swap in a merged state without the "restored" jump to Today (used by cloud sync).
+    replaceState: function (state) { mem = state; persist(); OR.emit('state'); },
     reset: async function (alsoDocs) {
       var keepTheme = mem.settings.theme;
       mem = defaults();
@@ -342,6 +349,7 @@
     setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
   }
   OR.download = download;
+  OR.dataURL = { toBlob: function (u) { return dataURLToBlob(u); }, fromBlob: function (b) { return blobToDataURL(b); } };
   function blobToDataURL(blob) {
     return new Promise(function (res, rej) { var fr = new FileReader(); fr.onload = function () { res(fr.result); }; fr.onerror = function () { rej(fr.error); }; fr.readAsDataURL(blob); });
   }

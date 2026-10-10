@@ -1,0 +1,29 @@
+/* Lesson extras: the at-a-glance summary, step-by-step breakdown, intuition questions and drills. */
+.tp-glance { margin-top: var(--s-5); padding: 0 0 var(--s-2); border-bottom: 1px solid var(--line); }
+.tp-glance-h { font-size: var(--text-sm); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s-3); }
+.tp-glance dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-4) var(--s-8); }
+.tp-glance dt { font-weight: 700; font-size: var(--text-sm); }
+.tp-glance dd { margin: 2px 0 var(--s-2); color: var(--ink-2); font-size: var(--text-md); line-height: 1.5; max-width: 62ch; text-wrap: pretty; }
+@media (max-width: 860px) { .tp-glance dl { grid-template-columns: minmax(0, 1fr); } }
+
+.tp-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s-6); counter-reset: none; }
+.tp-steps > li { display: grid; grid-template-columns: 2.4rem minmax(0, 1fr); gap: var(--s-4); align-items: start; padding-bottom: var(--s-6); border-bottom: 1px solid var(--line); }
+.tp-steps > li:last-child { border-bottom: 0; padding-bottom: 0; }
+.tp-step-n { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border: 1.5px solid var(--ink); font: 800 1.1rem/1 var(--font-ui); font-stretch: var(--stretch-bib); }
+.tp-steps .sub-title { margin: 0 0 var(--s-2); }
+
+.tp-think, .tp-drill { border-bottom: 1px solid var(--line); }
+.tp-think > summary { cursor: pointer; padding: var(--s-3) 0; font-weight: 600; min-height: 44px; }
+.tp-think > .prose { padding: 0 0 var(--s-4); }
+.tp-drill { border-top: 1px solid var(--line); border-bottom: 0; }
+.tp-drill:last-child { border-bottom: 1px solid var(--line); }
+.tp-hint { margin: var(--s-3) 0; padding: var(--s-2) var(--s-3); background: var(--surface-2); }
+.tp-hint > summary { cursor: pointer; font-weight: 600; font-size: var(--text-sm); }
+.pd-how { margin-top: var(--s-5); }
+
+/* Fenced code inside lesson prose scrolls on its own instead of widening the page */
+.prose .md-code, .md-code { max-width: 100%; overflow-x: auto; }
+.tp-body, .tp-sec, .worked-body, .tp-steps > li > div { min-width: 0; }
+.prose .md-code { margin: var(--s-3) 0; padding: var(--s-3) var(--s-4); background: var(--code-bg); border: 1px solid var(--code-line); border-radius: var(--r-2); font: 400 0.84rem/1.5 var(--font-mono); white-space: pre; tab-size: 4; }
+.prose .md-code code { font: inherit; }
+.tp-glance code, .tp-think code, .tp-steps code, .tp-drill code:not(.md-code code), .prose p code, .prose li code { overflow-wrap: anywhere; }

@@ -112,7 +112,7 @@ def functional(pg):
     # Topic lesson with every section
     go(pg, "#/topic/sliding-window", ".tp-body")
     secs = pg.eval_on_selector_all(".tp-sec", "s => s.map(x => x.dataset.sec)")
-    ok(secs == ["cues", "intuition", "visual", "template", "complexity", "variations", "worked", "practice", "mistakes", "quiz", "cards", "deeper", "next"], "topic: all 13 sections in order")
+    ok(secs == ["cues", "intuition", "breakdown", "think", "visual", "template", "complexity", "variations", "worked", "practice", "drills", "mistakes", "quiz", "cards", "deeper", "next"], "topic: all 16 sections in order (the fixture shares an id with a real topic, so data/extras merges into it)")
     ok(pg.locator("#viz-ok").count() == 1 and pg.locator('#tp-template .ln.cur[data-mark="expand"]').count() == 2, "topic: visualizer mounts and lights the template line")
     ok(pg.locator(".deeper li").count() == 1, "topic: non-http links are dropped")
     ok(pg.locator('#tp-template .code-pane[data-l="py"]').is_visible(), "code: Python pane shows by default")
@@ -158,7 +158,7 @@ def lesson(pg):
     """The real sliding-window lesson (no fixture): sections, visualizer frames, template sync, custom input."""
     go(pg, "#/topic/sliding-window", ".player")
     secs = pg.eval_on_selector_all(".tp-sec", "s => s.map(x => x.dataset.sec)")
-    ok(len(secs) == 13 and secs[2] == "visual", "lesson: sliding window renders all 13 sections")
+    ok(len(secs) == 16 and secs[4] == "visual", "lesson: sliding window renders all 16 sections (13 core plus breakdown, think and drills)")
     bad = pg.evaluate("""() => {
       const brute = s => { let b = 0; for (let i = 0; i < s.length; i++) for (let j = i; j < s.length; j++) { if (new Set(s.slice(i, j + 1)).size === j - i + 1) b = Math.max(b, j - i + 1); } return b; };
       const bad = [];

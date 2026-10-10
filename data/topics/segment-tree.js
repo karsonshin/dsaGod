@@ -987,7 +987,7 @@ public:
     ],
 
     mistakes: [
-      '**Allocating `2n` for the recursive tree.** With the `node, 2*node, 2*node+1` layout and a halving split, the highest index used can approach 4n for awkward n (n = 5, for instance, needs more than 2n slots). Allocate `4 * n`. Only the bottom-up layout (leaves at `n..2n-1`) is exactly `2n`.',
+      '**Allocating `2n` for the recursive tree.** With the `node, 2*node, 2*node+1` layout and a halving split, the highest index used can approach 4n for awkward n (n = 6, for instance, reaches index 13, which is past 2n = 12). Allocate `4 * n`. Only the bottom-up layout (leaves at `n..2n-1`) is exactly `2n`.',
       '**Off-by-one in the split.** Left child `[lo, mid]`, right child `[mid + 1, hi]` with `mid = (lo + hi) // 2`. Using `[lo, mid)` and `[mid, hi)` in one place and inclusive ranges in another is the most common bug. Pick **inclusive** ranges everywhere (and in the bottom-up query, a half-open `[lo, hi)` by design), and write which one on the first line.',
       '**No “fully covered” stop in the query.** If the code only stops at the leaves, every query touches O(n) nodes, and the whole point of the tree is gone, with correct answers hiding the problem until the timeouts. Check order matters too: test “outside” first, then “inside”, then split.',
       '**A wrong neutral value for “outside”.** Returning 0 is right for sum and gcd, but for **min** it must be `+∞` and for **max** `-∞` (or `INT_MAX` / `INT_MIN`). Returning 0 for min silently reports 0 whenever a pruned node is on the path.',

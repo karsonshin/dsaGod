@@ -64,6 +64,7 @@
           '<input type="file" id="import-file" accept="application/json,.json" hidden>' +
           '<div id="auto-bk" class="stack-2"></div>' +
           '<p class="field-hint">Your progress lives in this browser, tied to where index.html is saved. Keep opening it from the same place in the same browser, and do not move or rename the folder. An exported or automatic backup file is the way to recover if browser data is ever cleared.</p></div></section>' +
+        '<section class="setting"><div><h2>Cloud sync</h2><p>Keep the same progress, history and documents on every device through a private GitHub repository that only you can open.</p></div><div class="setting-body"><div id="sync-box" class="stack-4"></div></div></section>' +
         '<section class="setting"><div><h2>Reset</h2><p>Start over from a clean slate.</p></div><div class="setting-body"><div class="btn-row"><button class="btn btn-danger" data-act="reset-all">' + OR.icon('trash', 'icon-sm') + 'Reset all progress…</button></div></div></section>' +
         '</div></div>';
 
@@ -83,6 +84,37 @@
         var b = e.target.closest('[data-act]'); if (!b) return;
         var go = { 'ab-on': ab.enable, 'ab-off': ab.disable, 'ab-resume': ab.resume }[b.dataset.act];
         if (go) go().then(paintAuto, function (err) { if (err && err.name !== 'AbortError') OR.toast('Could not set up the backup file: ' + err.message, { tone: 'error' }); });
+      });
+      var syncBox = OR.$('#sync-box');
+      function paintSync() {
+        if (!syncBox) return;
+        var x = OR.sync.status();
+        syncBox.innerHTML = x.connected
+          ? '<p class="field-hint">Connected to <strong>' + esc(x.repo) + '</strong>. ' + (x.busy ? 'Syncing…' : x.at ? 'Last synced ' + esc(new Date(x.at).toLocaleString()) + '.' : 'Not synced yet.') + '</p>' +
+            (x.error ? '<p class="banner" data-tone="warn">' + OR.icon('warning') + '<span>' + esc(x.error) + '</span></p>' : '') +
+            '<div class="btn-row"><button class="btn btn-primary" type="button" data-sy="now">Sync now</button><button class="btn" type="button" data-sy="off">Disconnect this device</button></div>' +
+            '<p class="field-hint">Changes upload a few seconds after you make them, and this device checks for others’ changes when you open the app and about once a minute. Documents you delete on one device are not removed from the others.</p>'
+          : '<form id="sync-form" class="stack-4"><div class="field"><label class="field-label" for="sy-repo">Private repository</label><input class="input" id="sy-repo" placeholder="your-username/offer-ready-data" autocomplete="off" autocapitalize="off" spellcheck="false"></div>' +
+            '<div class="field"><label class="field-label" for="sy-token">Access token</label><input class="input" id="sy-token" type="password" autocomplete="off" placeholder="github_pat_…"></div>' +
+            '<div class="btn-row"><button class="btn btn-primary" type="submit">Connect and sync</button></div></form>' +
+            '<details class="field-hint"><summary>How to set this up (about 3 minutes)</summary><ol>' +
+            '<li>On github.com, create a <strong>private</strong> repository named <code>offer-ready-data</code>, with a README so it is not empty.</li>' +
+            '<li>Open Settings → Developer settings → Personal access tokens → <strong>Fine-grained tokens</strong> → Generate new token.</li>' +
+            '<li>Repository access: <strong>Only select repositories</strong>, and pick just that one. Permissions → Repository permissions → <strong>Contents: Read and write</strong>.</li>' +
+            '<li>Copy the token, paste it above with the repository name, and press Connect. Repeat on each device with the same repository.</li></ol>' +
+            '<p>The token stays in this browser only; it is never part of a backup. Anyone holding it can read and write that repository, so keep it limited to that one.</p></details>';
+      }
+      paintSync();
+      var offSy = OR.on('sync', paintSync);
+      syncBox && syncBox.addEventListener('click', function (e) {
+        var b = e.target.closest('[data-sy]'); if (!b) return;
+        if (b.dataset.sy === 'now') { OR.sync.now(); paintSync(); }
+        else OR.confirm({ title: 'Disconnect this device?', body: 'This device keeps its data and stops syncing. Your repository is untouched.', ok: 'Disconnect' }).then(function (y) { if (y) OR.sync.disconnect(); });
+      });
+      syncBox && syncBox.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var btn = OR.$('button[type=submit]', syncBox); btn.disabled = true; btn.textContent = 'Connecting…';
+        OR.sync.connect(OR.$('#sy-repo').value, OR.$('#sy-token').value).then(function () { OR.toast('Connected. This device is now syncing.', { tone: 'ok' }); }, function (err) { OR.toast(err.message, { tone: 'error' }); paintSync(); });
       });
       OR.$('#s-hours').addEventListener('input', function (e) { OR.$('#s-hours-v').textContent = e.target.value; });
       OR.$('#season-form').addEventListener('submit', function (e) {
@@ -114,7 +146,7 @@
         await OR.store.applyBackup(parsed);
         OR.toast('Backup imported.', { tone: 'ok' });
       });
-      return offAb;
+      return function () { offAb(); offSy(); };
     }
   };
 })();

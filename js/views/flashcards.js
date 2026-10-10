@@ -18,6 +18,32 @@
     OR.flashcards.forEach(function (c) { out.push({ id: c.id, deck: c.deck || 'general', deckName: DECK_NAMES[c.deck] || c.deck || 'General', front: c.front, back: c.back }); });
     return out;
   };
+  // Review order: overdue cards first (most overdue, then weakest last grade), then new cards. New cards you haven't been
+  // shown yet come before ones you flipped and skipped, and are spread across decks instead of walking one deck from the top.
+  function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function shownMap() { var m = OR.store.get().drafts['fc:shown']; return m && typeof m === 'object' ? m : {}; }
+  function markShown(id) {
+    var today = OR.today(), m = shownMap();
+    if (m[id] === today) return;
+    OR.store.update(function (s) { var x = s.drafts['fc:shown'] = s.drafts['fc:shown'] && typeof s.drafts['fc:shown'] === 'object' ? s.drafts['fc:shown'] : {}; x[id] = today; });
+  }
+  function orderDue(list, cards, today) {
+    return list.slice().sort(function (a, b) {
+      var ca = cards[a.id], cb = cards[b.id];
+      return (ca.due < cb.due ? -1 : ca.due > cb.due ? 1 : 0) || ((ca.lastGrade || 0) - (cb.lastGrade || 0)) || (hash(a.id + today) - hash(b.id + today));
+    });
+  }
+  function orderFresh(list, today) {
+    var seen = shownMap(), byDeck = {}, decks = [];
+    list.slice().sort(function (a, b) { return ((seen[a.id] ? 1 : 0) - (seen[b.id] ? 1 : 0)) || (hash(a.id + today) - hash(b.id + today)); }).forEach(function (c) {
+      if (!byDeck[c.deck]) { byDeck[c.deck] = []; decks.push(c.deck); }
+      byDeck[c.deck].push(c);
+    });
+    decks.sort(function (a, b) { return hash(a + today) - hash(b + today); });
+    var out = [], more = true;
+    for (var r = 0; more; r++) { more = false; decks.forEach(function (d) { if (byDeck[d][r]) { out.push(byDeck[d][r]); more = true; } }); }
+    return out;
+  }
   function ago(days) { return days <= 0 ? 'again today' : days === 1 ? '1 day' : days < 30 ? days + ' days' : Math.round(days / 30) + ' mo'; }
 
   OR.views.flashcards = {
@@ -27,8 +53,8 @@
       var decks = []; cards.forEach(function (c) { if (!decks.some(function (d) { return d.id === c.deck; })) decks.push({ id: c.deck, name: c.deckName }); });
       var pool = deck ? cards.filter(function (c) { return c.deck === deck; }) : cards;
       var newLeft = Math.max(0, st.settings.newCardsPerDay - ((st.activity[today] || {}).newCards || 0));
-      var due = pool.filter(function (c) { return OR.store.cardIsDue(c.id, today); }).sort(function (a, b) { return st.cards[a.id].due < st.cards[b.id].due ? -1 : 1; });
-      var fresh = pool.filter(function (c) { return OR.store.cardIsNew(c.id); }).slice(0, newLeft);
+      var due = orderDue(pool.filter(function (c) { return OR.store.cardIsDue(c.id, today); }), st.cards, today);
+      var fresh = orderFresh(pool.filter(function (c) { return OR.store.cardIsNew(c.id); }), today).slice(0, newLeft);
       var queue = due.concat(fresh), done = 0, flipped = false;
 
       main.innerHTML = '<div class="page fc">' +
@@ -69,7 +95,7 @@
             : '<div class="fc-grades"><button class="btn btn-primary btn-lg fc-flip" type="button" data-flip><kbd>Space</kbd>Show answer</button></div>');
         if (focus) { var t = flipped ? OR.$('#fc-back') : OR.$('[data-flip]'); if (t) t.focus({ preventScroll: true }); }
       }
-      function flip() { if (!queue[done] || flipped) return; flipped = true; paint(true); }
+      function flip() { if (!queue[done] || flipped) return; flipped = true; markShown(queue[done].id); paint(true); }
       function grade(g) {
         var c = queue[done]; if (!c || !flipped) return;
         var r = OR.store.gradeCard(c.id, g);

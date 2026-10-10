@@ -19,6 +19,13 @@
   OR.quiz = function (host, o) {
     var qs = o.questions || [], key = o.key;
     function rec() { return OR.store.get().quizzes[key] || { answers: {}, checked: {} }; }
+    // Authors list the right answer first; each attempt shows the choices in a shuffled order, kept with the attempt.
+    // Picks are stored as indices into the authored list, so scoring never depends on the order shown.
+    function shuffled(n) { var a = []; for (var k = 0; k < n; k++) a.push(k); for (var j = n - 1; j > 0; j--) { var r = Math.floor(Math.random() * (j + 1)), t = a[j]; a[j] = a[r]; a[r] = t; } return a; }
+    function ensureOrder() {
+      var r = rec(), need = qs.some(function (q, i) { var o = (r.order || {})[i]; return !o || o.length !== q.choices.length; });
+      if (need) save(function (x) { x.order = x.order || {}; qs.forEach(function (q, i) { if (!x.order[i] || x.order[i].length !== q.choices.length) x.order[i] = shuffled(q.choices.length); }); });
+    }
     function save(fn) { OR.store.update(function (s) { var r = s.quizzes[key] = s.quizzes[key] || { answers: {}, checked: {} }; fn(r); }); }
 
     function qHTML(i) {
@@ -29,8 +36,8 @@
         '<div class="quiz-prompt">' + OR.md(q.q) + '</div>' +
         (q.code ? OR.codeBlock(q.code, { lang: q.lang || 'py' }) : '') +
         (isMulti(q) ? '<p class="faint quiz-multi">Pick every answer that applies.</p>' : '') +
-        '<div class="quiz-choices">' + q.choices.map(function (c, k) {
-          var on = picked.indexOf(k) >= 0, mark = checked ? (right.indexOf(k) >= 0 ? 'right' : on ? 'wrong' : '') : '';
+        '<div class="quiz-choices">' + ((r.order || {})[i] || q.choices.map(function (c, k) { return k; })).map(function (k) {
+          var c = q.choices[k], on = picked.indexOf(k) >= 0, mark = checked ? (right.indexOf(k) >= 0 ? 'right' : on ? 'wrong' : '') : '';
           return '<label class="quiz-choice"' + (mark ? ' data-mark="' + mark + '"' : '') + '><input type="' + type + '" name="qz-' + esc(key) + '-' + i + '" value="' + k + '"' + (on ? ' checked' : '') + (checked ? ' disabled' : '') + '>' +
             '<span>' + OR.inline(c) + '</span>' + (mark === 'right' ? '<span class="quiz-tag">' + OR.icon('check', 'icon-sm') + 'Correct answer</span>' : mark === 'wrong' ? '<span class="quiz-tag">' + OR.icon('x', 'icon-sm') + 'Your pick</span>' : '') + '</label>';
         }).join('') + '</div>' +
@@ -90,11 +97,13 @@
         refresh(i, true);
         finishIfDone();
       } else if (b.dataset.qz === 'retake') {
-        save(function (r) { r.answers = {}; r.checked = {}; r.recorded = false; });
+        save(function (r) { r.answers = {}; r.checked = {}; r.recorded = false; r.order = {}; });
+        ensureOrder();
         render();
         var first = OR.$('.quiz-q input', host); if (first) first.focus();
       }
     });
+    ensureOrder();
     render();
   };
 })();

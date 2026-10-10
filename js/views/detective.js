@@ -16,13 +16,26 @@
   }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), x = a[i]; a[i] = a[j]; a[j] = x; } return a; }
 
+  function hash(str) { var h = 2166136261; for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+
+  // Review order: cases that are due (misses first, then the longest overdue), then cases you have never seen, spread across
+  // patterns, then whatever comes due soonest. Each answer reschedules its case (see store.detectiveAnswer).
   function nextCase(all) {
-    var last = {}, avoid = cur && cur.c.key;
-    OR.store.get().detective.log.forEach(function (e) { last[e.key] = e.ok; });
-    var fresh = all.filter(function (c) { return !(c.key in last) && c.key !== avoid; });
-    var missed = all.filter(function (c) { return last[c.key] === false && c.key !== avoid; });
-    var from = fresh.length ? fresh : missed.length ? missed : all.filter(function (c) { return c.key !== avoid; });
-    var c = from.length ? from[Math.floor(Math.random() * from.length)] : all[0];
+    var d = OR.store.get().detective, cs = d.cases || {}, today = OR.today(), avoid = cur && cur.c.key;
+    var legacy = {}; d.log.forEach(function (e) { legacy[e.key] = e.ok; });
+    function rec(c) { return cs[c.key] || (c.key in legacy ? { due: legacy[c.key] ? OR.addDays(today, 3) : today, wrong: legacy[c.key] ? 0 : 1 } : null); }
+    var pool = all.filter(function (c) { return c.key !== avoid; }); if (!pool.length) pool = all;
+    var due = pool.filter(function (c) { var r = rec(c); return r && r.due <= today; })
+      .sort(function (a, b) { var ra = rec(a), rb = rec(b); return (ra.due < rb.due ? -1 : ra.due > rb.due ? 1 : 0) || ((rb.wrong || 0) - (ra.wrong || 0)) || (hash(a.key + today) - hash(b.key + today)); });
+    var byTopic = {}, topics = [], fresh = [];
+    pool.filter(function (c) { return !rec(c); }).sort(function (a, b) { return hash(a.key + today) - hash(b.key + today); }).forEach(function (c) {
+      if (!byTopic[c.topic]) { byTopic[c.topic] = []; topics.push(c.topic); }
+      byTopic[c.topic].push(c);
+    });
+    topics.sort(function (a, b) { return hash(a + today) - hash(b + today); });
+    for (var r = 0, more = true; more; r++) { more = false; topics.forEach(function (t) { if (byTopic[t][r]) { fresh.push(byTopic[t][r]); more = true; } }); }
+    var soon = pool.filter(function (c) { var x = rec(c); return x && x.due > today; }).sort(function (a, b) { return rec(a).due < rec(b).due ? -1 : 1; });
+    var c = (due[0] || fresh[0] || soon[0] || pool[0] || all[0]);
     // The answer, its written decoys, then other patterns that have cases, to make four.
     var choices = [c.topic].concat((c.decoys || []).filter(function (id) { return id !== c.topic && OR.topicMeta(id); }).slice(0, 3));
     shuffle(OR.topics.map(function (t) { return t.id; })).forEach(function (id) {

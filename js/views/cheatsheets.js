@@ -45,7 +45,11 @@
   function list(items, cls) { return '<ul class="cs-list ' + (cls || '') + '">' + items.map(function (x) { return '<li>' + m(x) + '</li>'; }).join('') + '</ul>'; }
   function sec(title, body, cls) { return '<section class="cs-sec ' + (cls || '') + '"><h3>' + m(title) + '</h3>' + body + '</section>'; }
 
-  var H = { m: m, T: T, list: list, sec: sec, esc: esc, topicLink: topicLink, probLink: probLink };
+  // code(src): a monospace block for a short snippet (plain text, escaped). cols(a, b, ...): blocks side by side.
+  function code(src) { return '<pre class="cs-code"><code>' + esc(String(src).replace(/^\n+/, '').replace(/\s+$/, '')) + '</code></pre>'; }
+  function cols() { return '<div class="cs-cols">' + Array.prototype.slice.call(arguments).map(function (b) { return '<div class="cs-col">' + b + '</div>'; }).join('') + '</div>'; }
+
+  var H = { m: m, T: T, list: list, sec: sec, code: code, cols: cols, esc: esc, topicLink: topicLink, probLink: probLink };
   OR.csh = H;
 
   function sheets() { return OR.cheatsheets.slice().sort(function (a, b) { return a.n - b.n; }); }
@@ -69,10 +73,10 @@
 
   function renderIndex(main) {
     main.innerHTML = '<div class="page cs-index"><div class="page-head"><div><h1 class="page-title display">Cheat sheets</h1>' +
-      '<p class="page-lede">Seven one-page references. Each one prints on a single sheet of A4 or Letter, black on white. Open one, press Print, or use Ctrl P.</p></div></div>' +
+      '<p class="page-lede">' + sheets().length + ' quick references. Most print on a single sheet of A4 or Letter, black on white; the longer ones say how many pages. Open one, press Print, or use Ctrl P.</p></div></div>' +
       '<ol class="cs-cards">' + sheets().map(function (s) {
         return '<li><a class="cs-card" href="#/cheatsheets/' + s.id + '"><span class="bib-tag">' + String(s.n).padStart(2, '0') + '</span>' +
-          '<span class="cs-card-main"><span class="cs-card-title display">' + esc(s.title) + '</span><span class="cs-card-blurb">' + esc(s.blurb) + '</span></span>' +
+          '<span class="cs-card-main"><span class="cs-card-title display">' + esc(s.title) + (s.pages > 1 ? ' <span class="faint">(' + s.pages + ' pages)</span>' : '') + '</span><span class="cs-card-blurb">' + esc(s.blurb) + '</span></span>' +
           '<span class="cs-card-go">' + OR.icon('arrow-right', 'icon-sm') + '</span></a></li>';
       }).join('') + '</ol></div>';
   }
@@ -89,7 +93,7 @@
       '<div class="btn-row cs-tools">' +
       (isLang ? '<div class="seg" role="group" aria-label="Columns"><button type="button" data-cs="all" aria-pressed="' + !oneLang + '">All four</button><button type="button" data-cs="one" aria-pressed="' + oneLang + '">' + esc(OR.langName(OR.lang())) + '</button></div>' : '') +
       '<button class="btn btn-primary" type="button" data-cs="print">' + OR.icon('file', 'icon-sm') + 'Print this sheet</button></div></div>' +
-      '<article class="cs-sheet cs-' + s.id + (isLang && oneLang ? ' cs-one' : '') + '" aria-label="' + esc(s.title) + '">' +
+      '<article class="cs-sheet cs-' + s.id + (s.pages > 1 ? ' cs-multi' : '') + (isLang && oneLang ? ' cs-one' : '') + '" aria-label="' + esc(s.title) + '">' +
       '<header class="cs-ph"><span class="cs-ph-n">' + String(s.n).padStart(2, '0') + '</span><h2>' + esc(s.title) + '</h2><span class="cs-ph-brand">Offer Ready cheat sheet</span></header>' +
       body + '</article>' +
       '<nav class="cs-pager no-print" aria-label="Other sheets">' +

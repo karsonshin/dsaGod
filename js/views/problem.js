@@ -10,6 +10,8 @@
     return [{ label: 'The pattern', body: '**' + p.pattern + '**, from ' + '[' + (meta.title || p.topic) + '](#/topic/' + p.topic + ').' }]
       .concat((x.hints || []).map(function (h, i) { return { label: 'Hint ' + (i + 1), body: h }; }));
   }
+  // The step-by-step reasoning that led to the solution (data/extras/<topic>.js, `how`).
+  function howHTML(x) { return x && x.how ? '<div class="prose pd-how"><h3 class="sub-title">How I got there</h3>' + OR.md(x.how) + '</div>' : ''; }
   /* Original wording (never LeetCode's text): the task, worked examples, and the approach behind the solution. */
   function questionHTML(st) {
     if (!st) return '<p class="muted">No statement written here yet. Open the problem on LeetCode for the full text.</p>';
@@ -109,10 +111,11 @@
         }).join('') + (x.hints ? '' : '<li class="rung"><p class="faint">No written hints for this problem yet; the pattern is the strongest one.</p></li>');
         var sol = OR.$('#pd-solution');
         if (!x.solution && st && st.a && !r.sawSolution) sol.innerHTML = '<p class="muted">Hidden until you ask. Opening it counts as a hint.</p><button class="btn" type="button" data-solution>' + OR.icon('lock', 'icon-sm') + 'Show the approach</button>';
-        else if (!x.solution && st && st.a) sol.innerHTML = '<div class="prose">' + OR.md(st.a) + '</div><p class="faint">Approach only. Code for this problem is yours to write below.</p>';
+        else if (!x.solution && st && st.a) sol.innerHTML = '<div class="prose">' + OR.md(st.a) + '</div>' + howHTML(x) + '<p class="faint">Approach only. Code for this problem is yours to write below.</p>';
         else if (!x.solution) sol.innerHTML = '<p class="muted">No written solution here yet. LeetCode’s Editorial and Solutions tabs have several; read one only after a real attempt.</p>';
         else if (!r.sawSolution) sol.innerHTML = '<p class="muted">Hidden until you ask. Opening it counts as a hint.</p><button class="btn" type="button" data-solution>' + OR.icon('lock', 'icon-sm') + 'Show the solution</button>';
-        else sol.innerHTML = (x.solution.explain ? '<div class="prose">' + OR.md(x.solution.explain) + '</div>' : '') + OR.codeBlock(x.solution.code, { title: p.title });
+        else sol.innerHTML = (x.solution.explain ? '<div class="prose">' + OR.md(x.solution.explain) + '</div>' : '') + OR.codeBlock(x.solution.code, { title: p.title }) +
+          howHTML(x);
       }
       main.firstChild.addEventListener('click', function (e) { // the page root, not #main, which outlives this view
         if (e.target.closest('[data-hint]')) {

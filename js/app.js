@@ -611,6 +611,17 @@
     addEventListener('pagehide', function () { saveScroll(); OR.trackPlace(); OR.store.flush(); });
     document.addEventListener('visibilitychange', function () { if (document.hidden) { saveScroll(); OR.store.flush(); } });
     OR.on('state', OR.debounce(function () { OR.updateCounts(); }, 200));
+    // Today, Plan, Progress, the study calendar, Roadmap and Topics repaint by themselves when the data under them changes
+    // (a session logged, a card graded, a backup imported, another device's progress arriving) and when the date rolls over.
+    var LIVE = { today: 1, plan: 1, progress: 1, roadmap: 1, topics: 1 }, lastDay = OR.today();
+    function liveRefresh() {
+      var a = document.activeElement;
+      if (!current || !LIVE[current.view] || document.hidden || OR.$('dialog[open]') || (a && /^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName))) return;
+      OR.rerender();
+    }
+    OR.on('state', OR.debounce(liveRefresh, 500));
+    setInterval(function () { var d = OR.today(); if (d !== lastDay) { lastDay = d; liveRefresh(); } }, 60000);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) { lastDay = OR.today(); liveRefresh(); } });
     OR.on('lang', renderLang);
     OR.on('restored', function () { applyTheme(); OR.applyMotion(); renderLang(); renderStopwatch(); OR.refreshNav(); OR.go('#/', 'top'); });
     render();

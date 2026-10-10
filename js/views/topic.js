@@ -7,9 +7,10 @@
   'use strict';
   var OR = window.OR, esc = OR.esc;
   var SECTIONS = [
-    ['cues', 'Recognition cues'], ['intuition', 'Intuition'], ['visual', 'See it run'], ['template', 'Template'],
+    ['cues', 'Recognition cues'], ['intuition', 'Intuition'], ['breakdown', 'Break it down'], ['think', 'Build the intuition'],
+    ['visual', 'See it run'], ['template', 'Template'],
     ['complexity', 'Complexity'], ['variations', 'Variations'], ['worked', 'Worked problems'], ['practice', 'Practice set'],
-    ['mistakes', 'Common mistakes'], ['quiz', 'Quiz'], ['cards', 'Flashcards'], ['deeper', 'Go deeper'], ['next', 'Before and after']
+    ['drills', 'Drills, with how to solve them'], ['mistakes', 'Common mistakes'], ['quiz', 'Quiz'], ['cards', 'Flashcards'], ['deeper', 'Go deeper'], ['next', 'Before and after']
   ];
   var ROI = { high: [3, 'High'], medium: [2, 'Medium'], low: [1, 'Low'] };
 
@@ -53,11 +54,42 @@
       (p ? '<p><a href="#/problem/' + p.lc + '">Track it, take notes and run it on its problem page</a>.</p>' : '') + '</div></details>';
   }
 
+  // The summary at the top of every lesson: what it is, what it does, how it is built or works, and what it opens up.
+  var GLANCE = {
+    structure: [['What it is', 'what'], ['What it does', 'does'], ['How it is built', 'impl'], ['What you can do with it', 'possibilities']],
+    technique: [['What it is', 'what'], ['What it solves', 'does'], ['How it works', 'impl'], ['Where it shows up', 'possibilities']]
+  };
+  function glanceHTML(t) {
+    var p = t && t.primer; if (!p) return '';
+    var rows = (GLANCE[p.kind] || GLANCE.technique).filter(function (r) { return p[r[1]]; });
+    if (!rows.length) return '';
+    return '<aside class="tp-glance" aria-label="At a glance"><h2 class="tp-glance-h">At a glance</h2><dl>' + rows.map(function (r) {
+      return '<div><dt>' + r[0] + '</dt><dd>' + OR.inline(p[r[1]]) + '</dd></div>';
+    }).join('') + '</dl></aside>';
+  }
+  function stepsHTML(steps) {
+    return '<ol class="tp-steps">' + steps.map(function (st, i) {
+      return '<li><span class="tp-step-n num" aria-hidden="true">' + (i + 1) + '</span><div><h3 class="sub-title">' + OR.inline(st.title) + '</h3><div class="prose">' + OR.md(st.body) + '</div>' +
+        (st.code ? OR.codeBlock(st.code, { title: st.codeTitle || st.title }) : '') + '</div></li>';
+    }).join('') + '</ol>';
+  }
+  function drillHTML(d, i) {
+    return '<details class="worked tp-drill"><summary><span class="worked-n num">' + (i + 1) + '</span><span class="worked-title">' + OR.inline(d.title || 'Drill ' + (i + 1)) + '</span></summary><div class="worked-body prose">' +
+      '<h4>The question</h4>' + OR.md(d.q) +
+      (d.hint ? '<details class="tp-hint"><summary>Stuck? A nudge</summary>' + OR.md(d.hint) + '</details>' : '') +
+      '<h4>How I solved it</h4>' + OR.md(d.how || '') +
+      '</div>' + (d.code ? OR.codeBlock(d.code, { title: d.title || 'Solution' }) : '') +
+      (d.explain ? '<div class="worked-body prose"><h4>Why it works</h4>' + OR.md(d.explain) + '</div>' : '') + '</details>';
+  }
+
   function sectionsFor(t, id, meta) {
     var cards = (t.flashcards || []), out = [];
     function add(key, html) { if (html) out.push([key, html]); }
     add('cues', (t.cues || []).length && '<ul class="cues">' + t.cues.map(function (c) { return '<li>' + OR.icon('arrow-right', 'icon-sm') + '<span>' + OR.inline(c) + '</span></li>'; }).join('') + '</ul>');
     add('intuition', t.intuition && '<div class="prose">' + OR.md(t.intuition) + '</div>');
+    add('breakdown', (t.breakdown || []).length && stepsHTML(t.breakdown));
+    add('think', (t.think || []).length && '<p class="muted">Answer each one in your head before you open it. Being wrong first is what makes the idea stick.</p>' +
+      t.think.map(function (x) { return '<details class="tp-think"><summary>' + OR.inline(x.q) + '</summary><div class="prose">' + OR.md(x.a) + '</div></details>'; }).join(''));
     add('visual', t.viz && OR.viz[t.viz] && '<div class="tp-viz" data-viz="' + esc(t.viz) + '"></div>' +
       (t.template ? '<div class="tp-viz-code">' + OR.codeBlock(t.template.code, { title: 'The template, in step with the run' }) + '</div>' : ''));
     add('template', t.template && (OR.codeBlock(t.template.code, { title: t.template.title || meta.title + ' template' }) + (t.template.note ? '<div class="prose tp-after">' + OR.md(t.template.note) + '</div>' : '')));
@@ -68,6 +100,7 @@
     }).join(''));
     add('worked', (t.worked || []).length && t.worked.map(workedHTML).join(''));
     add('practice', practiceRows(id, t));
+    add('drills', (t.drills || []).length && '<p class="muted">New questions written for this topic. Try each one before you open it; then read how it was solved, step by step.</p>' + t.drills.map(drillHTML).join(''));
     add('mistakes', (t.mistakes || []).length && '<ul class="tp-mistakes prose">' + t.mistakes.map(function (m) { return '<li>' + OR.inline(m) + '</li>'; }).join('') + '</ul>');
     add('quiz', (t.quiz || []).length && '<div class="tp-quiz"></div>');
     add('cards', cards.length && '<p class="muted">' + OR.plural(cards.length, 'card') + ' from this topic join your spaced-repetition deck.</p><div class="tp-cards">' +
@@ -106,6 +139,7 @@
           '<p class="tp-hook">' + OR.inline(t && t.hook ? t.hook : meta.blurb) + '</p></div>' +
           '<dl class="tp-meta"><div><dt>Phase</dt><dd><a href="#/topics">' + esc(phase.name) + '</a></dd></div><div><dt>Study time</dt><dd class="num">about ' + meta.hours + ' h</dd></div>' +
           '<div><dt>Interview frequency</dt><dd>' + roiHTML(meta.roi) + '</dd></div><div><dt>Mastery</dt><dd><span class="mbar" data-level="' + lv.id + '"><span style="width:' + Math.round(m.score * 100) + '%"></span></span> ' + lv.label + '</dd></div></dl></header>' +
+        glanceHTML(t) +
         (t ? '' : '<p class="banner">' + OR.icon('info') + '<span>The lesson for this topic isn’t written yet. Its practice problems and where it sits in the order are below.</span></p>') +
         '<div class="tp-layout">' +
           (secs.length > 2 ? '<nav class="tp-toc" aria-label="On this page"><ol>' + secs.map(function (s) {

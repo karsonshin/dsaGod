@@ -51,6 +51,30 @@ OR.topics.push({
 - **Flashcard and detective ids** must stay stable once written: progress is stored under `<topic>:<id>`.
 - **Pattern Detective.** Each `detective` entry is an *original* problem statement (never LeetCode's wording) whose answer is this topic. Write it as a story, the way an interviewer would, without naming the pattern or its giveaway words. `why` names the cues that give it away. `decoys` are 2 or 3 curriculum topic ids it could plausibly be confused with.
 
+### Extra lesson material: `data/extras/<id>.js`
+
+Material added after the first lessons lives in a companion file per topic, so a 60 to 100 KB lesson never has to be rewritten. `js/extras.js` merges it into the lesson at load. Every topic has one; the brief for writing them is `tools/EXTRAS-BRIEF.md`.
+
+```js
+OR.extras['stacks'] = {
+  primer:    { kind: 'structure' | 'technique', what, does, impl, possibilities },  // "At a glance" at the top of the lesson
+  breakdown: [{ title, body, code? }],                    // "Break it down": 5+ tiny steps (required for hard topics)
+  think:     [{ q, a }],                                  // "Build the intuition": questions to answer in your head first
+  drills:    [{ title, q, hint, how, code: { py, js? }, explain, check }],   // new questions; `check` = hidden Python asserts
+  how:       { 20: 'markdown' }                           // per practice problem (LeetCode number): how the solution was found
+};
+```
+
+`node tools/check_extras.js [ids]` validates the structure and runs every drill's Python plus its `check`. Quiz choices are shuffled at display time (the right answer is authored first), so write `answer: 0`.
+
+### Cheat sheets: `data/cheatsheets/sN-*.js`
+
+`OR.cheatsheets.push({ n, id, title, blurb, keywords, pages?, render(h) })`. A sheet with no `pages` must print on one page; `pages: N` allows N. Helpers on `h`: `m`, `T`, `list`, `sec`, `code`, `cols`. Per-sheet print font sizes are in `css/cheatsheets.css`. Brief: `tools/CHEATSHEET-BRIEF.md`.
+
+### Cloud sync and hosting
+
+`js/sync.js` (Settings > Cloud sync) mirrors progress to a private GitHub repo with a fine-grained token. The site is published with GitHub Pages; after changing any app file run `python tools/build-sw.py` so installed copies refresh, then commit and push.
+
 ### A visualizer: `js/viz/<id>.js`
 
 Register `OR.viz[id] = { mount(host, { mark }) { ...; return { destroy } } }`, and build it on `OR.player` (`js/player.js`). Precompute every frame as a snapshot, so stepping back means painting an earlier frame. Each frame's `step` should match a `@name` mark in the template, and `paint` calls `mark(step)` (or `mark(null)`) so the template line lights in sync. The user must be able to edit the input. Escape anything they type with `OR.esc`. Reuse the array classes `.va`, `.va-row`, `.va-cell` (`in`, `ok`, `dup`, `cur`, `gone`, `best`), `.va-ptrs`/`.va-ptr`, `.va-read`, `.va-kv` and `.va-input` from `css/app.css` where they fit. Move things with `transform` and colour transitions, never `width`/`left`/`top`. Put new styles under the visualizer's own class prefix. Expose the frame builder (`frames: frames`) so a check can test it.

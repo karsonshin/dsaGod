@@ -469,7 +469,7 @@ public:
       {
         lc: 98,
         restate: 'Given the root of a binary tree, decide whether it is a **valid binary search tree**: for every node, all values in its left subtree are **strictly smaller** and all values in its right subtree are **strictly larger**. Duplicates make it invalid.',
-        examples: '- `[2, 1, 3]` → true.\n- `[5, 1, 4, null, null, 3, 6]` → false (the 3 sits in 5’s *right* subtree but is smaller than 5, even though it is fine next to its parent 4).\n- Edge cases: empty tree (valid); one node; duplicates `[2, 2, 2]` (invalid); a node holding the maximum 32-bit value.',
+        examples: '- `[2, 1, 3]` → true.\n- `[5, 4, 6, null, null, 3, 7]` → false (the 3 sits in 5’s *right* subtree but is smaller than 5, even though it is fine next to its parent 6).\n- Edge cases: empty tree (valid); one node; duplicates `[2, 2, 2]` (invalid); a node holding the maximum 32-bit value.',
         brute: 'For every node, scan its whole left subtree for a value that is too big and its right subtree for one that is too small. That is correct but O(n²) on a chain. The popular wrong answer is to compare each node only with its two children, which is O(n) but fails whenever a violation is deeper than one level.',
         insight: 'Each node must lie in an **allowed range** inherited from its ancestors. The root may be anything: `(−∞, +∞)`. Going **left** from a node with value `v`, everything below must be **less than v**, so the upper bound becomes `v`. Going **right**, the lower bound becomes `v`. Check each node against its range and recurse with the tightened range. Alternatively, an **inorder** walk of a valid BST is strictly increasing, so check each value against the previous one.',
         code: {
@@ -966,7 +966,7 @@ function roundTrip(root) {
 
     mistakes: [
       '**Forgetting the base case.** Every recursive tree function starts with `if node is None: return <something>`. Without it, `node.left` on `None` crashes. Decide what an empty tree means for *this* question (0 for a height, true for “is valid”, nothing for a list) before writing the rest.',
-      '**Validating a BST by comparing only with the children.** `[5, 1, 4, null, null, 3, 6]` passes every parent-child check, yet the 3 is in the right subtree of 5. Pass an allowed `(low, high)` range down, or check that inorder is strictly increasing.',
+      '**Validating a BST by comparing only with the children.** `[5, 4, 6, null, null, 3, 7]` passes every parent-child check, yet the 3 is in the right subtree of 5. Pass an allowed `(low, high)` range down, or check that inorder is strictly increasing.',
       '**Mixing up height and depth, and nodes versus edges.** Height is measured upward from the leaves, depth downward from the root. “Max depth of a tree” counts **nodes** (a single node is 1) but “diameter” counts **edges** (a single node is 0). Read the example before choosing, and test the one-node tree.',
       '**Recomputing heights at every node.** Calling a `height()` helper inside a function that is itself called at every node makes the whole thing O(n²) on a chain. Return the height (and the answer, or an error flag) from a single postorder pass.',
       '**BFS without freezing the level size.** `for _ in range(len(queue))` must read the length *once*, before the loop starts. Writing `while len(queue)` inside the level, or reading the length again after you enqueue children, blends two levels into one list.',
