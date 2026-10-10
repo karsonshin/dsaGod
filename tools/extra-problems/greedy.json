@@ -1,0 +1,5 @@
+[
+  [860, "Greedy change: spend the 10 before the 5s"],
+  [1005, "Flip the most negative first; odd leftover hits the smallest"],
+  [455, "Sort both, smallest cookie that satisfies the least greedy child"]
+]

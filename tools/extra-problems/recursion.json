@@ -1,0 +1,10 @@
+[
+  [779, "Recursion on the parent (halve the row)"],
+  [1137, "Memoize or roll three values"],
+  [112, "Tree recursion (subtract and descend)"],
+  [938, "Tree recursion with pruning"],
+  [241, "Divide and conquer + memo on substrings"],
+  [784, "Recursion: branch on each letter"],
+  [1922, "Fast exponentiation (recursive halving)"],
+  [1545, "Recursion on a mirrored structure"]
+]

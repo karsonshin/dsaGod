@@ -1,0 +1,4 @@
+[
+  [493, "Count pairs with a[i] > 2*a[j]: BIT over ranks, or merge sort"],
+  [327, "Count range sums in [lo, hi]: BIT over compressed prefix sums"]
+]

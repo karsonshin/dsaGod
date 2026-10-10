@@ -1,0 +1,5 @@
+[
+  [231, "Power of two: n & (n - 1) == 0"],
+  [201, "Common binary prefix of a range"],
+  [137, "Count bits mod 3 to find the single number"]
+]

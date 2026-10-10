@@ -1,0 +1,11 @@
+[
+  [876, "Fast & slow pointers (middle)"],
+  [83, "One pointer, skip equal neighbours"],
+  [203, "Dummy node (removing the head)"],
+  [234, "Middle + reverse second half + compare"],
+  [24, "Dummy node + pointer rewiring in pairs"],
+  [328, "Two chains, then join"],
+  [92, "Sublist reversal (head insertion)"],
+  [148, "Merge sort (middle split + merge)"],
+  [142, "Floyd's cycle start"]
+]

@@ -1,0 +1,23 @@
+/* Offer Ready: trie visualizer styles (.tr-*; chips and readouts reuse .va-* from app.css). */
+.tr-ops { display: flex; flex-wrap: wrap; gap: 6px; min-height: 26px; }
+.tr-op { padding: 3px 7px; border: 1px solid var(--line); border-radius: var(--r-1); background: var(--surface); font: 500 var(--text-xs)/1.2 var(--font-mono); font-stretch: var(--stretch-mono); }
+.tr-op.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.tr-op.gone { border-style: dashed; color: var(--ink-3); }
+.tr-svg { display: block; width: 100%; height: auto; margin: 0 auto; overflow: visible; }
+.tr-e line { stroke: var(--line-strong); stroke-width: 1.5; }
+.tr-e text { font: 600 11px var(--font-mono); fill: var(--ink-2); paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+.tr-e.off { opacity: 0; }
+.tr-e.in line { stroke: var(--accent); stroke-width: 2.5; }
+.tr-e.in text { fill: var(--accent-text); }
+.tr-n .c { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; transition: fill var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.tr-n .ring { fill: none; stroke: var(--ink-2); stroke-width: 1.5; opacity: 0; }
+.tr-n.end .ring { opacity: 1; }
+.tr-n text { font: 500 9px var(--font-mono); fill: var(--ink-3); opacity: 0; }
+.tr-n.end text, .tr-n .r { opacity: 1; }
+.tr-n.off { opacity: 0; }
+.tr-n.in .c { fill: var(--accent-soft); stroke: var(--accent-line); }
+.tr-n.ok .c { fill: var(--ok-soft); stroke: var(--ok); }
+.tr-n.dup .c { fill: var(--hard-soft); stroke: var(--hard); }
+.tr-n.cur .c { stroke: var(--accent); stroke-width: 3; }
+.tr-n.cur.dup .c { stroke: var(--hard); }
+.tr-n.cur.ok .c { stroke: var(--ok); }

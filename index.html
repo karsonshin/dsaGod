@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Offer Ready</title>
+<meta name="description" content="Offer Ready: a personal interview-prep studio. Lessons, practice, plans and progress, offline.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='2' y='5' width='28' height='22' rx='3' fill='%232b3fe0'/%3E%3Ccircle cx='7' cy='10' r='1.6' fill='%23fff'/%3E%3Ccircle cx='25' cy='10' r='1.6' fill='%23fff'/%3E%3Crect x='8' y='15' width='16' height='3' rx='1' fill='%23fff'/%3E%3Crect x='8' y='20' width='10' height='2.5' rx='1' fill='%23fff' opacity='.7'/%3E%3C/svg%3E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Offer Ready">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="theme-color" content="#151922">
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/resume.css">
+<link rel="stylesheet" href="css/pipeline.css">
+<link rel="stylesheet" href="css/cs.css">
+<link rel="stylesheet" href="css/resources.css">
+<link rel="stylesheet" href="css/roadmap.css">
+<link rel="stylesheet" href="css/viz/containers.css">
+<link rel="stylesheet" href="css/viz/growth.css">
+<link rel="stylesheet" href="css/viz/hashmap.css">
+<link rel="stylesheet" href="css/viz/two-pointers.css">
+<link rel="stylesheet" href="css/viz/matrix.css">
+<link rel="stylesheet" href="css/viz/dp-grid.css">
+<link rel="stylesheet" href="css/career.css">
+<link rel="stylesheet" href="css/viz/prefix-sum.css">
+<link rel="stylesheet" href="css/viz/kadane.css">
+<link rel="stylesheet" href="css/viz/stack-queue.css">
+<link rel="stylesheet" href="css/viz/monotonic-stack.css">
+<link rel="stylesheet" href="css/viz/deque.css">
+<link rel="stylesheet" href="css/viz/trie.css">
+<link rel="stylesheet" href="css/viz/lru.css">
+<link rel="stylesheet" href="css/viz/topo-sort.css">
+<link rel="stylesheet" href="css/viz/grid-search.css">
+<link rel="stylesheet" href="css/viz/binary-search.css">
+<link rel="stylesheet" href="css/viz/lis.css">
+<link rel="stylesheet" href="css/viz/linked-list.css">
+<link rel="stylesheet" href="css/viz/recursion-tree.css">
+<link rel="stylesheet" href="css/viz/dp-1d.css">
+<link rel="stylesheet" href="css/viz/backtracking-tree.css">
+<link rel="stylesheet" href="css/viz/sorting-race.css">
+<link rel="stylesheet" href="css/viz/hashing.css">
+<link rel="stylesheet" href="css/viz/union-find.css">
+<link rel="stylesheet" href="css/viz/tarjan.css">
+<link rel="stylesheet" href="css/viz/intervals.css">
+<link rel="stylesheet" href="css/viz/jump-game.css">
+<link rel="stylesheet" href="css/viz/heap.css">
+<link rel="stylesheet" href="css/viz/segment-tree.css">
+<link rel="stylesheet" href="css/viz/dijkstra.css">
+<link rel="stylesheet" href="css/viz/mst.css">
+<link rel="stylesheet" href="css/viz/tree-traversal.css">
+<link rel="stylesheet" href="css/viz/tree-dp.css">
+<link rel="stylesheet" href="css/viz/dp-strings.css">
+<link rel="stylesheet" href="css/viz/dp-interval.css">
+<link rel="stylesheet" href="css/viz/dp-knapsack.css">
+<link rel="stylesheet" href="css/viz/sieve.css">
+<link rel="stylesheet" href="css/viz/bits.css">
+<link rel="stylesheet" href="css/viz/bitmask.css">
+<link rel="stylesheet" href="css/viz/fenwick.css">
+<link rel="stylesheet" href="css/viz/kmp.css">
+<link rel="stylesheet" href="css/cheatsheets.css">
+<link rel="stylesheet" href="css/behavioral.css">
+<link rel="stylesheet" href="css/diagram.css">
+<link rel="stylesheet" href="css/systemDesign.css">
+<script>
+  /* Apply the saved theme and motion preference before first paint. */
+  try {
+    var s = JSON.parse(localStorage.getItem('offer-ready:v1') || '{}').settings || {};
+    if (s.theme === 'light' || s.theme === 'dark') document.documentElement.setAttribute('data-theme', s.theme);
+    if (s.motion === 'reduce' || s.motion === 'full') document.documentElement.setAttribute('data-motion', s.motion);
+  } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="javascript:void 0" data-act="skip">Skip to content</a>
+
+<div class="app">
+  <aside class="rail" aria-label="Primary">
+    <a class="brand" href="#/" aria-label="Offer Ready, Today">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="5" width="28" height="22" rx="3" fill="var(--accent)"/><circle cx="7" cy="10" r="1.6" fill="var(--rail)"/><circle cx="25" cy="10" r="1.6" fill="var(--rail)"/><rect x="8" y="15" width="16" height="3" rx="1" fill="var(--accent-ink)"/><rect x="8" y="20" width="10" height="2.5" rx="1" fill="var(--accent-ink)" opacity=".7"/></svg>
+      <span class="brand-word">Offer Ready</span>
+    </a>
+    <nav id="rail-nav" aria-label="Sections"></nav>
+    <div class="rail-foot" id="rail-foot"></div>
+  </aside>
+
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="Offer Ready, Today">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><rect x="2" y="5" width="28" height="22" rx="3" fill="var(--accent)"/><circle cx="7" cy="10" r="1.6" fill="var(--bg)"/><circle cx="25" cy="10" r="1.6" fill="var(--bg)"/><rect x="8" y="15" width="16" height="3" rx="1" fill="var(--accent-ink)"/><rect x="8" y="20" width="10" height="2.5" rx="1" fill="var(--accent-ink)" opacity=".7"/></svg>
+    </a>
+    <button class="search-trigger" type="button" data-act="palette" aria-haspopup="dialog" aria-label="Search everything (Ctrl K)">
+      <svg class="icon icon-sm" aria-hidden="true"><use href="#i-search"/></svg>
+      <span>Search topics, problems, cards…</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+    <div class="topbar-spacer"></div>
+    <div class="stopwatch" id="stopwatch" data-state="idle"></div>
+    <div class="seg lang-seg" id="lang-seg" role="radiogroup" aria-label="Code language"></div>
+    <button class="icon-btn" type="button" id="theme-btn" data-act="theme" aria-label="Theme"></button>
+  </header>
+
+  <main id="main" tabindex="-1" aria-live="off">
+    <div class="boot" aria-hidden="true"><div class="boot-bar"></div><div class="boot-bar"></div><div class="boot-bar"></div></div>
+    <noscript><p>Offer Ready needs JavaScript turned on.</p></noscript>
+  </main>
+
+  <nav class="tabbar" id="tabbar" aria-label="Primary"></nav>
+</div>
+
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+<div class="sr-only" id="announcer" aria-live="polite"></div>
+
+<dialog class="palette" id="palette" aria-label="Search">
+  <div class="palette-input-row">
+    <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+    <input class="palette-input" id="palette-input" type="text" autocomplete="off" spellcheck="false"
+      placeholder="Search or jump to…" role="combobox" aria-expanded="true" aria-controls="palette-results" aria-autocomplete="list">
+    <kbd>Esc</kbd>
+  </div>
+  <div class="palette-results" id="palette-results" role="listbox" aria-label="Results"></div>
+  <div class="palette-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> move</span><span><kbd>Enter</kbd> open</span><span><kbd>Esc</kbd> close</span></div>
+</dialog>
+
+<dialog class="sheet" id="more-sheet" aria-label="All sections">
+  <div class="sheet-head">
+    <span class="brand-word">All sections</span>
+    <button class="icon-btn" type="button" data-act="close-sheet" aria-label="Close"><svg class="icon" aria-hidden="true"><use href="#i-x"/></svg></button>
+  </div>
+  <div id="sheet-nav"></div>
+</dialog>
+
+<dialog class="modal" id="modal"></dialog>
+
+<!-- Icon sprite: one stroke weight, 24px grid -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-today" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><circle cx="12" cy="14.5" r="1.7" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-plan" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 9.5h17M8 3v4M16 3v4M7.5 13h3M13.5 13h3M7.5 16.5h3"/></symbol>
+  <symbol id="i-progress" viewBox="0 0 24 24"><path d="M3.5 20.5h17"/><rect x="5.5" y="12" width="3" height="6" rx=".6"/><rect x="10.5" y="7" width="3" height="11" rx=".6"/><rect x="15.5" y="9.5" width="3" height="8.5" rx=".6"/></symbol>
+  <symbol id="i-roadmap" viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.2"/><circle cx="18" cy="6" r="2.2"/><path d="M8.2 18H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h6.8"/></symbol>
+  <symbol id="i-topics" viewBox="0 0 24 24"><path d="M12 6.5C10 5 7.5 4.5 4 4.5v13c3.5 0 6 .5 8 2 2-1.5 4.5-2 8-2v-13c-3.5 0-6 .5-8 2z"/><path d="M12 6.5v13"/></symbol>
+  <symbol id="i-problems" viewBox="0 0 24 24"><path d="M10 6.5h10M10 12h10M10 17.5h10"/><path d="M3.5 6.5l1.5 1.5 2.5-3M3.5 12l1.5 1.5 2.5-3"/><circle cx="5.4" cy="17.5" r="1.4"/></symbol>
+  <symbol id="i-detective" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3l4.7 4.7"/><path d="M8.6 8.8a1.9 1.9 0 1 1 2.8 1.7c-.6.3-.9.8-.9 1.4"/><path d="M10.5 13.9v.1"/></symbol>
+  <symbol id="i-review" viewBox="0 0 24 24"><path d="M4.5 11a7.5 7.5 0 0 1 13.1-4.4L19.5 8.5"/><path d="M19.5 4v4.5H15"/><path d="M19.5 13a7.5 7.5 0 0 1-13.1 4.4L4.5 15.5"/><path d="M4.5 20v-4.5H9"/></symbol>
+  <symbol id="i-cards" viewBox="0 0 24 24"><rect x="3.5" y="7" width="13" height="13" rx="2"/><path d="M7.5 3.5h10.5a2.5 2.5 0 0 1 2.5 2.5v10.5"/></symbol>
+  <symbol id="i-code" viewBox="0 0 24 24"><path d="M8.5 7L3.5 12l5 5M15.5 7l5 5-5 5M13.5 4.5l-3 15"/></symbol>
+  <symbol id="i-viz" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><path d="M10 9v6l5-3z"/></symbol>
+  <symbol id="i-sheet" viewBox="0 0 24 24"><path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14 3.5v5h5M9 12.5h7M9 16h5"/></symbol>
+  <symbol id="i-mock" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v2.5M9 20.5h6"/></symbol>
+  <symbol id="i-stopwatch" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7"/><path d="M12 13.5V10M10 2.5h4M18.5 6.5L17 8"/></symbol>
+  <symbol id="i-system" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="16" height="6.5" rx="1.5"/><path d="M7.5 7.25h.01M7.5 16.75h.01M11 7.25h5M11 16.75h5"/></symbol>
+  <symbol id="i-behavioral" viewBox="0 0 24 24"><path d="M4 5h10.5A1.5 1.5 0 0 1 16 6.5V12a1.5 1.5 0 0 1-1.5 1.5H9l-3.5 3v-3H4A1.5 1.5 0 0 1 2.5 12V6.5A1.5 1.5 0 0 1 4 5z"/><path d="M19 9h.5A1.5 1.5 0 0 1 21 10.5V16a1.5 1.5 0 0 1-1.5 1.5H19V20l-3-2.5h-4.5"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5" rx=".5"/><path d="M9.5 3v3.5M14.5 3v3.5M9.5 17.5V21M14.5 17.5V21M3 9.5h3.5M3 14.5h3.5M17.5 9.5H21M17.5 14.5H21"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="3.5" y="7" width="17" height="12.5" rx="2"/><path d="M8.5 7V5.5A1.5 1.5 0 0 1 10 4h4a1.5 1.5 0 0 1 1.5 1.5V7M3.5 12.5h17"/></symbol>
+  <symbol id="i-columns" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="4.5" height="15" rx="1"/><rect x="9.75" y="4.5" width="4.5" height="10" rx="1"/><rect x="16" y="4.5" width="4.5" height="12.5" rx="1"/></symbol>
+  <symbol id="i-resume" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="1.5"/><circle cx="12" cy="9" r="2.2"/><path d="M8.5 15.5c.6-1.6 2-2.4 3.5-2.4s2.9.8 3.5 2.4M9 18.5h6"/></symbol>
+  <symbol id="i-library" viewBox="0 0 24 24"><path d="M6.5 3.5h11v17l-5.5-4-5.5 4z"/></symbol>
+  <symbol id="i-leaf" viewBox="0 0 24 24"><path d="M5 19c0-8 5-13.5 14.5-14 .5 9.5-5 14.5-13 14.5z"/><path d="M5 19c3-3 6-5.5 9.5-7.5"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.3 15.3l4.7 4.7"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="1.5"/></symbol>
+  <symbol id="i-step-fwd" viewBox="0 0 24 24"><path d="M6 5.5v13l9-6.5z"/><path d="M18 5.5v13"/></symbol>
+  <symbol id="i-step-back" viewBox="0 0 24 24"><path d="M18 5.5v13l-9-6.5z"/><path d="M6 5.5v13"/></symbol>
+  <symbol id="i-reset" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4.5 4v4.5H9"/></symbol>
+  <symbol id="i-speed" viewBox="0 0 24 24"><path d="M4.5 16.5a7.5 7.5 0 1 1 15 0"/><path d="M12 16.5l3.5-4.5"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="1.5"/><path d="M15.5 8.5V6A1.5 1.5 0 0 0 14 4.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="M9.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="M14.5 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="M6 9.5l6 6 6-6"/></symbol>
+  <symbol id="i-external" viewBox="0 0 24 24"><path d="M14 4.5h5.5V10M19.5 4.5l-8 8M17 13.5v5a1.5 1.5 0 0 1-1.5 1.5h-10A1.5 1.5 0 0 1 4 18.5v-10A1.5 1.5 0 0 1 5.5 7h5"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.5A8 8 0 0 1 9.5 4.5a8 8 0 1 0 10 10z"/></symbol>
+  <symbol id="i-monitor" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="11.5" rx="1.5"/><path d="M9 20h6M12 16v4"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5.5 21V4M5.5 4.5h11l-2 4 2 4h-11"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M10 4.5h4M6.5 7l1 12.5h9l1-12.5M10 11v5M14 11v5"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 15V4.5M7.5 9L12 4.5 16.5 9M4.5 15v3.5A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5V15"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4.5V15M7.5 10.5L12 15l4.5-4.5M4.5 15v3.5A1.5 1.5 0 0 0 6 20h12a1.5 1.5 0 0 0 1.5-1.5V15"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M15.5 4.5l4 4L8.5 19.5H4.5v-4z"/><path d="M13 7l4 4"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3.8l2.5 5.2 5.7.8-4.1 4 1 5.6-5.1-2.7-5.1 2.7 1-5.6-4.1-4 5.7-.8z"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5.5M12 7.8v.1"/></symbol>
+  <symbol id="i-warning" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3z"/><path d="M12 10v4.5M12 17.2v.1"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="1.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4.5 12h15M13.5 6l6 6-6 6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 17.5h6M10 20.5h4M12 3.5a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2v.6h5v-.6c0-.8.4-1.5 1-2A6 6 0 0 0 12 3.5z"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></symbol>
+  <symbol id="i-building" viewBox="0 0 24 24"><path d="M4.5 20.5V5.5l8-2v17M12.5 8.5h7v12M3.5 20.5h17M7.5 8.5h2M7.5 12h2M7.5 15.5h2M15 12h2M15 15.5h2"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6 3.5h8.5L19 8v12.5H6z"/><path d="M14 3.5v5h5"/></symbol>
+  <symbol id="i-history" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4.5 4v4.5H9M12 8v4.5l3 1.5"/></symbol>
+</svg>
+
+<!-- Core -->
+<script defer src="js/app.js"></script>
+<script defer src="js/store.js"></script>
+<script defer src="js/autobackup.js"></script>
+<!-- Data -->
+<script defer src="data/curriculum.js"></script>
+<script defer src="data/problems.js"></script>
+<script defer src="data/resources.js"></script>
+<script defer src="data/career.js"></script>
+<script defer src="data/statements-1.js"></script>
+<script defer src="data/statements-matrix.js"></script>
+<script defer src="data/statements-2.js"></script>
+<script defer src="data/statements-3.js"></script>
+<script defer src="data/statements-4.js"></script>
+<script defer src="data/statements-5.js"></script>
+<script defer src="data/statements-6.js"></script>
+<script defer src="data/statements-graphs.js"></script>
+<script defer src="data/statements-7.js"></script>
+<script defer src="data/statements-shortest-paths.js"></script>
+<script defer src="data/statements-mst.js"></script>
+<script defer src="data/statements-topo-sort.js"></script>
+<script defer src="data/statements-trees.js"></script>
+<script defer src="data/statements-tree-dp.js"></script>
+<script defer src="data/statements-dp-2d.js"></script>
+<script defer src="data/topics/language.js"></script>
+<script defer src="data/topics/big-o.js"></script>
+<script defer src="data/topics/arrays-hashing.js"></script>
+<script defer src="data/topics/two-pointers.js"></script>
+<script defer src="data/topics/matrix.js"></script>
+<script defer src="data/topics/sliding-window.js"></script>
+<script defer src="data/topics/prefix-sums.js"></script>
+<script defer src="data/topics/kadane.js"></script>
+<script defer src="data/topics/stacks.js"></script>
+<script defer src="data/topics/monotonic.js"></script>
+<script defer src="data/topics/queues.js"></script>
+<script defer src="data/topics/tries.js"></script>
+<script defer src="data/statements-tries.js"></script>
+<script defer src="data/topics/design-ds.js"></script>
+<script defer src="data/statements-design-ds.js"></script>
+<script defer src="data/topics/topo-sort.js"></script>
+<script defer src="data/topics/graphs.js"></script>
+<script defer src="data/topics/binary-search.js"></script>
+<script defer src="data/topics/lis.js"></script>
+<script defer src="data/statements-lis.js"></script>
+<script defer src="data/topics/linked-lists.js"></script>
+<script defer src="data/topics/recursion.js"></script>
+<script defer src="data/topics/dp-1d.js"></script>
+<script defer src="data/statements-dp-1d.js"></script>
+<script defer src="data/topics/backtracking.js"></script>
+<script defer src="data/topics/sorting.js"></script>
+<script defer src="data/topics/hashing-internals.js"></script>
+<script defer src="data/topics/union-find.js"></script>
+<script defer src="data/statements-union-find.js"></script>
+<script defer src="data/topics/advanced-graphs.js"></script>
+<script defer src="data/statements-advanced-graphs.js"></script>
+<script defer src="data/topics/intervals.js"></script>
+<script defer src="data/statements-intervals.js"></script>
+<script defer src="data/topics/greedy.js"></script>
+<script defer src="data/statements-greedy.js"></script>
+<script defer src="data/topics/heaps.js"></script>
+<script defer src="data/topics/segment-tree.js"></script>
+<script defer src="data/statements-segment-tree.js"></script>
+<script defer src="data/topics/shortest-paths.js"></script>
+<script defer src="data/topics/mst.js"></script>
+<script defer src="data/topics/trees.js"></script>
+<script defer src="data/topics/tree-dp.js"></script>
+<script defer src="data/topics/dp-2d.js"></script>
+<script defer src="data/statements-string-dp.js"></script>
+<script defer src="data/topics/string-dp.js"></script>
+<script defer src="data/statements-string-algos.js"></script>
+<script defer src="data/topics/string-algos.js"></script>
+<script defer src="data/statements-interval-dp.js"></script>
+<script defer src="data/topics/interval-dp.js"></script>
+<script defer src="data/topics/knapsack.js"></script>
+<script defer src="data/topics/math.js"></script>
+<script defer src="data/statements-math.js"></script>
+<script defer src="data/statements-knapsack.js"></script>
+<script defer src="data/topics/bits.js"></script>
+<script defer src="data/statements-bits.js"></script>
+<script defer src="data/topics/cp-starter.js"></script>
+<script defer src="data/statements-cp-starter.js"></script>
+<script defer src="data/topics/bitmask-dp.js"></script>
+<script defer src="data/statements-bitmask-dp.js"></script>
+<script defer src="data/statements-fenwick.js"></script>
+<script defer src="data/topics/fenwick.js"></script>
+<script defer src="data/behavioral.js"></script>
+<!-- Logic + views -->
+<script defer src="js/plan.js"></script>
+<script defer src="js/season.js"></script>
+<script defer src="js/player.js"></script>
+<script defer src="js/code.js"></script>
+<script defer src="js/ide.js"></script>
+<script defer src="js/runner.js"></script>
+<script defer src="js/quiz.js"></script>
+<script defer src="js/viz/sliding-window.js"></script>
+<script defer src="js/viz/containers.js"></script>
+<script defer src="js/viz/growth.js"></script>
+<script defer src="js/viz/hashmap.js"></script>
+<script defer src="js/viz/two-pointers.js"></script>
+<script defer src="js/viz/matrix.js"></script>
+<script defer src="js/viz/dp-grid.js"></script>
+<script defer src="js/viz/dp-strings.js"></script>
+<script defer src="js/viz/dp-interval.js"></script>
+<script defer src="js/viz/prefix-sum.js"></script>
+<script defer src="js/viz/kadane.js"></script>
+<script defer src="js/viz/stack-queue.js"></script>
+<script defer src="js/viz/monotonic-stack.js"></script>
+<script defer src="js/viz/deque.js"></script>
+<script defer src="js/viz/trie.js"></script>
+<script defer src="js/viz/lru.js"></script>
+<script defer src="js/viz/topo-sort.js"></script>
+<script defer src="js/viz/grid-search.js"></script>
+<script defer src="js/viz/binary-search.js"></script>
+<script defer src="js/viz/lis.js"></script>
+<script defer src="js/viz/linked-list.js"></script>
+<script defer src="js/viz/recursion-tree.js"></script>
+<script defer src="js/viz/dp-1d.js"></script>
+<script defer src="js/viz/backtracking-tree.js"></script>
+<script defer src="js/viz/sorting-race.js"></script>
+<script defer src="js/viz/hashing.js"></script>
+<script defer src="js/viz/union-find.js"></script>
+<script defer src="js/viz/tarjan.js"></script>
+<script defer src="js/viz/intervals.js"></script>
+<script defer src="js/viz/jump-game.js"></script>
+<script defer src="js/viz/heap.js"></script>
+<script defer src="js/viz/segment-tree.js"></script>
+<script defer src="js/viz/dijkstra.js"></script>
+<script defer src="js/viz/mst.js"></script>
+<script defer src="js/viz/tree-traversal.js"></script>
+<script defer src="js/viz/tree-dp.js"></script>
+<script defer src="js/viz/dp-knapsack.js"></script>
+<script defer src="js/viz/sieve.js"></script>
+<script defer src="js/viz/bits.js"></script>
+<script defer src="js/viz/bitmask.js"></script>
+<script defer src="js/viz/fenwick.js"></script>
+<script defer src="js/viz/kmp.js"></script>
+<script defer src="js/views/today.js"></script>
+<script defer src="js/views/onboarding.js"></script>
+<script defer src="js/views/progress.js"></script>
+<script defer src="js/views/settings.js"></script>
+<script defer src="js/views/topics.js"></script>
+<script defer src="js/views/topic.js"></script>
+<script defer src="js/views/problems.js"></script>
+<script defer src="js/views/problem.js"></script>
+<script defer src="js/views/detective.js"></script>
+<script defer src="js/views/review.js"></script>
+<script defer src="js/views/flashcards.js"></script>
+<script defer src="js/views/playground.js"></script>
+<script defer src="js/views/behavioral.js"></script>
+<script defer src="js/views/career.js"></script>
+<script defer src="js/views/wellbeing.js"></script>
+<script defer src="js/views/roadmap.js"></script>
+<script defer src="js/views/mock.js"></script>
+<script defer src="js/views/viz.js"></script>
+<script defer src="js/views/selftest.js"></script>
+<script defer src="js/views/resources.js"></script>
+<script defer src="data/cheatsheets/s1-bigo.js"></script>
+<script defer src="data/cheatsheets/s2-sorting.js"></script>
+<script defer src="data/cheatsheets/s3-patterns.js"></script>
+<script defer src="data/cheatsheets/s4-graphs.js"></script>
+<script defer src="data/cheatsheets/s5-dp.js"></script>
+<script defer src="data/cheatsheets/s6-languages.js"></script>
+<script defer src="data/cheatsheets/s7-night-before.js"></script>
+<script defer src="js/views/cheatsheets.js"></script>
+<script defer src="data/cs/os.js"></script>
+<script defer src="data/cs/concurrency.js"></script>
+<script defer src="data/cs/networking.js"></script>
+<script defer src="data/cs/databases.js"></script>
+<script defer src="data/cs/sql.js"></script>
+<script defer src="data/cs/quick.js"></script>
+<script defer src="js/views/cs.js"></script>
+<script defer src="data/sd/framework.js"></script>
+<script defer src="data/sd/numbers.js"></script>
+<script defer src="data/sd/fundamentals-1.js"></script>
+<script defer src="data/sd/fundamentals-2.js"></script>
+<script defer src="data/sd/fundamentals-3.js"></script>
+<script defer src="data/sd/fundamentals-4.js"></script>
+<script defer src="data/sd/lld-code-solid.js"></script>
+<script defer src="data/sd/lld-solid.js"></script>
+<script defer src="data/sd/lld-code-patterns.js"></script>
+<script defer src="data/sd/lld-patterns.js"></script>
+<script defer src="data/sd/lld-patterns-2.js"></script>
+<script defer src="data/sd/lld-parking-lot.js"></script>
+<script defer src="data/sd/lld-elevator.js"></script>
+<script defer src="data/sd/lld-library.js"></script>
+<script defer src="data/sd/lld-vending-machine.js"></script>
+<script defer src="data/sd/lld-lru-cache.js"></script>
+<script defer src="data/sd/url-shortener.js"></script>
+<script defer src="data/sd/web-crawler.js"></script>
+<script defer src="data/sd/news-feed.js"></script>
+<script defer src="data/sd/chat.js"></script>
+<script defer src="data/sd/notification-system.js"></script>
+<script defer src="data/sd/typeahead.js"></script>
+<script defer src="data/sd/rate-limiter.js"></script>
+<script defer src="data/sd/video-streaming.js"></script>
+<script defer src="data/sd/file-sync.js"></script>
+<script defer src="data/sd/ticket-booking.js"></script>
+<script defer src="data/sd/ride-matching.js"></script>
+<script defer src="data/sd/distributed-kv-store.js"></script>
+<script defer src="data/sd/payment-system.js"></script>
+<script defer src="js/diagram.js"></script>
+<script defer src="js/sd-estimate.js"></script>
+<script defer src="js/sd-ring.js"></script>
+<script defer src="js/views/systemDesign.js"></script>
+<script defer src="js/resume-lib.js"></script>
+<script defer src="data/resume-guide.js"></script>
+<script defer src="js/views/resume.js"></script>
+<script defer src="js/views/pipeline.js"></script>
+<script defer src="js/views/stubs.js"></script>
+<script>if ("serviceWorker" in navigator && /^https?:$/.test(location.protocol)) navigator.serviceWorker.register("sw.js").catch(function () {});</script>
+</body>
+</html>

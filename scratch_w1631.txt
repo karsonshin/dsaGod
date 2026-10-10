@@ -1,0 +1,105 @@
+      {
+        lc: 1631,
+        restate: 'You are given a grid of heights. Start at the top-left cell and finish at the bottom-right, moving up, down, left or right. The **effort** of a route is the largest absolute height difference between two consecutive cells on it. Return the smallest effort over all routes.',
+        examples: '- `[[1,2,2],[3,8,2],[5,3,5]]` → 2 (go along the top row, then down the right column: the biggest step is 2).\n- `[[1,2,3],[3,8,4],[5,3,5]]` → 1.\n- `[[7]]` → 0 (nowhere to go).\n- Edge cases: a single row; a single column; large height differences that force a detour.',
+        brute: 'Enumerate every route with DFS and track the biggest step: exponential. Dijkstra with a sum would minimise total climbing, which is a different question.',
+        insight: 'It is the same shape as the rising-water problem, with the cost on the **step** instead of the cell. The effort of a route is a `max` over its steps, so Dijkstra works with `max(effort so far, |height difference|)`. The heap holds `(effort so far, row, col)`. When the bottom-right cell is popped, its effort is the answer.',
+        code: {
+          py: `class Solution:
+    def minimumEffortPath(self, heights: List[List[int]]) -> int:
+        R, C = len(heights), len(heights[0])
+        best = [[inf] * C for _ in range(R)]       # smallest "biggest step" needed to reach each cell
+        best[0][0] = 0
+        heap = [(0, 0, 0)]
+        while heap:
+            e, r, c = heapq.heappop(heap)
+            if (r, c) == (R - 1, C - 1):
+                return e
+            if e > best[r][c]:
+                continue
+            for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < R and 0 <= nc < C:
+                    ne = max(e, abs(heights[nr][nc] - heights[r][c]))   # the step's size, combined with max
+                    if ne < best[nr][nc]:
+                        best[nr][nc] = ne
+                        heapq.heappush(heap, (ne, nr, nc))
+        return 0`,
+          js: HEAP + `
+function minimumEffortPath(heights) {
+  const R = heights.length, C = heights[0].length;
+  const best = Array.from({ length: R }, () => new Array(C).fill(Infinity));   // smallest "biggest step" needed to reach each cell
+  best[0][0] = 0;
+  const heap = new Heap((a, b) => a[0] < b[0]);
+  heap.push([0, 0, 0]);
+  while (heap.size) {
+    const [e, r, c] = heap.pop();
+    if (r === R - 1 && c === C - 1) return e;
+    if (e > best[r][c]) continue;
+    for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+      const nr = r + dr, nc = c + dc;
+      if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+      const ne = Math.max(e, Math.abs(heights[nr][nc] - heights[r][c]));   // the step's size, combined with max
+      if (ne < best[nr][nc]) { best[nr][nc] = ne; heap.push([ne, nr, nc]); }
+    }
+  }
+  return 0;
+}`,
+          java: `class Solution {
+    public int minimumEffortPath(int[][] heights) {
+        int R = heights.length, C = heights[0].length;
+        int[][] best = new int[R][C];                      // smallest "biggest step" needed to reach each cell
+        for (int[] row : best) Arrays.fill(row, Integer.MAX_VALUE);
+        best[0][0] = 0;
+        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));
+        heap.offer(new int[]{0, 0, 0});
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while (!heap.isEmpty()) {
+            int[] top = heap.poll();
+            int e = top[0], r = top[1], c = top[2];
+            if (r == R - 1 && c == C - 1) return e;
+            if (e > best[r][c]) continue;
+            for (int[] d : dirs) {
+                int nr = r + d[0], nc = c + d[1];
+                if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+                int ne = Math.max(e, Math.abs(heights[nr][nc] - heights[r][c]));   // the step's size, combined with max
+                if (ne < best[nr][nc]) { best[nr][nc] = ne; heap.offer(new int[]{ne, nr, nc}); }
+            }
+        }
+        return 0;
+    }
+}`,
+          cpp: `class Solution {
+public:
+    int minimumEffortPath(vector<vector<int>>& heights) {
+        int R = heights.size(), C = heights[0].size();
+        vector<vector<int>> best(R, vector<int>(C, INT_MAX));   // smallest "biggest step" needed to reach each cell
+        best[0][0] = 0;
+        priority_queue<array<int, 3>, vector<array<int, 3>>, greater<>> heap;
+        heap.push({0, 0, 0});
+        int dirs[4][2] = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        while (!heap.empty()) {
+            auto [e, r, c] = heap.top();
+            heap.pop();
+            if (r == R - 1 && c == C - 1) return e;
+            if (e > best[r][c]) continue;
+            for (auto& d : dirs) {
+                int nr = r + d[0], nc = c + d[1];
+                if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
+                int ne = max(e, abs(heights[nr][nc] - heights[r][c]));   // the step's size, combined with max
+                if (ne < best[nr][nc]) { best[nr][nc] = ne; heap.push({ne, nr, nc}); }
+            }
+        }
+        return 0;
+    }
+};`
+        },
+        complexity: 'O(R·C · log(R·C)) time, O(R·C) space.',
+        say: '“The cost of a route is its biggest height step, not a sum, so it is a minimax path. Dijkstra only needs the cost to never decrease as the route grows, and max does that. I keep, for each cell, the smallest worst step needed to reach it, pop the cell with the smallest one, and relax neighbours with max(effort, step). The first time the bottom-right cell is popped, that effort is the answer. O(RC log RC).”',
+        followups: [
+          { q: 'What if the question asked for the smallest total climbing?', a: 'Then the cost is a sum and you use `+` in the same loop. Everything else is unchanged.' },
+          { q: 'How would binary search work here?', a: 'Guess an effort E, flood-fill from the start through steps of at most E, and check whether the end is reached. It is monotone in E, so binary search over 0..max height gives O(RC log H).' },
+          { q: 'Why can’t plain BFS do it?', a: 'BFS minimises the number of steps. A route with more steps can have a lower biggest step, and BFS would never prefer it.' },
+          { q: 'Is the stale check needed?', a: 'It saves work: without it you would re-expand a cell every time an old, worse entry pops. The answer stays correct but the run can be slower.' }
+        ]
+      }

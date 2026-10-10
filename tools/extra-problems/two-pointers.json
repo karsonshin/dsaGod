@@ -1,0 +1,13 @@
+[
+  [344, "Opposite ends (swap inward)"],
+  [26, "Read/write pointers"],
+  [283, "Read/write pointers (stable partition)"],
+  [88, "Merge from the back"],
+  [977, "Opposite ends (largest square first)"],
+  [680, "Opposite ends + one skip"],
+  [75, "Three-way partition (Dutch flag)"],
+  [80, "Read/write pointers (keep two)"],
+  [16, "Sort + opposite ends (closest)"],
+  [881, "Sort + opposite ends (greedy pairing)"],
+  [18, "Sort + nested opposite ends"]
+]

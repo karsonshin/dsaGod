@@ -1,0 +1,7 @@
+[
+  [289, "Game of Life in place (encode old and new in one cell)"],
+  [59, "Spiral fill with four shrinking boundaries"],
+  [867, "Transpose (rectangular: new shape, swap indices)"],
+  [566, "Reshape (flat index to row and column by division)"],
+  [498, "Diagonals by i + j (alternate direction)"]
+]

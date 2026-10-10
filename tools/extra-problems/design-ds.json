@@ -1,0 +1,5 @@
+[
+  [380, "Array + map, swap with the last element for O(1) delete"],
+  [460, "Two-level recency: key map, frequency map of ordered lists, min-frequency pointer"],
+  [284, "Iterator wrapper that caches one look-ahead value"]
+]

@@ -1,0 +1,4 @@
+[
+  [218, "Sweep line with a max-heap and lazy deletion (or compress x and paint max heights)"],
+  [699, "Compress x, range chmax plus range max on a segment tree"]
+]

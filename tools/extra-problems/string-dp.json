@@ -1,0 +1,5 @@
+[
+  [516, "Longest palindromic subsequence (LCS of the string and its reverse)"],
+  [583, "Delete operation for two strings (m + n - 2 * LCS)"],
+  [44, "Wildcard matching (two-pointer greedy or the regex-shaped table)"]
+]

@@ -1,0 +1,51 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-02T13:14:11.051Z",
+        "reason": "Claude triage: the dot is the stopwatch's running indicator (.stopwatch[data-state=running] .pulse), tied to a live timer"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-02T13:14:11.250Z",
+        "reason": "Claude triage: dialog.sheet has 16px sides and 24px+safe-area bottom padding; static scan sees #sheet-nav before JS fills it"
+      },
+      {
+        "rule": "layout-transition",
+        "value": "*",
+        "files": [
+          "js/viz/growth.js"
+        ],
+        "createdAt": "2026-10-02T22:19:14.128Z",
+        "reason": "agent triage: transitions are SVG stroke-width/opacity (paint only), no layout property animates"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "js/viz/stack-queue.js"
+        ],
+        "createdAt": "2026-10-02T22:19:14.342Z",
+        "reason": "agent triage: borders are the stack/queue container walls (data-structure geometry), not a card accent"
+      }
+    ]
+  }
+}

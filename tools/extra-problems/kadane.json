@@ -1,0 +1,13 @@
+[
+  [1800, "Running sum that restarts on a non-ascent"],
+  [1749, "Kadane for max and min at once"],
+  [2606, "Kadane over mapped values"],
+  [918, "Kadane + total minus minimum subarray"],
+  [1567, "Track lengths of positive and negative products"],
+  [978, "Best ending here, two states"],
+  [1014, "Best partner so far (running max)"],
+  [1186, "Two-state Kadane (deleted or not)"],
+  [1191, "Kadane over two copies + total"],
+  [2321, "Kadane over the difference array"],
+  [2272, "Kadane per letter pair, must include both"]
+]

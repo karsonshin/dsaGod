@@ -1,0 +1,15 @@
+[
+  [1480, "Running sum is the prefix array"],
+  [303, "Static range sums with prefix[0] = 0"],
+  [724, "Left sum against total minus left"],
+  [2270, "Running left sum against the total"],
+  [560, "Prefix sum + hash map count"],
+  [525, "Balance as prefix sum, first index"],
+  [523, "Prefix remainders, first index"],
+  [974, "Prefix remainders, counts"],
+  [930, "Exact-sum count on a 0/1 array"],
+  [1248, "Parity prefix count + hash map"],
+  [1094, "Difference array over stops"],
+  [1109, "Difference array, 1-indexed ranges"],
+  [304, "2D prefix sums"]
+]

@@ -1,0 +1,23 @@
+/* Offer Ready: 1-D DP visualizer styles (reuses .va-input, .va-row, .va-cell, .va-read from app.css). The shared pattern is .dp-*. */
+.va-presets .chip[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent-soft-ink); border-color: var(--accent-line); }
+.dp-presets { display: contents; }
+.dp-scroll { overflow-x: auto; scrollbar-width: thin; padding-bottom: var(--s-2); }
+.va.dp-grid { --cell: 38px; --gap: 6px; width: max-content; gap: var(--s-2); }
+.dp-cap { white-space: nowrap;font: 600 var(--text-2xs)/1 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+.dp-item { height: 30px; border-style: dotted; }
+.dp-item.dp-spacer { visibility: hidden; }
+.dp-item.cur { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dp-item.in { background: var(--accent-soft); border-color: var(--accent-line); color: var(--accent-soft-ink); border-style: solid; }
+.dp-item.ok { background: var(--ok-soft); border-color: var(--ok); color: var(--ok); border-style: solid; }
+.dp-item.gone { color: var(--ink-3); border-style: dashed; }
+.dp-row .va-cell b { min-height: 1em; }
+.dp-arrows { display: block; overflow: visible; }
+.dp-arrow { fill: none; stroke-width: 2; stroke-linecap: round; }
+.dp-arrow.try { stroke: var(--accent); }
+.dp-arrow.win { stroke: var(--ok); }
+.dp-arrow.lose { stroke: var(--ink-3); stroke-dasharray: 4 4; }
+.dp-ah.try path { fill: var(--accent); }
+.dp-ah.win path { fill: var(--ok); }
+.dp-ah.lose path { fill: var(--ink-3); }
+.dp-read { margin: var(--s-2) 0 0; }
+.dp-read dd.mono { font: var(--text-xs)/1.4 var(--font-mono); font-stretch: var(--stretch-mono); overflow-wrap: anywhere; }

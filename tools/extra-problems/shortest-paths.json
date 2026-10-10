@@ -1,0 +1,5 @@
+[
+  [2290, "0-1 BFS on a grid (obstacles cost 1, empty cells 0)"],
+  [1514, "Dijkstra with a max-heap (product of probabilities)"],
+  [1334, "Floyd-Warshall (all pairs, count within a limit)"]
+]

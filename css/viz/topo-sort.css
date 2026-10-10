@@ -1,0 +1,21 @@
+/* Offer Ready: topological sort visualizer styles (.ts-*; cells reuse .va-* from app.css). */
+.ts-svg { display: block; width: 100%; height: auto; }
+.ts-e path { fill: none; stroke: var(--ink-3); stroke-width: 1.5; transition: stroke var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.ts-e polygon { fill: var(--ink-3); transition: fill var(--dur-2) var(--ease-out), opacity var(--dur-2) var(--ease-out); }
+.ts-e.cur path { stroke: var(--accent); stroke-width: 2.5; }
+.ts-e.cur polygon { fill: var(--accent); }
+.ts-e.used path { stroke-dasharray: 3 3; opacity: 0.45; }
+.ts-e.used polygon { opacity: 0.45; }
+.ts-n circle { fill: var(--surface); stroke: var(--line-strong); stroke-width: 1.5; transition: fill var(--dur-2) var(--ease-out), stroke var(--dur-2) var(--ease-out); }
+.ts-n text { fill: var(--ink); font: 500 var(--text-sm) var(--font-mono); font-stretch: var(--stretch-mono); }
+.ts-n text.ts-d { fill: var(--ink-3); font-size: 11px; font-weight: 600; }
+.ts-n.in circle { fill: var(--accent-soft); stroke: var(--accent-line); }
+.ts-n.gone circle { fill: var(--ok-soft); stroke: var(--ok); }
+.ts-n.stuck circle { fill: var(--hard-soft); stroke: var(--hard); }
+.ts-n.cur circle { stroke: var(--accent); stroke-width: 3; }
+.ts-rows { display: grid; gap: var(--s-2); }
+.ts-row { display: flex; align-items: center; gap: var(--s-3); min-height: var(--cell); }
+.ts-lab { flex: none; width: 4.75rem; font: 600 var(--text-2xs)/1 var(--font-mono); font-stretch: var(--stretch-mono); color: var(--ink-3); }
+.ts-indeg, .ts-queue, .ts-order { display: flex; flex-wrap: wrap; align-items: center; gap: var(--gap); min-width: 0; }
+.ts-short { font: 600 var(--text-xs)/1 var(--font-mono); color: var(--hard); }
+.ts-err { margin: 0; font-size: var(--text-xs); color: var(--hard); }

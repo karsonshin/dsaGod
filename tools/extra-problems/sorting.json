@@ -1,0 +1,12 @@
+[
+  [912, "Sort an Array: write a real O(n log n) sort"],
+  [179, "Custom comparator sort"],
+  [451, "Counting + bucket by frequency"],
+  [164, "Bucket (pigeonhole) sort"],
+  [1051, "Sort and compare"],
+  [561, "Sort, then pair neighbors"],
+  [976, "Sort descending, scan triples"],
+  [1122, "Counting sort with a custom order"],
+  [274, "Sort then scan, or counting"],
+  [2037, "Sort both, match by rank"]
+]

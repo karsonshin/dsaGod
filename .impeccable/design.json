@@ -1,0 +1,161 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-04T00:00:00Z",
+  "title": "Design System: Offer Ready",
+  "extensions": {
+    "colorMeta": {
+      "timing-blue": { "role": "primary", "displayName": "Timing Blue", "canonical": "#2b3fe0", "tonalRamp": ["#0f1a6b", "#16239a", "#1e2bbd", "#2b3fe0", "#5c6cf0", "#8e9bff", "#c3caff", "#e5e9ff"] },
+      "turf-easy": { "role": "secondary", "displayName": "Turf Green", "canonical": "#0d7a5c", "tonalRamp": ["#053a2b", "#075a42", "#0a6a4f", "#0d7a5c", "#3fa384", "#7cc7ae", "#b9e3d4", "#dcf2e9"] },
+      "amber-medium": { "role": "secondary", "displayName": "Amber", "canonical": "#975700", "tonalRamp": ["#4a2a00", "#6e4000", "#834a00", "#975700", "#c28a2e", "#dcb066", "#eed2a3", "#f9ead1"] },
+      "track-red-hard": { "role": "secondary", "displayName": "Track Red", "canonical": "#bd2440", "tonalRamp": ["#5e1220", "#8a1a30", "#a21f38", "#bd2440", "#d4586d", "#e48e9c", "#f1bfc7", "#fbe0e5"] },
+      "graphite-paper": { "role": "neutral", "displayName": "Graphite Paper", "canonical": "#f3f4f6", "tonalRamp": ["#11141b", "#454c5b", "#5f6778", "#b2b8c3", "#d5d9e0", "#e1e4ea", "#eceef2", "#f3f4f6"] },
+      "rail-night": { "role": "neutral", "displayName": "Rail Night", "canonical": "#151922", "tonalRamp": ["#0a0d13", "#151922", "#1e2330", "#2a3040", "#3a4260", "#8f97a8", "#a3abbb", "#e8ebf2"] }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero and page titles in condensed Archivo (74% width)." },
+      "bib": { "displayName": "Bib Numeral", "purpose": "Problem numbers, weeks, countdowns and tallies in ultra-condensed tabular Archivo (62% width)." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles and lesson section heads." },
+      "title": { "displayName": "Title", "purpose": "Lane heads, worked-example and card titles." },
+      "body": { "displayName": "Body", "purpose": "UI text at 13-15px." },
+      "reading": { "displayName": "Reading", "purpose": "Lesson prose in Literata at a 68ch measure." },
+      "label": { "displayName": "Label", "purpose": "Field labels, metadata, legends." },
+      "mono": { "displayName": "Mono", "purpose": "Code, timers, counts and week ranges in Martian Mono (84% width)." }
+    },
+    "shadows": [
+      { "name": "raised", "value": "0 1px 2px rgb(17 20 27 / 0.06), 0 2px 6px rgb(17 20 27 / 0.05)", "purpose": "Selected segment and flashcard." },
+      { "name": "floating", "value": "0 2px 6px rgb(17 20 27 / 0.08), 0 16px 40px rgb(17 20 27 / 0.14)", "purpose": "Command palette, dialogs and toasts." }
+    ],
+    "motion": [
+      { "name": "dur-1", "value": "120ms", "purpose": "Hover color and background changes." },
+      { "name": "dur-2", "value": "200ms", "purpose": "State changes, dialog rise, chevrons." },
+      { "name": "dur-3", "value": "320ms", "purpose": "Pointer slides and sheet entry." },
+      { "name": "dur-4", "value": "560ms", "purpose": "Season Chart bar fill." },
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Default easing for nearly every transition." },
+      { "name": "ease-inout", "value": "cubic-bezier(0.65, 0, 0.35, 1)", "purpose": "Stopwatch pulse." }
+    ],
+    "breakpoints": [
+      { "name": "phone", "value": "760px" },
+      { "name": "compact-rail", "value": "1179px" },
+      { "name": "hero-stack", "value": "1100px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one confident action per view, such as Start session.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Start session</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 var(--s-4, 16px); border: 1px solid #2b3fe0; border-radius: var(--r-2, 5px); background: #2b3fe0; color: #fff; font: 600 13px/1 var(--font-ui, Archivo, sans-serif); transition: background-color 120ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { background: #2131c0; border-color: #2131c0; } .ds-btn:active { transform: translateY(1px); } .ds-btn:focus-visible { outline: 2px solid #2b3fe0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Low-emphasis action with no border until hover.",
+      "html": "<button class=\"ds-btn-ghost\">Skip</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; border: 1px solid transparent; border-radius: 5px; background: transparent; color: #454c5b; font: 600 13px/1 Archivo, sans-serif; transition: background-color 120ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-ghost:hover { background: #eceef2; color: #11141b; } .ds-btn-ghost:focus-visible { outline: 2px solid #2b3fe0; outline-offset: 2px; }"
+    },
+    {
+      "name": "Segmented Control",
+      "kind": "chip",
+      "refersTo": "segmented-control",
+      "description": "Sunk trough with a raised white selected option; used for language, theme and filters.",
+      "html": "<div class=\"ds-seg\"><button aria-pressed=\"true\">Py</button><button>JS</button><button>Java</button><button>C++</button></div>",
+      "css": ".ds-seg { display: inline-flex; gap: 2px; padding: 2px; border: 1px solid #d5d9e0; border-radius: 5px; background: #eceef2; } .ds-seg button { min-width: 34px; height: 28px; padding: 0 8px; border: 0; border-radius: 3px; background: transparent; color: #454c5b; font: 600 12px/1 Archivo, sans-serif; cursor: pointer; } .ds-seg button:hover { color: #11141b; } .ds-seg button[aria-pressed=\"true\"] { background: #fff; color: #11141b; box-shadow: 0 1px 2px rgb(17 20 27 / 0.06), 0 2px 6px rgb(17 20 27 / 0.05); } .ds-seg button:focus-visible { outline: 2px solid #2b3fe0; outline-offset: 1px; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "White field with a strong hairline; focus turns blue with a soft halo.",
+      "html": "<label class=\"ds-field\"><span>Hours per week</span><input class=\"ds-input\" placeholder=\"10\"></label>",
+      "css": ".ds-field { display: grid; gap: 8px; font: 600 13px Archivo, sans-serif; } .ds-input { min-height: 38px; padding: 8px 12px; border: 1px solid #b2b8c3; border-radius: 5px; background: #fff; color: #11141b; font: 400 15px Archivo, sans-serif; transition: border-color 120ms cubic-bezier(0.16,1,0.3,1), box-shadow 120ms cubic-bezier(0.16,1,0.3,1); } .ds-input::placeholder { color: #5f6778; } .ds-input:focus { outline: none; border-color: #2b3fe0; box-shadow: 0 0 0 3px #e5e9ff; }"
+    },
+    {
+      "name": "Rail Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Link in the dark left rail; current page is raised with a blue-line icon.",
+      "html": "<div class=\"ds-rail\"><a class=\"ds-nav\" href=\"#\">Plan</a><a class=\"ds-nav\" href=\"#\" aria-current=\"page\">Today</a></div>",
+      "css": ".ds-rail { display: grid; gap: 1px; width: 200px; padding: 12px; background: #151922; } .ds-nav { display: flex; align-items: center; min-height: 34px; padding: 0 12px; border-radius: 5px; color: #a3abbb; text-decoration: none; font: 500 13px Archivo, sans-serif; transition: background-color 120ms cubic-bezier(0.16,1,0.3,1), color 120ms; } .ds-nav:hover { background: #1e2330; color: #e8ebf2; } .ds-nav[aria-current=\"page\"] { background: #2a3040; color: #fff; } .ds-nav:focus-visible { outline: 2px solid #8e9bff; outline-offset: 2px; }"
+    },
+    {
+      "name": "Topic Lane Row",
+      "kind": "custom",
+      "refersTo": "lane-row",
+      "description": "Topic in a phase lane; a fill and underline behind the text report mastery.",
+      "html": "<div class=\"ds-lane\"><div class=\"ds-lane-head\"><h2>Foundations</h2><span>Wk 1-3</span></div><a class=\"ds-lane-row\" data-level=\"mastered\" href=\"#\"><span class=\"ds-n\">01</span>Arrays</a><a class=\"ds-lane-row\" data-level=\"practicing\" href=\"#\"><span class=\"ds-n\">02</span>Two pointers</a><a class=\"ds-lane-row\" href=\"#\"><span class=\"ds-n\">03</span>Hashing</a></div>",
+      "css": ".ds-lane { width: 220px; padding: 0 12px; border-left: 1px solid #d5d9e0; font-family: Archivo, sans-serif; } .ds-lane-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; border-bottom: 2px solid #11141b; font-size: 12px; color: #454c5b; } .ds-lane-head h2 { margin: 0; font: 760 17px/1.2 Archivo, sans-serif; font-stretch: 74%; color: #11141b; } .ds-lane-row { display: grid; grid-template-columns: 2em 1fr; align-items: baseline; margin-top: 2px; padding: 6px 8px; border-radius: 3px; color: #11141b; text-decoration: none; font-size: 13px; font-weight: 550; } .ds-lane-row:hover { background: rgb(43 63 224 / 0.08); } .ds-n { font: 500 11px/1 \"Martian Mono\", monospace; color: #5f6778; } .ds-lane-row[data-level=\"practicing\"] { background: color-mix(in srgb, #2b3fe0 15%, transparent); box-shadow: inset 0 -2px 0 #2b3fe0; } .ds-lane-row[data-level=\"mastered\"] { background: color-mix(in srgb, #0d7a5c 16%, transparent); box-shadow: inset 0 -2px 0 #0d7a5c; }"
+    },
+    {
+      "name": "Bib Tag and Difficulty",
+      "kind": "chip",
+      "refersTo": "bib-tag",
+      "description": "Problem number as a bib, with a shape-coded difficulty label.",
+      "html": "<span class=\"ds-bib\">146</span> <span class=\"ds-diff ds-easy\">Easy</span> <span class=\"ds-diff ds-med\">Medium</span> <span class=\"ds-diff ds-hard\">Hard</span>",
+      "css": ".ds-bib { display: inline-grid; place-items: center; min-width: 3.6ch; height: 26px; padding: 0 6px; border: 1.5px solid currentColor; border-radius: 3px; color: #11141b; font: 820 17px/1 Archivo, sans-serif; font-stretch: 62%; font-variant-numeric: tabular-nums; } .ds-diff { display: inline-flex; align-items: center; gap: 6px; font: 600 12px Archivo, sans-serif; } .ds-diff::before { content: \"\"; width: 8px; height: 8px; background: currentColor; } .ds-easy { color: #0d7a5c; } .ds-easy::before { border-radius: 50%; } .ds-med { color: #975700; } .ds-med::before { transform: rotate(45deg) scale(0.86); } .ds-hard { color: #bd2440; } .ds-hard::before { clip-path: polygon(50% 0, 100% 100%, 0 100%); width: 9px; }"
+    },
+    {
+      "name": "Season Chart (miniature)",
+      "kind": "custom",
+      "refersTo": "season-chart",
+      "description": "Weekly plan bars with hairline outlines and a faint accent tint; logged hours fill in blue; the current week is hatched.",
+      "html": "<svg class=\"ds-season\" viewBox=\"0 0 240 90\" role=\"img\" aria-label=\"Season chart\"><defs><pattern id=\"ds-hatch\" width=\"6\" height=\"6\" patternUnits=\"userSpaceOnUse\" patternTransform=\"rotate(45)\"><rect width=\"3\" height=\"6\" fill=\"#2b3fe0\"/></pattern></defs><line x1=\"0\" x2=\"240\" y1=\"80\" y2=\"80\" class=\"g\"/><g><rect class=\"p\" x=\"10\" y=\"30\" width=\"30\" height=\"50\"/><rect class=\"l\" x=\"10\" y=\"40\" width=\"30\" height=\"40\"/><rect class=\"p\" x=\"50\" y=\"24\" width=\"30\" height=\"56\"/><rect class=\"l\" x=\"50\" y=\"34\" width=\"30\" height=\"46\"/><rect class=\"p now\" x=\"90\" y=\"20\" width=\"30\" height=\"60\"/><rect x=\"90\" y=\"56\" width=\"30\" height=\"24\" fill=\"url(#ds-hatch)\"/><rect class=\"p\" x=\"130\" y=\"28\" width=\"30\" height=\"52\"/><rect class=\"p\" x=\"170\" y=\"36\" width=\"30\" height=\"44\"/></g><line x1=\"105\" x2=\"105\" y1=\"6\" y2=\"80\" class=\"t\"/></svg>",
+      "css": ".ds-season { width: 320px; height: auto; font-family: Archivo, sans-serif; } .ds-season .g { stroke: #d5d9e0; } .ds-season .p { fill: color-mix(in srgb, #2b3fe0 7%, #fff); stroke: #b2b8c3; stroke-width: 1.25; } .ds-season .l { fill: #2b3fe0; } .ds-season .now { stroke: #2b3fe0; stroke-width: 1.75; } .ds-season .t { stroke: #2b3fe0; stroke-width: 1.5; }"
+    },
+    {
+      "name": "Race Card Split Bar",
+      "kind": "custom",
+      "refersTo": "split-bar-segment",
+      "description": "Mock room phase split: segments with a 3px bottom edge, green when past, blue when current.",
+      "html": "<ol class=\"ds-split\"><li class=\"past\"><span>Intro</span><span>5m</span></li><li class=\"now\"><span>Code</span><span>30m</span></li><li><span>Test</span><span>10m</span></li></ol>",
+      "css": ".ds-split { list-style: none; margin: 0; padding: 0; display: flex; gap: 3px; width: 360px; font: 13px Archivo, sans-serif; color: #11141b; } .ds-split li { min-width: 0; display: flex; justify-content: space-between; gap: 6px; padding: 8px 8px 6px; background: #eceef2; border-bottom: 3px solid #b2b8c3; } .ds-split li:nth-child(1) { flex: 5; } .ds-split li:nth-child(2) { flex: 30; } .ds-split li:nth-child(3) { flex: 10; } .ds-split .past { border-bottom-color: #0d7a5c; } .ds-split .now { border-bottom-color: #2b3fe0; background: #e5e9ff; font-weight: 650; }"
+    },
+    {
+      "name": "Code Block",
+      "kind": "card",
+      "refersTo": "code-block",
+      "description": "Code Paper surface with a titled bar, mono gutter, and a highlighted line.",
+      "html": "<figure class=\"ds-code\"><div class=\"ds-code-bar\">two_sum.py</div><pre><span class=\"ln\">def two_sum(nums, target):</span><span class=\"ln hl\">    seen = {}</span><span class=\"ln\">    return seen</span></pre></figure>",
+      "css": ".ds-code { margin: 0; width: 360px; border: 1px solid #d5d9e0; border-radius: 8px; background: #f8f9fb; overflow: hidden; } .ds-code-bar { padding: 4px 12px; border-bottom: 1px solid #e7eaf0; background: #fff; font: 600 12px Archivo, sans-serif; color: #454c5b; } .ds-code pre { margin: 0; padding: 12px 0; font: 400 13px/1.7 \"Martian Mono\", monospace; font-stretch: 84%; counter-reset: ln; } .ds-code .ln { display: block; padding: 0 20px 0 calc(4ch + 20px); position: relative; white-space: pre; } .ds-code .ln::before { counter-increment: ln; content: counter(ln); position: absolute; left: 0; width: 3.4ch; text-align: right; color: #5f6778; opacity: 0.7; } .ds-code .hl { background: rgb(43 63 224 / 0.1); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Training Block",
+    "overview": "Offer Ready treats interview prep as an athletic training season, not a backlog. A coach's periodization log sets the grammar: one season, a weekly load, a race day. The owner opens it at night and sees the day and phase, the distance to offer day, and tonight's three items with times. The surface refuses the category default of a sidebar plus a grid of topic cards with progress bars. Structure comes from hairline rules, tabular numerals and shape-coded marks instead of card chrome.\n\nThe voice is precise and instrument-like, with a textbook warmth in the reading pages. Graphite neutrals tinted cool carry everything. One timing-blue accent is reserved for action, selection and the live week. Numbers are the hero: LeetCode numbers and week counts are set as race-bib numerals in condensed Archivo, and every place data lives uses tabular figures. Radii are small, like instrument bezels.\n\nLight (\"day session\") and dark (\"night session\") are both first-class and follow the OS unless the owner picks one. The Season Chart on Home is the signature moment: the whole season drawn as a periodization chart, this week's bar filling as the owner studies, scrubbable by pointer or arrow keys with a pace line showing ahead or behind.",
+    "keyCharacteristics": [
+      "Hairline rules and tabular numerals instead of card chrome; a 2px ink rule opens a list or table, 1px lines separate rows.",
+      "Race-bib numerals (Archivo at 62% width, weight 850) for problem numbers, week numbers, countdowns and stats.",
+      "One accent, timing blue, on action, selection and \"now\".",
+      "Difficulty coded by shape and color together (circle green, diamond amber, triangle red), readable in both themes.",
+      "Small radii (3, 5, 8px), flat surfaces, shadows only on floating layers.",
+      "A dark graphite rail on the left in both themes; the content canvas flips, the rail stays night."
+    ],
+    "rules": [
+      { "name": "The One Blue Rule", "body": "Timing blue marks action, selection or \"now\" and nothing else. Status and difficulty never borrow it.", "section": "colors" },
+      { "name": "The Shape Plus Hue Rule", "body": "Easy, Medium, Hard and problem status are always a color with a distinct shape; hue alone never carries meaning.", "section": "colors" },
+      { "name": "The Night Rail Rule", "body": "The rail is graphite in both themes; only the canvas flips.", "section": "colors" },
+      { "name": "The Bib Numeral Rule", "body": "Any number that is an identity or a score (LeetCode number, week, countdown, tally) is a condensed tabular bib numeral, never body text.", "section": "typography" },
+      { "name": "The Tabular Rule", "body": "Wherever data lives, use tabular figures so columns and timers do not jitter.", "section": "typography" },
+      { "name": "The Flat-At-Rest Rule", "body": "Content surfaces carry no shadow; only the selected segment, flashcard and floating layers do.", "section": "elevation" },
+      { "name": "The Top Rule Rule", "body": "Emphasis on a block is a top rule (2px ink for lists, 3px for cards such as pipeline cards and example blocks), never a colored side stripe.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do open lists and tables with a 2px ink rule and separate rows with 1px hairlines; use a 3px top rule for emphasized blocks.",
+      "Do set identity and score numbers as condensed bib numerals with tabular figures.",
+      "Do code Easy, Medium and Hard with both color and shape (circle, diamond, triangle) in both themes.",
+      "Do reserve timing blue for action, selection and the live week.",
+      "Do keep radii at 3, 5 or 8px and surfaces flat; put shadows only on floating layers.",
+      "Do keep focus visible (2px accent outline) and honor reduced motion via the duration tokens.",
+      "Do let the Season Chart stay the signature; new surfaces borrow its hairline-and-numeral grammar."
+    ],
+    "donts": [
+      "Don't return to a sidebar-plus-grid-of-topic-cards-with-progress-bars layout; the product brief rejects it.",
+      "Don't use colored side-stripe borders on cards or rows; use a top rule instead (the owner replaced them).",
+      "Don't make it look like a generic Tailwind/shadcn dashboard or a GeeksforGeeks clone.",
+      "Don't rely on hue alone for difficulty, status or pace.",
+      "Don't introduce a second accent color or large pill radii."
+    ]
+  }
+}

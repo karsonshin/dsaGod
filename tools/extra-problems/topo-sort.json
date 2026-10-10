@@ -1,0 +1,5 @@
+[
+  [310, "Peel leaves by degree 1 (Kahn on a tree)"],
+  [802, "Kahn on the reversed graph (out-degree)"],
+  [1136, "Kahn by layers: longest chain is the answer"]
+]
