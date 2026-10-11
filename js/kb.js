@@ -26,7 +26,7 @@
     return w;
   }
   function tokens(s) {
-    var t = String(s || '').toLowerCase().replace(/c\+\+/g, ' cpp ').replace(/[’']s/g, '').replace(/o\([^)]*\)/g, ' bigo ');
+    var t = String(s || '').toLowerCase().replace(/c\+\+/g, ' cpp ').replace(/(^|[^a-z])(?:a\*|a-star|astar)(?![a-z])/g, '$1 a star ').replace(/(^|[^a-z])k-?means(?![a-z])/g, '$1 k means ').replace(/[’']s/g, '').replace(/o\([^)]*\)/g, ' bigo ');
     var m = t.match(/[a-z0-9_]+/g);
     return m ? m.filter(function (w) { return !STOP[w]; }).map(stem) : [];
   }
