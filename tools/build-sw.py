@@ -22,12 +22,18 @@ self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k.startsWith('offer-ready-') && k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
   // The on-device AI (ai/) is cached by its own runtime; leave it alone so the 290 MB model is not stored twice.
-  if (e.request.method !== 'GET' || new URL(e.request.url).origin !== location.origin || new URL(e.request.url).pathname.indexOf('/ai/') >= 0) return;
-  e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(hit => hit || fetch(e.request).then(r => {
-    if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); }
-    return r;
-  }).catch(() => e.request.mode === 'navigate' ? caches.match('index.html') : Response.error())));
+  if (e.request.method !== 'GET' || url.origin !== location.origin || url.pathname.indexOf('/ai/') >= 0) return;
+  const stable = /\/(fonts|vendor|icons)\//.test(url.pathname);   // never changes between builds: serve from the cache first
+  const fetchFresh = () => fetch(e.request).then(r => { if (r.ok) { const copy = r.clone(); caches.open(CACHE).then(c => c.put(e.request, copy)); } return r; });
+  if (stable) {
+    e.respondWith(caches.match(e.request, { ignoreSearch: true }).then(hit => hit || fetchFresh()));
+  } else {
+    // Everything else: ask the network first (so a new build shows up on the next load), fall back to the cache when offline or slow.
+    const p = fetchFresh().catch(() => null), slow = new Promise(res => setTimeout(() => res(null), 4000));
+    e.respondWith(Promise.race([p, slow]).then(r => r || caches.match(e.request, { ignoreSearch: true })).then(r => r || p).then(r => r || (e.request.mode === 'navigate' ? caches.match('index.html') : Response.error())));
+  }
 });
 """ % (version, __import__("json").dumps(files))
 open(os.path.join(ROOT, "sw.js"), "w", encoding="utf-8").write(js)

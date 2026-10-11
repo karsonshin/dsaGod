@@ -28,3 +28,7 @@
 .gs-sw.path { background: var(--ok-soft); border-color: var(--ok); }
 .gs-sw.wall { background: repeating-linear-gradient(45deg, var(--ink-3) 0 2px, var(--surface-2) 2px 5px); border-color: var(--ink-3); }
 @media (max-width: 480px) { .gs-grid, .gs-row { gap: 2px; } .gs-cell { font-size: var(--text-2xs); } .gs-cell.mk { font-size: var(--text-xs); } }
+
+/* A* visualizer extras */
+.as-compare { margin: 0; font-size: var(--text-sm); display: flex; flex-wrap: wrap; gap: var(--s-1) var(--s-3); }
+.as-compare .as-on { color: var(--ink); font-weight: 650; }

@@ -65,6 +65,7 @@
           '<div id="auto-bk" class="stack-2"></div>' +
           '<p class="field-hint">Your progress lives in this browser, tied to where index.html is saved. Keep opening it from the same place in the same browser, and do not move or rename the folder. An exported or automatic backup file is the way to recover if browser data is ever cleared.</p></div></section>' +
         '<section class="setting"><div><h2>Cloud sync</h2><p>Keep the same progress, history and documents on every device through a private GitHub repository that only you can open.</p></div><div class="setting-body"><div id="sync-box" class="stack-4"></div></div></section>' +
+        '<section class="setting"><div><h2>This version</h2><p>Which build of the app this browser is running. If a change you expect is missing, load the latest files.</p></div><div class="setting-body"><p class="field-hint" id="build-line">Checking…</p><div class="btn-row"><button class="btn" type="button" data-act="fresh">Load the latest files</button></div></div></section>' +
         '<section class="setting"><div><h2>Reset</h2><p>Start over from a clean slate.</p></div><div class="setting-body"><div class="btn-row"><button class="btn btn-danger" data-act="reset-all">' + OR.icon('trash', 'icon-sm') + 'Reset all progress…</button></div></div></section>' +
         '</div></div>';
 
@@ -116,6 +117,17 @@
         var btn = OR.$('button[type=submit]', syncBox); btn.disabled = true; btn.textContent = 'Connecting…';
         OR.sync.connect(OR.$('#sy-repo').value, OR.$('#sy-token').value).then(function () { OR.toast('Connected. This device is now syncing.', { tone: 'ok' }); }, function (err) { OR.toast(err.message, { tone: 'error' }); paintSync(); });
       });
+      (function () {
+        var line = OR.$('#build-line', main); if (!line) return;
+        var served = /^https?:$/.test(location.protocol) ? 'hosted site' : 'local file';
+        if (window.caches && caches.keys) caches.keys().then(function (ks) { var k = ks.filter(function (x) { return x.indexOf('offer-ready-') === 0; })[0]; line.textContent = 'Running from the ' + served + (k ? '. Build ' + k.replace('offer-ready-', '') + '.' : '. No offline cache yet.'); }, function () { line.textContent = 'Running from the ' + served + '.'; });
+        else line.textContent = 'Running from the ' + served + '.';
+        OR.$('[data-act="fresh"]', main).addEventListener('click', async function () {
+          OR.store.flush();
+          try { if (navigator.serviceWorker) (await navigator.serviceWorker.getRegistrations()).forEach(function (r) { r.unregister(); }); if (window.caches) (await caches.keys()).forEach(function (k) { caches.delete(k); }); } catch (e) { /* nothing to clear */ }
+          location.reload();
+        });
+      })();
       OR.$('#s-hours').addEventListener('input', function (e) { OR.$('#s-hours-v').textContent = e.target.value; });
       OR.$('#season-form').addEventListener('submit', function (e) {
         e.preventDefault();

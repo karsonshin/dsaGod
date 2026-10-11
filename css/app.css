@@ -147,16 +147,13 @@ kbd {
 
 .tabbar { display: none; }
 
-/* Compact rail (tablet) */
-@media (max-width: 1179px) {
-  .app { --rail-cur: var(--rail-w-compact); grid-template-columns: var(--rail-w-compact) minmax(0, 1fr); }
-  .rail .brand { justify-content: center; padding: 0; }
-  .rail .brand-word, .rail .rail-group, .rail .nav-link .label, .rail .nav-count { display: none; }
-  .rail nav { padding: var(--s-2) var(--s-2); }
-  .rail .rail-foot { padding: var(--s-2); }
-  .rail .nav-link { justify-content: center; padding: 0; min-height: 40px; }
-  .rail ul + .rail-group { display: block; height: 1px; padding: 0; margin: var(--s-3) var(--s-2); background: var(--rail-2); font-size: 0; }
-}
+/* Compact rail: icons only. Set by js/shell.js (and the head script) from the sidebar width, so dragging it wider brings the names back. */
+html[data-rail="compact"] .rail .brand { justify-content: center; padding: 0; }
+html[data-rail="compact"] .rail .brand-word, html[data-rail="compact"] .rail .rail-group, html[data-rail="compact"] .rail .nav-link .label, html[data-rail="compact"] .rail .nav-count, html[data-rail="compact"] .rail .rail-toggle-label { display: none; }
+html[data-rail="compact"] .rail nav { padding: var(--s-2) var(--s-2); }
+html[data-rail="compact"] .rail .rail-foot { padding: var(--s-2); }
+html[data-rail="compact"] .rail .nav-link { justify-content: center; padding: 0; min-height: 40px; }
+html[data-rail="compact"] .rail ul + .rail-group, html[data-rail="compact"] .rail ul + .rail-fold { margin-top: var(--s-2); border-top: 1px solid var(--rail-2); padding-top: var(--s-2); }
 
 /* Phone: bottom tabs, no rail */
 @media (max-width: 760px) {

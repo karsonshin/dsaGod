@@ -6,6 +6,7 @@ const files = process.argv.slice(2).length ? process.argv.slice(2).map(f => path
 const topicIds = new Set(); fs.readFileSync(path.join(root, 'data/curriculum.js'), 'utf8').replace(/\{ id: '([a-z0-9-]+)'/g, (_, i) => topicIds.add(i));
 const problems = new Set(); fs.readFileSync(path.join(root, 'data/problems.js'), 'utf8').replace(/"lc": (\d+)/g, (_, n) => problems.add(n));
 const sheets = new Set(['big-o', 'sorting', 'patterns', 'graphs', 'dp-catalog', 'languages', 'night-before', 'python', 'big-o-algorithms', 'data-structures', 'edge-cases', 'study-playbook', 'talk-track']);
+const CATS = new Set(['Graphs: shortest paths','Graphs: search','Graphs: spanning trees and connectivity','Graphs: flow and matching','Graphs: trees','Graphs: other','Game and AI search','Optimization and heuristics','Machine learning basics','Strings: matching','Strings: structures','Strings: sequence alignment and compression','Number theory','Numerical methods','Combinatorics and randomness','Geometry','Data structures: advanced','Data structures: probabilistic','Range queries and offline techniques','DP optimizations','Searching and sorting: advanced','Puzzles and simulations']);
 let bad = 0, count = 0; const ids = new Set();
 const say = (f, id, m) => { bad++; console.log(`  ${path.basename(f)} ${id}: ${m}`); };
 for (const f of files) {
@@ -20,6 +21,14 @@ for (const f of files) {
     if (!e.a || e.a.length < 25) say(f, e.id, 'direct answer `a` missing or too short');
     if (e.a && e.a.length > 700) say(f, e.id, 'direct answer `a` is too long (keep it to a few sentences)');
     if (!e.tags || e.tags.length < 5) say(f, e.id, 'needs tags (search words)');
+    if (e.cat && !CATS.has(e.cat)) say(f, e.id, 'unknown cat "' + e.cat + '"');
+    if (path.basename(f).startsWith('cat-')) {   // algorithm catalog files carry more required fields
+      if (!e.cat) say(f, e.id, 'catalog entry needs `cat`');
+      if (!e.more || e.more.length < 60) say(f, e.id, 'catalog entry needs `more`');
+      if (!e.cx) say(f, e.id, 'catalog entry needs `cx`');
+      if (!e.code || !e.code.py) say(f, e.id, 'catalog entry needs code.py');
+      if ((e.q || []).length < 6) say(f, e.id, 'catalog entry needs at least 6 phrasings');
+    }
     for (const s of e.see || []) {
       const m = s.match(/^#\/(topic|cheatsheets|problem|system-design|cs|flashcards|behavioral)(?:\/([^/]+))?/);
       if (!m) { say(f, e.id, 'bad see link ' + s); continue; }
