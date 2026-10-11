@@ -8,13 +8,13 @@
 (function () {
   'use strict';
   var OR = window.OR, esc = OR.esc, CHAT = 'ai:chat';
-  var SUGGEST = ['Explain Kadane’s algorithm', 'How do I sort a list in Python?', 'Show me BFS code', 'What are the time complexities of heap operations?', 'How do I design a URL shortener?', 'When should I use a hash map vs a set?'];
+  var SUGGEST = ['How do I sort a list in Python?', 'Show me BFS code', 'Explain Kadane’s algorithm', 'How do I implement a min heap?', 'When should I use a hash map vs a set?', 'How does consistent hashing work?'];
   var msgs = [], busy = false, abort = null, root = null, drawer = null, scrim = null, ui = {};
 
   /* ---------- History (kept with your progress so it follows you between devices) ---------- */
   function load() { var h = OR.store.get().drafts[CHAT]; msgs = Array.isArray(h) ? h.filter(function (m) { return m && typeof m.text === 'string'; }) : []; }
   var saveSoon = OR.debounce(function () {
-    var keep = msgs.slice(-30).map(function (m) { return { role: m.role, text: m.text.slice(0, 12000), model: m.model ? m.model.slice(0, 6000) : undefined, mode: m.mode, dropped: m.dropped, sources: m.sources, ts: m.ts }; });
+    var keep = msgs.slice(-30).map(function (m) { return { role: m.role, text: m.text.slice(0, 12000), model: m.model ? m.model.slice(0, 6000) : undefined, mode: m.mode, dropped: m.dropped, sources: m.sources, qa: m.qa, related: m.related, lesson: m.lesson ? m.lesson.slice(0, 9000) : undefined, ts: m.ts }; });
     OR.store.update(function (s) { s.drafts[CHAT] = keep; });
   }, 800);
   function aiOn() { return OR.localai && OR.localai.enabled() && OR.localai.supported(); }
@@ -43,15 +43,26 @@
   }
   function badge(m) {
     if (m.role !== 'assistant') return '';
-    return m.mode === 'local' ? '<p class="ai-badge">' + OR.icon('check', 'icon-sm') + 'Straight from your lessons</p>'
+    return m.mode === 'direct' ? '<p class="ai-badge">' + OR.icon('check', 'icon-sm') + 'Direct answer: written, and its code tested by running it</p>'
+      : m.mode === 'local' ? '<p class="ai-badge">' + OR.icon('check', 'icon-sm') + 'Straight from your lessons</p>'
       : m.mode === 'none' ? '<p class="ai-badge" data-tone="warn">' + OR.icon('info', 'icon-sm') + 'Not in your lessons</p>' : '';
   }
+  function chips(ids, label) {
+    var list = (ids || []).map(function (id) { return OR.qaEngine.get(id); }).filter(Boolean);
+    return list.length ? '<div class="ai-related"><p class="faint">' + esc(label) + '</p><div class="ai-chips">' + list.map(function (e) { return '<button class="chip" type="button" data-ai="qa" data-id="' + esc(e.id) + '">' + esc(e.title) + '</button>'; }).join('') + '</div></div>' : '';
+  }
+  function directHTML(m, e) {
+    var see = OR.qaEngine.links(e), src = see.length ? '<details class="ai-sources" open><summary>Learn more in your lessons</summary><ol>' + see.map(function (x) { return '<li><a href="' + esc(x.href) + '">' + esc(x.title) + '</a></li>'; }).join('') + '</ol></details>' : '';
+    var lesson = m.lesson ? '<details class="ai-lessons"><summary>Walk through it step by step (from your lesson)</summary><div class="prose ai-body">' + renderBody(m.lesson) + '</div></details>' : '';
+    return '<div class="ai-msg ai-bot">' + badge(m) + '<div class="prose ai-body">' + renderBody(OR.qaEngine.markdown(e)) + '</div>' + src + lesson + chips(m.related, 'Related questions') + '</div>';
+  }
   function msgHTML(m) {
+    if (m.role === 'assistant' && m.mode === 'direct') { var qe = OR.qaEngine.get(m.qa); if (qe) return directHTML(m, qe); }
     if (m.role === 'user') return '<div class="ai-msg ai-user"><p>' + esc(m.text).replace(/\n/g, '<br>') + '</p></div>';
     var model = m.model !== undefined
       ? '<details class="ai-lessons ai-model"' + (m.writing ? ' open' : '') + '><summary>Simpler wording from the small on-device model (experimental: it can be wrong, so check it against the lesson text above)</summary><div class="prose ai-body">' +
         (m.model ? renderBody(m.model) : '<p class="faint">' + esc(m.wait || 'Writing…') + '</p>') + '</div>' + (m.dropped ? '<p class="faint">' + m.dropped + ' sentence' + (m.dropped > 1 ? 's' : '') + ' it wrote were removed because the lessons do not support them.</p>' : '') + '</details>' : '';
-    return '<div class="ai-msg ai-bot">' + badge(m) + '<div class="prose ai-body">' + renderBody(m.text) + '</div>' + sourcesHTML(m) + model + '</div>';
+    return '<div class="ai-msg ai-bot">' + badge(m) + '<div class="prose ai-body">' + renderBody(m.text) + '</div>' + (m.mode === 'none' || m.related ? chips(m.related, m.mode === 'none' ? 'Questions I can answer that are close to yours' : 'Did you mean one of these?') : '') + sourcesHTML(m) + model + '</div>';
   }
   function paintMode() {
     var s = OR.localai ? OR.localai.state() : { status: 'idle' }, on = OR.localai && OR.localai.enabled();
@@ -74,6 +85,14 @@
     el.outerHTML = msgHTML(m); ui.log.scrollTop = ui.log.scrollHeight;
   }
   function paintBusy() { ui.send.textContent = busy ? 'Stop' : 'Ask'; ui.send.classList.toggle('btn-primary', !busy); }
+
+  /* ---------- Questions the tutor could not answer, kept so the answer bank can grow ---------- */
+  function missed() { var m = OR.store.get().drafts['ai:missed']; return Array.isArray(m) ? m : []; }
+  function noteMissed(q) {
+    q = String(q).trim().slice(0, 200); var list = missed();
+    if (!q || list.indexOf(q) >= 0) return;
+    OR.store.update(function (s) { s.drafts['ai:missed'] = missed().concat([q]).slice(-100); });
+  }
 
   /* ---------- Asking ---------- */
   function pageContext() {
@@ -105,6 +124,13 @@
     OR.assistant.open();
     msgs.push({ role: 'user', text: opts.display || text, ts: Date.now() });
     var page = pageContext(), query = opts.selection ? opts.selection + (opts.kind === 'code' ? ' code example' : '') : text;
+    var qa = OR.qaEngine.answer(opts.selection || text, { min: opts.selection ? 6 : 0 });
+    if (qa.confident && !(opts.selection && opts.kind === 'define' && qa.sim < 0.6)) {
+      var topicSee = (qa.entry.see || []).map(function (h) { return h.match(/^#\/topic\/([^/]+)/); }).filter(Boolean)[0];
+      var tw = topicSee ? OR.kb.teach(topicSee[1], { text: text }) : null;
+      msgs.push({ role: 'assistant', text: qa.entry.title, mode: 'direct', qa: qa.entry.id, related: qa.related.map(function (e) { return e.id; }), lesson: tw ? tw.md : '', ts: Date.now(), sources: [] });
+      paintLog(true); saveSoon(); return;
+    }
     var defs = opts.selection && opts.kind !== 'code' ? OR.kb.define(opts.selection, 4) : [];
     var local = OR.kb.answer(query, { page: page, teach: !!opts.selection && opts.kind !== 'code' });
     var bot = { role: 'assistant', text: '', mode: 'local', ts: Date.now(), sources: [] };
@@ -112,11 +138,14 @@
     try {
       var lead = defs.length ? '### In plain words\n\n' + defs.map(function (g) { return '- **' + g.term + '**: ' + g.def; }).join('\n') + '\n\n' : '';
       if (!local.found && !defs.length) {
+        noteMissed(text);
         bot.mode = 'none';
         bot.text = 'I could not find that in your lessons, so I will not guess.' + (local.hits.length ? '\n\nThe closest passages are:\n\n' + local.hits.map(function (h) { return '- [' + h.chunk.title + ': ' + h.chunk.label + '](' + h.chunk.href + ')'; }).join('\n') : '') +
           '\n\nTry other words (for example the name of the data structure or algorithm), or search with **Ctrl K**.';
+        bot.related = qa.all ? qa.all.slice(0, 4).map(function (x) { return x.entry.id; }) : []; bot.suggest = true;
       } else {
         bot.text = (opts.selection && local.found && !local.teach ? lead + 'Here is what your lessons say about “' + opts.selection.slice(0, 80) + '”:\n\n' : lead) + (local.found ? local.md : '');
+        bot.related = qa.all ? qa.all.slice(0, 4).map(function (x) { return x.entry.id; }) : [];
         bot.sources = (local.found ? local.sources : []).concat(defs.map(function (g) { return { title: 'Meaning of "' + g.term + '"', href: g.href }; }));
         if (aiOn() && local.found) {
           bot.model = ''; bot.writing = true; bot.wait = OR.localai.state().status === 'ready' ? 'Writing…' : 'Loading the on-device AI (first time only)…'; paintLast();
@@ -161,18 +190,22 @@
       : s.status === 'loading' ? '<p>Loading the model… <strong>' + Math.round((s.pct || 0) * 100) + '%</strong><br><span class="faint">' + esc(s.text) + '</span></p><progress max="1" value="' + (s.pct || 0) + '"></progress>'
       : s.status === 'ready' ? '<p>' + OR.icon('check', 'icon-sm') + ' The model is loaded and ready.</p>'
       : s.status === 'error' ? '<p class="banner" data-tone="warn">' + OR.icon('warning') + '<span>Could not load: ' + esc(s.text) + '</span></p>' : '';
+    var mlist = missed(), missedHTML = '<h3>Questions I could not answer</h3>' + (mlist.length ? '<p class="muted">' + mlist.length + ' so far. Copy the list and send it to whoever maintains this app (or add answers to <code>data/qa/</code>), and they get answered next time.</p><div class="btn-row"><button class="btn" type="button" data-ai="copy-missed">Copy the list</button><button class="btn btn-ghost" type="button" data-ai="clear-missed">Clear it</button></div>' : '<p class="muted">Nothing yet. When I cannot answer, the question is kept here.</p>');
     return '<h3>On-device AI</h3><p class="muted">A small open model (' + esc(L.modelName) + ', about 290 MB) that runs in this browser on your graphics card. It is part of this site, so nothing you type is sent anywhere, and after the first load it works offline. It is an experiment: it rewrites a lesson passage in simpler words, and because it is small it sometimes gets facts wrong. Every answer is built from your lesson text first, and the model’s wording appears below it, labelled, only if you turn it on.</p>' +
       status + '<div class="btn-row">' +
       (!why && !on ? '<button class="btn btn-primary" type="button" data-ai="enable">Turn on and download (~290 MB, one time)</button>' : '') +
-      (!why && on && s.status !== 'loading' ? '<button class="btn" type="button" data-ai="disable">Turn off</button>' : '') + '</div>';
+      (!why && on && s.status !== 'loading' ? '<button class="btn" type="button" data-ai="disable">Turn off</button>' : '') + '</div>' + missedHTML;
   }
   function onClick(e) {
     var b = e.target.closest('[data-ai]'); if (!b) return;
     var a = b.dataset.ai;
     if (a === 'suggest') ask(b.textContent);
+    else if (a === 'qa') { var qe2 = OR.qaEngine.get(b.dataset.id); if (qe2) ask(qe2.q[0]); }
     else if (a === 'close') OR.assistant.close();
     else if (a === 'clear') { if (abort) abort.abort(); msgs = []; saveSoon(); paintLog(true); }
     else if (a === 'settings') { ui.settings.hidden = !ui.settings.hidden; if (!ui.settings.hidden) ui.settings.innerHTML = settingsHTML(); }
+    else if (a === 'copy-missed') { OR.copyText(missed().join(String.fromCharCode(10))); OR.toast('Copied ' + missed().length + ' questions.', { tone: 'ok' }); }
+    else if (a === 'clear-missed') { OR.store.update(function (s2) { s2.drafts['ai:missed'] = []; }); ui.settings.innerHTML = settingsHTML(); }
     else if (a === 'enable') { OR.localai.setEnabled(true); paintMode(); OR.localai.load().catch(function () { /* shown in the settings */ }); ui.settings.innerHTML = settingsHTML(); }
     else if (a === 'disable') { OR.localai.setEnabled(false); OR.localai.unload(); paintMode(); ui.settings.innerHTML = settingsHTML(); OR.toast('On-device AI turned off. Answers come from the lessons only.'); }
     else if (a === 'run') {
@@ -285,5 +318,6 @@
   OR.actions = OR.actions || {};
   OR.actions.ai = function () { OR.assistant.toggle(); };
   OR.on('restored', function () { load(); if (ui.log) paintLog(true); });
+  OR.on('lang', function () { if (ui.log) paintLog(false); });
   document.addEventListener('DOMContentLoaded', function () { load(); bindSelection(); });
 })();

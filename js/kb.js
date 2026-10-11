@@ -17,7 +17,7 @@
       .replace(/\|/g, ' | ').replace(/[ \t]+/g, ' ').replace(/\n{3,}/g, '\n\n').trim();
   }
   var STOP = {};
-  'a an the of to in on for and or is are was be it its this that these those with as at by from into how do does did i you my me we can could would should what whats which when where why who about so if then than not no vs via use using used between versus explain show tell describe teach simple simply please help understand mean meaning work works like five give example examples code write build make'.split(' ').forEach(function (w) { STOP[w] = 1; });
+  'a an the of to in on for and or is are was be it its this that these those with as at by from into how do does did i you my me we can could would should what whats which when where why who about so if then than not no vs via use using used between versus explain show tell describe teach simple simply please help understand mean meaning work works like five give example examples code write build make implement implementation create find'.split(' ').forEach(function (w) { STOP[w] = 1; });
   function stem(w) {
     if (w.length > 5 && /ies$/.test(w)) return w.slice(0, -3) + 'y';
     if (w.length > 5 && /(ing|ed)$/.test(w)) return w.replace(/(ing|ed)$/, '');
@@ -38,6 +38,14 @@
     sorted: 'sort', hashmap: 'hash dict', dict: 'hash map', memo: 'memoization cache', memoization: 'dynamic programming cache',
     backtrack: 'backtracking', bitmask: 'bits dp', gcd: 'math', sharding: 'shard partition', shard: 'sharding partition', loadbalancer: 'load balancer'
   };
+  // The other direction: the words "dynamic programming" also mean the abbreviation "dp".
+  function expandBack(toks) {
+    var out = [];
+    Object.keys(ALIAS).forEach(function (k) {
+      var L = tokens(ALIAS[k]); if (L.length >= 2 && toks.indexOf(k) < 0 && L.every(function (x) { return toks.indexOf(x) >= 0; })) out.push(k);
+    });
+    return out;
+  }
   // Names that point straight at one lesson.
   var HINT = { bfs: 'graphs', dfs: 'graphs', lru: 'design-ds', dsu: 'union-find', dijkstra: 'shortest-paths', kruskal: 'mst', prim: 'mst', heapq: 'heaps', bisect: 'binary-search', deque: 'queues', memoization: 'dp-1d', memo: 'dp-1d', topological: 'topo-sort', kadane: 'kadane', bitmask: 'bitmask-dp', trie: 'tries', fenwick: 'fenwick', kmp: 'string-algos' };
   function expand(toks) { // synonyms count for half as much as the words that were typed
@@ -200,7 +208,7 @@
     var all = search(q, { limit: 40, page: opts.page }); build();
     // A passage must name enough of what was asked (60% of the meaningful words), so a single rare word cannot pull in an unrelated page.
     var hits = all.filter(function (h) { return h.matched >= h.need; });
-    if (!hits.length || hits[0].score < 2.2) return { found: false, md: '', sources: [], hits: all.slice(0, 5) };
+    if (!hits.length || hits[0].score < 2.2) return { found: false, md: '', sources: [], hits: hits.slice(0, 5) };   // only passages that really name the question's words
     var wantCode = /\b(code|implement|write|syntax|snippet|how (do|to|can|would) i|build|example|template|show me)\b/i.test(q);
     var wantExplain = /\b(explain|what is|what are|what's|why|intuition|understand|teach|simple|eli5|meaning|define)\b/i.test(q);
     var wantCx = /\b(complexity|complexities|big.?o|runtime|time|space|cost|fast|slow)\b/i.test(q);
@@ -302,5 +310,5 @@
     return { text: out.join('\n\n'), sources: srcs, top: hits.length ? hits[0].score : 0 };
   }
 
-  OR.kb = { build: build, search: search, answer: answer, teach: teach, define: define, context: context, size: function () { build(); return chunks.length; }, tokens: tokens };
+  OR.kb = { build: build, search: search, answer: answer, teach: teach, define: define, expand: expand, expandBack: expandBack, context: context, size: function () { build(); return chunks.length; }, tokens: tokens };
 })();
