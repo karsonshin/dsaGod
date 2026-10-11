@@ -1,0 +1,64 @@
+/* Shell: resizable sidebar (wide screens), phone menu dropdown, phone touch comfort. */
+
+/* Sidebar drag handle: only where the full rail shows */
+.rail-resizer { display: none; }
+@media (min-width: 1180px) {
+  .rail-resizer { display: block; position: fixed; top: 0; left: calc(var(--rail-w) - 4px); width: 9px; height: 100vh; z-index: 40; cursor: col-resize; touch-action: none; }
+  .rail-resizer::after { content: ""; position: absolute; top: 0; bottom: 0; left: 4px; width: 2px; background: transparent; transition: background-color var(--dur-2) var(--ease-out); }
+  .rail-resizer:hover::after, .rail-resizer:focus-visible::after, .is-resizing .rail-resizer::after { background: var(--rail-accent); }
+  .rail-resizer:focus-visible { outline: none; }
+  .is-resizing, .is-resizing * { cursor: col-resize !important; user-select: none !important; }
+  .is-bare .rail-resizer { display: none; }
+}
+
+/* Top bar controls */
+.menu-btn { display: none; }
+.ai-btn { color: var(--accent-text); }
+
+@media (max-width: 760px) {
+  /* Menu button replaces the logo and the bottom tabs */
+  .menu-btn {
+    display: inline-flex; align-items: center; gap: var(--s-2); flex: 0 0 auto; min-height: 44px; padding: 0 var(--s-3) 0 var(--s-2);
+    border: 1px solid var(--line-strong); border-radius: var(--r-2); background: var(--surface); color: var(--ink); font-weight: 650; font-size: var(--text-sm);
+    max-width: 36vw; min-width: 0; flex-shrink: 1;
+  }
+  .menu-btn span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .menu-btn[aria-expanded="true"] .menu-chev, .menu-chev { transition: transform var(--dur-2) var(--ease-out); }
+  .topbar .brand { display: none; }
+  .tabbar { display: none !important; }
+  .app > main { padding: var(--s-5) var(--s-4) calc(var(--s-10) + env(safe-area-inset-bottom)); }
+  .topbar { min-height: var(--top-h); height: auto; padding-top: env(safe-area-inset-top); }
+  .search-trigger { flex: 0 0 44px; width: 44px; height: 44px; padding: 0; justify-content: center; }
+  .search-trigger span, .search-trigger kbd { display: none; }
+  .icon-btn { width: 44px; height: 44px; }
+
+  /* The menu: a dropdown under the top bar listing every section, closed until asked for */
+  .sheet {
+    position: fixed; inset: calc(var(--top-h) + env(safe-area-inset-top)) 0 auto 0; margin: 0; width: 100%; max-width: 100%;
+    max-height: calc(100dvh - var(--top-h) - env(safe-area-inset-top) - 16px); border-radius: 0 0 var(--r-3) var(--r-3);
+    padding: var(--s-2) var(--s-4) var(--s-5); box-shadow: var(--shadow-2);
+  }
+  .sheet[open] { animation: drop-in var(--dur-3) var(--ease-out); }
+  .sheet::backdrop { background: var(--scrim); }
+  .sheet-head { display: none; }
+  .sheet .rail-group { padding: var(--s-4) var(--s-2) var(--s-1); }
+  .sheet .nav-link { min-height: 46px; font-size: var(--text-md); }
+  .sheet ul { grid-template-columns: 1fr 1fr; }
+  @keyframes drop-in { from { transform: translateY(-10px); opacity: 0; } }
+
+  /* Touch comfort: 16px fields (no zoom-on-focus in iOS), 44px targets */
+  input, select, textarea, .input, .select, .textarea { font-size: 16px; }
+  .btn, .select, .input { min-height: 44px; }
+  .seg button { min-height: 40px; }
+  a, button, summary, label { -webkit-tap-highlight-color: transparent; }
+  button, a, summary, input, select { touch-action: manipulation; }
+}
+@media (max-width: 380px) { .sheet ul { grid-template-columns: 1fr; } }
+
+/* Phone lessons: get to "At a glance" sooner, and keep the section chips easy to hit */
+@media (max-width: 760px) {
+  .tp-hook { font-size: 1.05rem; line-height: 1.5; margin-top: var(--s-2); }
+  .tp-bib { font-size: var(--text-lg); }
+  .tp-toc a { min-height: 40px; display: inline-flex; align-items: center; }
+  .tp-meta { gap: var(--s-2) var(--s-4); }
+}

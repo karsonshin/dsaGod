@@ -557,7 +557,7 @@ public:
           { q: 'Can you derive it a different way?', a: '`dp[i] = dp[i & (i - 1)] + 1`: erase the lowest set bit to get a smaller number, then add back that one bit. Same cost.' },
           { q: 'Is the output space allowed to count?', a: 'The output is required, so the extra space beyond the answer is O(1).' },
           { q: 'Why is `i >> 1` always already computed?', a: 'For `i ≥ 1`, `i >> 1` is strictly smaller than `i`, and we fill the array in increasing order.' },
-          { q: 'What pattern is hiding in the output?', a: 'Each block from `2^k` to `2^(k+1) − 1` is the previous block plus 1, because those numbers have one extra high bit.' }
+          { q: 'What pattern is hiding in the output?', a: 'The block from `2^k` to `2^(k+1) − 1` is the whole list for `0` to `2^k − 1` plus 1 each, because those numbers have one extra high bit.' }
         ]
       },
       {
@@ -610,7 +610,7 @@ public:
           { q: 'Why does it terminate?', a: 'The carry is shifted left each round, so its lowest set bit rises by at least one position; after at most 32 rounds it has shifted out entirely.' },
           { q: 'How would you subtract?', a: '`a - b` is `a + (-b)`, and `-b` is `~b + 1`. Use the same adder twice.' },
           { q: 'Why does Python need the mask?', a: 'Python has no fixed width, so a negative number’s “carry” would keep growing leftward forever. Masking to 32 bits simulates the fixed width, and the last line turns a pattern above `0x7FFFFFFF` back into a negative number.' },
-          { q: 'What is the C++ trap?', a: 'Left-shifting a negative signed int, or overflowing a signed add, is undefined behavior before C++20. Doing the work in `unsigned` avoids it.' }
+          { q: 'What is the C++ trap?', a: 'Left-shifting a negative signed int is undefined behavior before C++20, and overflowing a signed add is undefined in every version. Doing the work in `unsigned` avoids both.' }
         ]
       }
     ],

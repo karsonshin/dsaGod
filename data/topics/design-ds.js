@@ -6,7 +6,7 @@
   var topic = {
     id: 'design-ds',
 
-    hook: 'A design question gives you **no input array**. It gives you a list of operations (`get`, `put`, `insert`, `remove`, `getRandom`, `next`, `peek`…), a speed target (almost always **O(1)**), and asks you to build the class. No single textbook structure meets the target, so the answer is to **glue two structures together**, each covering the other’s weakness. It is one of the most reliably asked interview categories, because it tests whether you really know what a hash map and a linked list can and cannot do. The famous ones: LRU Cache (146), Insert Delete GetRandom O(1) (380), Design Twitter (355) and the hard one, LFU Cache (460). If you only learn one pairing, make it **hash map + doubly linked list**.',
+    hook: 'A design question gives you **no input array**. It gives you a list of operations (`get`, `put`, `insert`, `remove`, `getRandom`, `next`, `peek`…), a speed target (almost always **O(1)**), and asks you to build the class. No single textbook structure meets the target, so the answer is to **glue two structures together**, each covering the other’s weakness. It is a common interview category, because it tests whether you really know what a hash map and a linked list can and cannot do. The famous ones: LRU Cache (146), Insert Delete GetRandom O(1) (380), Design Twitter (355) and the hard one, LFU Cache (460). If you only learn one pairing, make it **hash map + doubly linked list**.',
 
     cues: [
       'The statement lists **methods** of a class and says each must be **O(1)** (or O(log n)). There is no function to write, only an object that remembers things.',
@@ -1041,7 +1041,7 @@ public:
         followups: [
           { q: 'Why can `low` be updated without a search?', a: 'It only decreases when a new key arrives (to 1), and it only increases when a use empties the lowest bucket, in which case the key just moved to the very next count. No gaps can appear, so `low + 1` always holds a key.' },
           { q: 'What is the difference from LRU, concretely?', a: 'LRU keeps one list ordered by recency. LFU needs recency **inside** each count, hence one ordered list per count, plus the pointer to the lowest non-empty count.' },
-          { q: 'What about a key that was hot long ago and is never used now?', a: 'Pure LFU keeps it forever because its count is high (cache pollution). Real systems decay or age the counts (for example Redis’s LFU halves counters over time).' },
+          { q: 'What about a key that was hot long ago and is never used now?', a: 'Pure LFU keeps it forever because its count is high (cache pollution). Real systems decay or age the counts (for example Redis’s LFU lowers a key’s counter if it goes unused for a while).' },
           { q: 'Why `put` on an existing key must not evict?', a: 'The key count does not change, so the cache is not growing. Check for the key first; only a new key can need room.' }
         ]
       }

@@ -30,7 +30,7 @@
           h.sec('The 12 bugs that fail most Python solutions', h.T(['#', 'Bug', 'Fix'], [
             ['1', 'Mutating a list or dict while looping over it', 'Iterate over a copy, or build a new list'],
             ['2', '`[[0]*m]*n` shares one row n times', '`[[0]*m for _ in range(n)]`'],
-            ['3', 'Default `def f(x=[])` is shared by all calls', '`x=None`, then `x = x or []`'],
+            ['3', 'Default `def f(x=[])` is shared by all calls', '`x=None`, then `if x is None: x = []`'],
             ['4', '`/` returns float; `//` floors toward -inf: `-7//2 == -4`', '`int(a/b)` truncates toward 0; keep ints exact'],
             ['5', 'No visited set: infinite loop on cycles and grids', 'Mark when you enqueue, not when you pop'],
             ['6', '`heapq` is a min-heap; ties compare the next tuple item', 'Push `-x`; add a counter `(d, i, node)`'],

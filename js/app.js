@@ -180,7 +180,7 @@
   /* ---------- Navigation model ---------- */
   var NAV = [
     { items: [['today', 'Today', '#/', 'today'], ['plan', 'Plan', '#/plan', 'plan'], ['progress', 'Progress', '#/progress', 'progress']] },
-    { label: 'Learn', items: [['roadmap', 'Roadmap', '#/roadmap', 'roadmap'], ['topics', 'Topics', '#/topics', 'topics'], ['viz', 'Visualizers', '#/viz', 'viz'], ['cheatsheets', 'Cheat sheets', '#/cheatsheets', 'sheet']] },
+    { label: 'Learn', items: [['assistant', 'AI tutor', '#/assistant', 'ai'], ['roadmap', 'Roadmap', '#/roadmap', 'roadmap'], ['topics', 'Topics', '#/topics', 'topics'], ['viz', 'Visualizers', '#/viz', 'viz'], ['cheatsheets', 'Cheat sheets', '#/cheatsheets', 'sheet']] },
     { label: 'Practice', items: [['problems', 'Problems', '#/problems', 'problems'], ['detective', 'Pattern Detective', '#/detective', 'detective'], ['review', 'Review queue', '#/review', 'review'], ['flashcards', 'Flashcards', '#/flashcards', 'cards'], ['playground', 'Playground', '#/playground', 'code'], ['mock', 'Mock interview', '#/mock', 'mock']] },
     { label: 'Beyond code', items: [['systemDesign', 'System design', '#/system-design', 'system'], ['behavioral', 'Behavioral', '#/behavioral', 'behavioral'], ['cs', 'CS fundamentals', '#/cs', 'cpu']] },
     { label: 'Get hired', items: [['resume', 'Resume studio', '#/resume', 'resume'], ['pipeline', 'Pipeline', '#/pipeline', 'columns'], ['career', 'Career & offers', '#/career', 'briefcase'], ['resources', 'Resources', '#/resources', 'library']] }
@@ -233,6 +233,7 @@
   function setActiveNav(ctx) {
     var key = NAV_FOR[ctx.view] || ctx.view;
     document.body.dataset.view = key;
+    var nav = OR.navItems().filter(function (it) { return it[0] === key; })[0], ml = OR.$('#menu-label'); if (ml) ml.textContent = nav ? nav[1] : 'Menu';
     OR.$$('[data-nav]').forEach(function (a) {
       if (a.dataset.nav === key) { a.setAttribute('aria-current', 'page'); var d = a.closest('details'); if (d) d.open = true; }
       else a.removeAttribute('aria-current');
@@ -245,6 +246,7 @@
     ['/roadmap', 'roadmap'], ['/topics', 'topics'], ['/topic/:id', 'topic'], ['/topic/:id/:section', 'topic'],
     ['/problems', 'problems'], ['/problem/:num', 'problem'], ['/detective', 'detective'], ['/review', 'review'],
     ['/flashcards', 'flashcards'], ['/flashcards/:deck', 'flashcards'], ['/playground', 'playground'], ['/playground/:key', 'playground'],
+    ['/assistant', 'assistant'],
     ['/viz', 'viz'], ['/viz/:id', 'viz'], ['/cheatsheets', 'cheatsheets'], ['/cheatsheets/:id', 'cheatsheets'],
     ['/mock', 'mock'], ['/mock/:mode', 'mock'],
     ['/system-design', 'systemDesign'], ['/system-design/:id', 'systemDesign'], ['/system-design/:id/:section', 'systemDesign'],

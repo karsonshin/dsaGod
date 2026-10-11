@@ -404,7 +404,7 @@ public:
         },
         tests: { fn: 'minScoreTriangulation', sig: { args: ['int[]'] }, cases: [
           { args: [[1, 2, 3]], out: 6 }, { args: [[3, 7, 4, 5]], out: 144 }, { args: [[1, 3, 1, 4, 1, 5]], out: 13 }, { args: [[2, 2, 2, 2, 2]], out: 24 }, { args: [[5, 1, 9, 2, 8, 3, 7]], out: 114 }] },
-        complexity: 'O(n³) time and O(n²) space. No better algorithm is known for general weights, and n ≤ 50 makes this trivial.',
+        complexity: 'O(n³) time and O(n²) space. A cleverer O(n log n) algorithm exists for this exact product-of-labels case (it is matrix-chain multiplication), but it is never expected, and n ≤ 50 makes O(n³) trivial.',
         say: '“Every triangulation puts the edge between the first and last corner in exactly one triangle, with some third corner k. That triangle splits the polygon into two smaller polygons, so dp[l][r] is the minimum over k of dp[l][k] + dp[k][r] plus the triangle’s product. Two corners is just an edge, cost 0. I fill by width and return dp[0][n-1]. It’s O(n³), the same shape as matrix-chain multiplication.”',
         followups: [
           { q: 'Why is this the same problem as multiplying a chain of matrices?', a: 'Each way to parenthesize a product of matrices corresponds to a triangulation of a polygon whose corner labels are the dimensions. The last multiplication is the triangle on the base edge, and its cost is a product of three dimensions.' },
@@ -475,12 +475,12 @@ public:
         },
         tests: { fn: 'getMoneyAmount', sig: { args: ['int'] }, cases: [
           { args: [1], out: 0 }, { args: [2], out: 1 }, { args: [3], out: 2 }, { args: [4], out: 4 }, { args: [5], out: 6 }, { args: [10], out: 16 }, { args: [16], out: 34 }, { args: [20], out: 49 }] },
-        complexity: 'O(n³) time, O(n²) space; n is at most a few hundred. (You can start `k` from the middle of each range, since the lower half never helps, which halves the work but not the order.)',
+        complexity: 'O(n³) time, O(n²) space; n is at most a few hundred. (Some solutions start `k` near the middle of each range to prune work, but that is only a heuristic and is not exact for every sub-range, so skip it.)',
         say: '“After a wrong guess k in [l, r], I’m left with [l, k-1] or [k+1, r], and the worst case is the larger of the two. So guessing k costs k plus the max of the two sub-costs, and I minimise over k. That is min-of-max over ranges, so dp[l][r] by increasing width, with empty and single-number ranges at zero. O(n³) time and O(n²) space.”',
         followups: [
           { q: 'Why min of max and not a sum?', a: 'Only one of the two sub-ranges actually happens, and you must be ready for the worse. The adversary picks the outcome, so you take the max; you pick the guess, so you take the min.' },
           { q: 'Why is a single number free?', a: 'If only one candidate remains, you guess it and are right, paying nothing: wrong guesses are the only thing that costs. That is why the table is initialised to 0, including for empty ranges.' },
-          { q: 'How would you speed it up?', a: 'Only guesses in the upper half of a range can be optimal, since a lower guess costs less per miss but leaves a bigger right side. That halves the constant. O(n³) is what interviews accept.' }
+          { q: 'How would you speed it up?', a: 'Some solutions only try guesses from the middle of a range upward, since a low guess leaves a bigger right side, but that pruning is a heuristic and not exact for every sub-range. O(n³) is what interviews accept.' }
         ]
       }
     ],
@@ -606,7 +606,7 @@ public:
 
       { lc: 1547,
         hints: ['Cut order matters because each cut costs the length of the piece you are cutting right now.', 'Add the two ends of the stick to the sorted cut positions. In a range between positions `l` and `r`, think about which cut is made **first** on that piece: it costs the whole piece, `pos[r] - pos[l]`, and leaves two independent pieces.', '`dp[l][r] = pos[r] - pos[l] + min over k of dp[l][k] + dp[k][r]`, with `k` strictly between. Ranges with no cut inside cost 0.'],
-        solution: { explain: 'Sort the cuts, add both ends, and run the interval table. The first cut in a piece costs its full length and leaves two independent pieces (equivalently, the last cut is the cheap one). O(m³) time, O(m²) space for m cuts.', code: {
+        solution: { explain: 'Sort the cuts, add both ends, and run the interval table. The first cut in a piece costs its full length and leaves two independent pieces. O(m³) time, O(m²) space for m cuts.', code: {
           py: `class Solution:
     def minCost(self, n: int, cuts: List[int]) -> int:
         pos = [0] + sorted(cuts) + [n]

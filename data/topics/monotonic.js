@@ -149,7 +149,7 @@ public:
       },
       {
         name: 'Monotonic deque: window maximum and minimum',
-        body: 'When the question is about a **window**, an item can also become useless because it **left** the window, not only because a newer value beats it. So use a deque of indices. Push at the back after popping every back value that is not better (newcomers evict weaker items); pop from the front when its index is outside the window. For a window maximum the values decrease from front to back, and the front is the answer (worked below, 239). Keep a second deque with the opposite order and you also have the window minimum, which is exactly Longest Subarray With Limited Difference (1438).',
+        body: 'When the question is about a **window**, an item can also become useless because it **left** the window, not only because a newer value beats it. So use a deque of indices. Push at the back after popping every back value that is not better (newcomers evict weaker items); pop from the front when its index is outside the window. For a window maximum the values decrease from front to back, and the front is the answer (worked below, 239). Keep a second deque with the opposite order and you also have the window minimum, which is exactly Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (1438).',
       },
       {
         name: 'Greedy: remove digits to make the smallest number',
@@ -434,7 +434,7 @@ public:
         followups: [
           { q: 'Why store indices and not values?', a: 'You need the index to know when the front **expires**. The value you can look up from the index.' },
           { q: 'Why pop on `<=` and not `<`?', a: 'For equal values, the newer one lasts longer in the window, so the older equal one is useless. Either works for correctness; `<=` keeps the deque shorter.' },
-          { q: 'How would you get both the window max and min?', a: 'Run two deques with opposite orders, as in Longest Subarray With Limited Difference (1438).' },
+          { q: 'How would you get both the window max and min?', a: 'Run two deques with opposite orders, as in Longest Continuous Subarray With Absolute Diff Less Than or Equal to Limit (1438).' },
           { q: 'Why is a heap worse here?', a: 'A heap gives O(n log n) and needs lazy deletion of expired entries. The deque gets O(n) because each value is touched a constant number of times.' }
         ]
       }

@@ -51,7 +51,7 @@
         { label: 'Trips per day', formula: '500K drivers x 10 trips', result: '~5 million (about 58 a second on average)' },
         { label: 'Current-position state', formula: '500K drivers x 100 B', result: '~50 MB (fits in memory on one box; replicate it)' },
         { label: 'Geohash precision 6 cell', formula: '~1.2 km x 0.6 km (approximate)', result: 'a good driver-search cell size in a city' },
-        { label: 'Candidate pool per search', formula: 'own cell + 8 neighbours, 5 to 10 drivers each', result: '~50 to 90 drivers to rank' }
+        { label: 'Candidate pool per search', formula: 'own cell + 8 neighbours, 5 to 10 drivers each', result: '~45 to 90 drivers to rank' }
       ],
       notes: [
         'This is a **write-heavy** system: about 42,000 location writes a second on average and 125,000 at peak, against only about 3,000 rider reads a second. Most of the load is location ingest, not matching.',
@@ -195,7 +195,7 @@
             { title: 'Rider requests', path: ['rider', 'gw', 'ride'], note: 'POST /rides with an idempotency key. A retry after a timeout returns the same ride.' },
             { title: 'Quote and persist', path: ['ride', 'pricing'], note: 'Fetch the cached surge multiplier for the pickup area and store it on the ride, then write the ride as REQUESTED.' },
             { title: 'Hand to dispatch', path: ['ride', 'dispatch'], note: 'The ride moves to MATCHING and dispatch starts a search.' },
-            { title: 'Shortlist', path: ['dispatch', 'geo'], note: 'Query the pickup cell and its eight neighbours for drivers marked available with a fresh timestamp. Typically 50 to 90 candidates.' },
+            { title: 'Shortlist', path: ['dispatch', 'geo'], note: 'Query the pickup cell and its eight neighbours for drivers marked available with a fresh timestamp. Roughly 45 to 90 candidates in a busy area.' },
             { title: 'Rank by ETA', path: ['dispatch', 'eta'], note: 'Sort by straight-line distance, then ask routing for the road ETA of the closest 10 to 20 and sort by that.' },
             { title: 'Claim the best driver', path: ['dispatch', 'db'], note: 'Conditional update: set the driver to `reserved` for this ride only if still `available`. If it fails, move to the next candidate. Success means no one else can be offered this driver.', tone: 'ok' },
             { title: 'Offer', path: ['dispatch', 'push'], note: 'Send the offer to the driver\'s socket and as a push, with an expiry of about 10 to 15 seconds. The offer state is stored, so a restarted worker can resume.' }

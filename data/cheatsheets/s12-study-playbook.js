@@ -8,18 +8,18 @@
     keywords: 'study learning spaced repetition active recall interleaving error log feynman schedule sleep mock rejection habits',
     render: function (h) {
       return h.cols(
-        h.sec('Methods with solid evidence', h.T(['Method', 'How to do it here'], [
+        h.sec('Methods from learning research', h.T(['Method', 'How to do it here'], [
           ['Active recall', 'Close the lesson and write the template or explain the idea from memory before looking. Retrieval beats rereading and highlighting. It feels harder, and that difficulty is the point.'],
           ['Spaced repetition', 'Reviews spread over days beat one cram. **Flashcards** use due dates: do what is due. The **Review queue** brings solved problems back at 1, 3, 7, 14 and 30 days. **Pattern Detective** schedules cases the same way. Those exact intervals are a sensible rule of thumb, not a law.'],
           ['Interleaving', 'After the first pass on a pattern, mix patterns in one session so you must choose the technique, which is the real interview skill. Block practice feels smoother but transfers worse. Use Pattern Detective and the **Mock room** for this.'],
-          ['Explain aloud (Feynman)', 'Teach the idea to an imaginary beginner in two minutes, no jargon. Where you stall is the gap. Do it for every pattern you finish.'],
+          ['Explain aloud (Feynman)', 'Teach the idea to an imaginary beginner in two minutes, no jargon. Where you stall is the gap. Self-explanation helps; the two-minute limit is a rule of thumb.'],
           ['Write from memory', 'Rewrite the [[sliding-window|window]], [[binary-search|binary search]], BFS and DP skeletons on blank paper weekly. Compare, fix, repeat.']
         ], { cls: 'cs-sp1', label: 'Study methods' })) +
         h.sec('The stuck rule', ol(h, [
           'Struggle for 20 to 25 minutes. Use the hints ladder one rung at a time, smallest hint first.',
           'Still stuck: read the approach (not the code first), close it, then write the solution yourself.',
           'Solve it cold the next day. If it fails, it goes back on the Review queue sooner.'
-        ]) + '<p class="cs-foot">Twenty-five minutes is a rule of thumb. Longer feels productive but mostly burns time. Shorter skips the useful struggle.</p>') +
+        ]) + '<p class="cs-foot">Twenty-five minutes is a rule of thumb. Longer often burns time; shorter may skip useful struggle.</p>') +
         h.sec('Error log (2 minutes per miss)', h.list([
           'One line each: the problem, what failed, **which cue you missed** ("sorted input means two pointers"), the fix.',
           'Reread the log every weekend. Repeated entries show your real weak pattern; make a flashcard for each.'
@@ -43,8 +43,8 @@
           ['Sun', 'Rest, or only flashcards. Skim the error log. Check the Roadmap for next week']
         ], { cls: 'cs-sp3', label: 'Weekly rhythm' })) +
         h.sec('Sleep, breaks, energy', h.list([
-          'Sleep helps memory consolidation. Study hard material earlier in the day and do not trade sleep for extra hours.',
-          'Take 5 minutes away from the screen every 45 to 60 minutes. Walk, no phone.',
+          'Sleep helps memory consolidation. Do not trade sleep for extra hours; if you can, study hard material when you are freshest.',
+          'Rule of thumb: take 5 minutes away from the screen every 45 to 60 minutes. Walk, no phone.',
           'Stop when quality drops. One focused hour beats three tired ones.'
         ])) +
         h.sec('After a rejection', ol(h, [

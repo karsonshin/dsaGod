@@ -443,7 +443,7 @@ def shortest_cycle(n, edges):
         '',
         'The key observation: once I put one node in group 0, all its neighbours are forced into group 1, their neighbours are forced into group 0, and so on. There is no real choice inside a connected piece, so I can simply colour as I walk. If I ever meet a neighbour that already has the same colour as the current node, the forced assignment fails, and the answer is false. The deeper fact is that this fails exactly when the graph has an odd cycle.',
         '',
-        'Structure: a colour array with -1 for uncoloured, and a walk (BFS or DFS, the stored solution uses a stack). The graph may have several pieces, so I start a fresh walk from every uncoloured node. Trace on the triangle [[1,2],[0,2],[0,1]]: colour 0 gets 0, then 1 and 2 get 1; later 1 sees neighbour 2 with the same colour 1, so return false. On the square [[1,3],[0,2],[1,3],[0,2]] colours alternate 0,1,0,1 and all is well.',
+        'Structure: a colour array with -1 for uncoloured, and a walk (BFS or DFS, the stored solution uses a stack). The graph may have several pieces, so I start a fresh walk from every uncoloured node. Trace on the triangle [[1,2],[0,2],[0,1]]: colour 0 gets 0, then 1 and 2 get 1; later node 2 is popped, sees neighbour 1 with the same colour 1, and returns false. On the square [[1,3],[0,2],[1,3],[0,2]] colours alternate 0,1,0,1 and all is well.',
         '',
         'Edge cases: a single isolated node is fine, disconnected pieces are each checked. Cost: O(V + E).'
       ]),

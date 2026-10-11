@@ -71,6 +71,12 @@ OR.extras['stacks'] = {
 
 `OR.cheatsheets.push({ n, id, title, blurb, keywords, pages?, render(h) })`. A sheet with no `pages` must print on one page; `pages: N` allows N. Helpers on `h`: `m`, `T`, `list`, `sec`, `code`, `cols`. Per-sheet print font sizes are in `css/cheatsheets.css`. Brief: `tools/CHEATSHEET-BRIEF.md`.
 
+### AI tutor
+
+`js/kb.js` indexes every lesson (including extras), cheat sheet, system design page, CS track, flashcard and problem into passages and ranks them (BM25 with title, synonym and exact-phrase boosts). Answers are built only from those passages: a teacher-style walkthrough of the matching lesson (what it is, think of it like, step by step, words to know, code, cost, watch out for), plus plain definitions of terms from a glossary made from the lessons' own titles and flashcards. A question the lessons do not cover gets "not in your lessons", never a guess. Select text and right-click (touch: the "Ask AI" pill) to have it explained; `Ctrl J` opens the drawer.
+
+An optional on-device model (`js/localai.js`) runs entirely in the browser: Qwen2.5-0.5B-Instruct 4-bit through WebLLM on WebGPU, served from `ai/` in this repo (runtime `ai/webllm/`, GPU program `ai/lib/`, weights `ai/models/<id>/resolve/main/`, about 290 MB, no file over 100 MB). It needs https or localhost and a WebGPU browser; it does not run from `file://`. It only rewrites one lesson passage in simpler words, shown under the verified text as experimental. Measured: it is fluent but sometimes wrong (for example it inverted the heap ordering), which is why it is never the main answer. `tools/build-sw.py` leaves `ai/` out of the offline cache. To use another model, drop its MLC files in `ai/models/<id>/resolve/main/` with the matching `.wasm` in `ai/lib/` and change the ids in `js/localai.js`.
+
 ### Cloud sync and hosting
 
 `js/sync.js` (Settings > Cloud sync) mirrors progress to a private GitHub repo with a fine-grained token. The site is published with GitHub Pages; after changing any app file run `python tools/build-sw.py` so installed copies refresh, then commit and push.

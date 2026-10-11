@@ -148,7 +148,7 @@ OR.csQuick = (OR.csQuick || []).concat([
   {
     t: "cc",
     q: "What does the Python GIL protect?",
-    a: "CPython's interpreter internals (reference counts and so on). Only one thread runs bytecode at a time, so CPU-bound threads do not scale, but blocking I/O releases it."
+    a: "CPython's interpreter internals (reference counts and so on). Only one thread runs bytecode at a time (standard builds), so CPU-bound threads do not scale, but blocking I/O releases it. It does not make your compound operations such as `count += 1` atomic."
   },
   {
     t: "net",

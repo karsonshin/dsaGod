@@ -318,7 +318,7 @@ public:
       },
       {
         name: 'Periodicity and “is it a repeated block?”',
-        body: 'If the string is a block `b` written `t` times (`t ≥ 2`), then the string has a border of length `n - |b|`: drop the first copy and what remains equals what you get by dropping the last copy. Conversely, with the longest border `lps[n-1]`, the shortest candidate block has length `p = n - lps[n-1]`, and it really tiles the string only when `p` divides `n`. So the test is two lines: `p = n - lps[-1]` and `lps[-1] > 0 and n % p == 0`. Examples: `abab` has `lps = [0,0,1,2]`, `p = 2`, 4 % 2 = 0, a repeat of `ab`. `ababa` has `lps[-1] = 3`, `p = 2`, but 5 % 2 ≠ 0, so it is **not** a repetition even though it has a period. The same `p` answers “smallest string whose repetition builds this one”, and `n - lps[n-1]` also tells you how many letters to append to a string to make it periodic. A cute equivalent: `s` is a repetition exactly when it appears in `(s + s)[1:-1]`.'
+        body: 'If the string is a block `b` written `t` times (`t ≥ 2`), then the string has a border of length `n - |b|`: drop the first copy and what remains equals what you get by dropping the last copy. Conversely, with the longest border `lps[n-1]`, the shortest candidate block has length `p = n - lps[n-1]`, and it really tiles the string only when `p` divides `n`. So the test is two lines: `p = n - lps[-1]` and `lps[-1] > 0 and n % p == 0`. Examples: `abab` has `lps = [0,0,1,2]`, `p = 2`, 4 % 2 = 0, a repeat of `ab`. `ababa` has `lps[-1] = 3`, `p = 2`, but 5 % 2 ≠ 0, so it is **not** a repetition even though it has a period. The same `p` answers “smallest string whose repetition builds this one”. A cute equivalent: `s` is a repetition exactly when it appears in `(s + s)[1:-1]`.'
       },
       {
         name: 'Shortest palindrome by adding letters in front',
@@ -538,7 +538,7 @@ public:
         lc: 214,
         restate: 'You may only add letters to the **front** of a string. Return the shortest palindrome you can make this way. The string has up to 5·10⁴ lowercase letters.',
         examples: '- `"aacecaaa"` → `"aaacecaaa"`.\n- `"abcd"` → `"dcbabcd"`.\n- `""` → `""`.\n- Edge cases: a string that is already a palindrome (add nothing), one letter, and no palindromic prefix longer than the first letter.',
-        brute: 'Try prefixes from the longest down, checking each for being a palindrome: O(n²). Too slow for 5·10⁴ letters in the worst case (for instance `aaaa…ab`).',
+        brute: 'Try prefixes from the longest down, checking each for being a palindrome: O(n²). Too slow for 5·10⁴ letters in the worst case (for instance a long run of `a`, then `b`, then a shorter run of `a`: every candidate prefix is compared for a long stretch before it fails).',
         insight: 'The original string will be the tail of the answer, so the cheapest answer keeps the **longest palindromic prefix** in place and prepends the reverse of what is left. To find that prefix in O(n), build `t = s + "#" + reverse(s)` and take the prefix function. A border of `t` is a prefix of `s` equal to a suffix of `reverse(s)`; reversing both sides shows that prefix equals its own reverse, so it is a palindrome. The last value `lps[-1]` is the longest such prefix. The `#` stops a border from running across the join. Answer: `reverse(s[k:]) + s` with `k = lps[-1]`.',
         code: {
           py: `class Solution:

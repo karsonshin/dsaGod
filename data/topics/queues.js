@@ -339,7 +339,7 @@ public:
           { q: 'Why is it wrong to pour on every `pop`?', a: 'You would pour the outbox back onto the inbox, or put newer items on top of older ones. Pouring only when the outbox is empty keeps the order and keeps each item moving once.' },
           { q: 'Can you make every call O(1) in the worst case, not just amortized?', a: 'Not with two plain stacks. You can with a real queue (a linked list or a ring buffer), or with a more intricate design that spreads the pour over later operations. Say the trade-off and move on.' },
           { q: 'What about the reverse: a stack from queues (225)?', a: 'Use one queue. After each push, rotate the older items behind the new one: dequeue and re-enqueue `size − 1` items. The newest item is then at the front, so `pop` and `top` are O(1) and `push` is O(n).' },
-          { q: 'Where does this come up in real systems?', a: 'Functional-programming queues (a front list and a reversed back list) use exactly this, which is how persistent queues get amortized O(1).' }
+          { q: 'Where does this come up in real systems?', a: 'Functional-programming queues (a front list and a reversed back list) use exactly this to get amortized O(1) when the queue is used one version at a time (keeping and reusing old versions breaks the amortized bound unless laziness is added).' }
         ]
       },
       {
@@ -970,7 +970,7 @@ public:
         why: 'All flooded cells spread outward **at the same pace**, ring by ring, and you need the number of rings. Starting with every flooded cell in line and taking whole rounds is breadth-first search, whose frontier is a queue.' },
       { id: 'hot-potato', decoys: ['recursion', 'linked-lists', 'arrays-hashing'],
         statement: 'A group of kids stands in a circle for a game. A hot potato starts with the first kid and is passed along m times. Whoever is holding it at the end leaves the circle, and the next round starts from the kid just after them. Play until one kid remains, and report who wins.',
-        why: 'Each kid who is passed over goes to the **back of the line** and the kid who is “out” leaves from the front. Dequeue and re-enqueue m − 1 times, then drop the next one: a queue being rotated.' }
+        why: 'Each kid who is passed over goes to the **back of the line** and the kid who is “out” leaves from the front. Dequeue and re-enqueue m times (each is one pass), then drop the kid now at the front: a queue being rotated.' }
     ]
   });
 })();

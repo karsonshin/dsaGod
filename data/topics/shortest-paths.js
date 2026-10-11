@@ -35,7 +35,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'shortest-paths',
 
-    hook: 'Maps, flight search, network routing and “cheapest way to get there” all reduce to one question: what is the lowest-cost route from here to there when every road has its own price? Breadth-first search answers it only when every edge costs the same. The moment edges have different weights you need **Dijkstra**, and the interview twists (a limit on the number of stops, negative prices, all pairs at once, a grid of costs, “the smallest worst step”) are each a one-line change to it or a sibling algorithm. It is a medium-frequency topic that is very predictable once you have the template, and NeetCode 150 puts three of its problems in the Advanced Graphs section.',
+    hook: 'Maps, flight search, network routing and “cheapest way to get there” all reduce to one question: what is the lowest-cost route from here to there when every road has its own price? Breadth-first search answers it only when every edge costs the same. The moment edges have different weights you need **Dijkstra**, and the interview twists (a limit on the number of stops, negative prices, all pairs at once, a grid of costs, “the smallest worst step”) are each a one-line change to it or a sibling algorithm. It is a very predictable topic once you have the template.',
 
     cues: [
       'You want the **cheapest, fastest or shortest route** and the edges have **different, non-negative weights** (distance, time, price, effort).',
@@ -921,7 +921,7 @@ public:
       {
         lc: 778,
         restate: 'An n × n grid holds each of the values 0 to n² − 1 exactly once. Value t is the time at which that cell becomes passable (the water rises to height t). You start at the top-left cell at time 0, can move to a neighbouring cell (up, down, left or right) only when time is at least its value, and can wait. Return the earliest time at which you can stand on the bottom-right cell.',
-        examples: '- `[[0,2],[1,3]]` → 3 (the end cell is 3 itself).\n- `[[0,1,2],[5,4,3],[6,7,8]]` → 8 (the end is 8).\n- `[[0,8,7],[1,2,3],[6,5,4]]` → 4 (go down the left column, then across the bottom row: the tallest cell on that route is 4).\n- Edge cases: a 1 × 1 grid (answer 0); the start cell is not zero.',
+        examples: '- `[[0,2],[1,3]]` → 3 (the end cell is 3 itself).\n- `[[0,1,2],[5,4,3],[6,7,8]]` → 8 (the end is 8).\n- `[[0,8,7],[1,2,3],[6,5,4]]` → 4 (go down to the left cell of the middle row, across that row, then down to the corner: 0, 1, 2, 3, 4, and the tallest cell on that route is 4).\n- Edge cases: a 1 × 1 grid (answer 0); the start cell is not zero.',
         brute: 'Simulate time one unit at a time: at each t flood-fill from the start through cells ≤ t until the corner is reached. Correct, but O(n² · n²) in the worst case.',
         insight: 'Waiting is free, so the time you arrive is decided by the **tallest cell on your route**. The goal is the route whose tallest cell is smallest: a **minimax path**, and not a sum. Dijkstra works with the cost update `max(cost so far, cell value)` instead of `+`, because it never makes a route cheaper as it grows. Pop the cell with the smallest tallest-so-far, and when you pop the bottom-right cell that value is the answer.',
         code: {
@@ -1258,7 +1258,7 @@ public:
       '**Updating the row in place under a stops limit.** With “at most k stops” you must read last round’s distances and write into a copy. In-place updates let a round chain several edges, so the limit silently stops meaning anything.',
       '**Using plain Dijkstra on a hop-limited problem.** One `dist` per node discards a pricier route that uses fewer stops, which may be the only one that still fits the limit. Either run Bellman-Ford for k + 1 rounds, or put the stops into the state.',
       '**Floyd-Warshall with the loops in the wrong order.** The middle stop `k` must be the **outermost** loop. Putting `i` or `j` outside it gives wrong answers on some inputs and passes the small ones. Also guard `INF + INF` and `INF + negative`: use a sentinel such as 10⁹ and skip the update when either side is infinite.',
-      '**Language gotchas.** *Python:* a heap of `(dist, node)` tuples is fine, but `(dist, node_object)` raises `TypeError` on ties when the objects can’t be compared; use an integer id. *JavaScript:* no built-in heap, and sorting the array on every push makes Dijkstra O(V² log V); array `shift`/`unshift` are O(n) in 0-1 BFS. *Java:* `Integer.MAX_VALUE + w` overflows to a negative number, so check `dist[u] != INF` or use `long`; compare with `Integer.compare`, not subtraction. *C++:* `priority_queue` is a **max**-heap, so use `greater<>`, and `INT_MAX + w` overflows the same way.'
+      '**Language gotchas.** *Python:* a heap of `(dist, node)` tuples is fine, but `(dist, node_object)` raises `TypeError` on ties when the objects can’t be compared; use an integer id. *JavaScript:* no built-in heap, and sorting the array on every push makes Dijkstra far slower than O((V + E) log V); array `shift`/`unshift` are O(n) in 0-1 BFS. *Java:* `Integer.MAX_VALUE + w` overflows to a negative number, so check `dist[u] != INF` or use `long`; compare with `Integer.compare`, not subtraction. *C++:* `priority_queue` is a **max**-heap, so use `greater<>`, and `INT_MAX + w` overflows the same way.'
     ],
 
     quiz: [

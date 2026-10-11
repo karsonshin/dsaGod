@@ -43,7 +43,7 @@
       },
       {
         title: `2. The building blocks and what each buys`,
-        body: `**Hash map**: find, add, remove by key in O(1) average; no order. **Array**: item by index and append at the end in O(1); inserting or deleting in the middle shifts everything, O(n). **Singly linked list**: insert after a node you hold in O(1); to remove a node you need its predecessor, so O(n). **Doubly linked list**: each node also knows its previous, so a held node can be unlinked and re-linked anywhere in O(1); it still cannot search. **Heap**: the best item in O(1), push and pop O(log n). **Deque**: add and remove at both ends O(1). Knowing these prices is 80% of design questions.`
+        body: `**Hash map**: find, add, remove by key in O(1) average; no order. **Array**: item by index and append at the end in O(1); inserting or deleting in the middle shifts everything, O(n). **Singly linked list**: insert after a node you hold in O(1); to remove a node you need its predecessor, so O(n). **Doubly linked list**: each node also knows its previous, so a held node can be unlinked and re-linked anywhere in O(1); it still cannot search. **Heap**: the best item in O(1), push and pop O(log n). **Deque**: add and remove at both ends O(1). Knowing these prices is most of the battle in design questions.`
       },
       {
         title: `3. Pointer surgery with sentinels`,

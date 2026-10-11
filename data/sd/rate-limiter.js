@@ -53,7 +53,7 @@
         { label: 'Live state in Redis', formula: '6M keys x 100 B', result: '~600 MB (before replication)' },
         { label: 'Shards for memory', formula: '600 MB across a few shards with headroom', result: '1 to 2 shards' },
         { label: 'Shards for throughput', formula: '~350K peak checks/s / (50K x 0.5)', result: '~15 shards' },
-        { label: 'Sliding window log for a 1,000/min rule', formula: '1,000 timestamps x 8 B per client', result: '~8 KB per client (vs ~100 B for a counter)' }
+        { label: 'Sliding window log for a 1,000/min rule', formula: '1,000 timestamps x 8 B per client', result: '~8 KB of raw timestamps per client (a Redis sorted set costs several times that; a counter is ~100 B)' }
       ],
       notes: [
         'About **115,000 checks a second** on average and roughly **350,000 at peak**. The limiter is a pure throughput problem: the data is tiny, the operations are many.',

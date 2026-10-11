@@ -101,7 +101,7 @@ public:
       time: 'O(n)',
       space: 'O(1)',
       why: 'Every pass of the loop moves `left` up or `right` down, never back. The pointers start n − 1 apart and the loop stops when they meet, so there are at most n − 1 passes, each O(1). No extra array or map is needed, so space is O(1). If you have to sort first, the sort dominates: O(n log n) time overall.',
-      trap: 'Don’t say “O(n²) because there are two pointers”. Say what each pointer does: they only move toward each other, so together they make at most n moves. And don’t forget the sort: “O(n) after sorting, O(n log n) if I have to sort it first”. For 3Sum, the outer loop adds one factor of n, so it’s O(n²), and that’s optimal for the problem.'
+      trap: 'Don’t say “O(n²) because there are two pointers”. Say what each pointer does: they only move toward each other, so together they make at most n moves. And don’t forget the sort: “O(n) after sorting, O(n log n) if I have to sort it first”. For 3Sum, the outer loop adds one factor of n, so it’s O(n²), which is the best known bound for the problem.'
     },
 
     variations: [

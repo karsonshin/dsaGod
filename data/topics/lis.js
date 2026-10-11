@@ -352,7 +352,7 @@ public:
       },
       {
         name: 'When LIS is the wrong tool',
-        body: 'LIS needs a **subsequence** with an ordering condition between *any* earlier and later pair. If the pieces must be **adjacent**, use a [sliding window](#/topic/sliding-window) or [Kadane](#/topic/kadane): the longest increasing *run* is a simple one-pass counter. If you need the longest common subsequence of **two** sequences, that’s a 2-D DP (and note that LCS with a permutation reduces to LIS). If values must go up by exactly one each step (consecutive integers), a hash set is simpler. And when the answer is “the **minimum number of removals** to make it sorted”, that’s `n - LIS`, which is a use of the tool rather than a reason to avoid it.'
+        body: 'LIS needs a **subsequence** with an ordering condition between *any* earlier and later pair. If the pieces must be **adjacent**, use a [sliding window](#/topic/sliding-window) or [Kadane](#/topic/kadane): the longest increasing *run* is a simple one-pass counter. If you need the longest common subsequence of **two** sequences, that’s a 2-D DP (and note that LCS with a permutation reduces to LIS). If values must go up by exactly one each step (consecutive integers), a hash set is simpler. And when the answer is “the **minimum number of removals** to make it strictly increasing”, that’s `n - LIS` (use the non-decreasing version if equal values may stay), which is a use of the tool rather than a reason to avoid it.'
       }
     ],
 

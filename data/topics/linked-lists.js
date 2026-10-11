@@ -287,7 +287,7 @@ public:
         followups: [
           { q: 'Can you do it recursively?', a: 'Yes: reverse everything after the head, then make `head.next.next = head` and `head.next = None`, and return the new head the recursion handed back. It’s O(n) time but O(n) stack, so on long lists in Python it hits the recursion limit. Write the iterative version first and mention this.' },
           { q: 'What happens if you write `cur.next = prev` before saving `nxt`?', a: 'The only pointer to the rest of the list is overwritten, so the loop reads `cur.next` (now `prev`) as the next node. You end with just the first node reversed and everything after it unreachable.' },
-          { q: 'How would you reverse only part of the list?', a: 'Walk to the node before the sublist, then repeat the same flip for exactly `right - left` nodes, reconnecting both ends. That’s Reverse Linked List II (92), in the practice set.' },
+          { q: 'How would you reverse only part of the list?', a: 'Walk to the node before the sublist, then pull the next node to the front of the sublist `right - left` times, which reverses it and keeps both ends connected. That’s Reverse Linked List II (92), in the practice set.' },
           { q: 'Does it handle an empty list?', a: 'Yes. `cur` starts as null, the loop never runs, and it returns `prev`, which is null.' }
         ]
       },
@@ -415,7 +415,7 @@ public:
         say: '“The simple way is two passes: count the length, then unlink position L minus n. To do it in one pass I use a dummy head and two pointers n nodes apart. I advance fast n steps, then move both until fast is on the last node. At that moment slow is the node before the one to delete, so I set slow.next to slow.next.next. The dummy handles removing the head. O(L) time, O(1) space.”',
         followups: [
           { q: 'Why start at the dummy rather than the head?', a: 'You need the node **before** the target to unlink it. If the target is the head, there is no such real node, so the dummy plays that role. It also keeps `slow.next.next` safe when n equals the length.' },
-          { q: 'Is the one-pass version really faster than two passes?', a: 'Both are O(L). The one-pass version touches each node once instead of walking about 1.5 times, which matters little in practice. Interviewers like it because it shows you can hold a gap between pointers.' },
+          { q: 'Is the one-pass version really faster than two passes?', a: 'Both are O(L). The one-pass version touches each node once instead of walking up to twice, which matters little in practice. Interviewers like it because it shows you can hold a gap between pointers.' },
           { q: 'What if n is larger than the length?', a: 'LeetCode guarantees 1 ≤ n ≤ length. In a real system, `fast` would hit null while opening the gap; check for that and return the list unchanged (or raise an error).' }
         ]
       },
@@ -497,7 +497,7 @@ public:
         say: '“The easy answer is a hash set of visited nodes: O(n) space. For O(1) space I use two phases. First, slow moves one step and fast moves two. If fast reaches null there’s no cycle; if they meet, there is one. Second, I put one pointer back at the head and move both one step at a time. The distance from the head to the entry equals the distance from the meeting point to the entry, going around the cycle, so they meet at the entry. O(n) time, O(1) space.”',
         followups: [
           { q: 'Why does fast catch slow instead of jumping over it?', a: 'Inside the cycle, the gap from fast back to slow shrinks by exactly 1 per step (fast moves 2, slow moves 1). A gap that shrinks by 1 hits 0; it can’t skip it.' },
-          { q: 'Would moving fast three steps at a time also work?', a: 'The detection still works, but the gap can shrink by 2 and step over 0 for some cycle lengths, so the meeting may take more laps. The phase-2 argument also changes. Stick with 1 and 2.' },
+          { q: 'Would moving fast three steps at a time also work?', a: 'The gap would shrink by 2 per step, so it can step over 0. For some cycle lengths the runners can then never land on the same node (for example, an even-length cycle with an odd gap), so detection can fail. The phase-2 argument also changes. Stick with 1 and 2.' },
           { q: 'How do you get the cycle’s length?', a: 'After they meet, keep one pointer fixed and walk the other around until it returns to it, counting the steps.' },
           { q: 'Where does the same idea show up in an array?', a: 'Find the Duplicate Number (287): treat `i → nums[i]` as a `next` pointer. A duplicate means two indices point to the same place, so there’s a cycle, and its entry is the duplicate. It’s in the practice set.' }
         ]
@@ -667,7 +667,7 @@ public:
           { args: [[1, 2, 3, 4]], out: [2, 1, 4, 3] }, { args: [[1]], out: [1] }, { args: [[1, 2, 3]], out: [2, 1, 3] }, { args: [[1, 2]], out: [2, 1] }, { args: [[]], out: null }] } },
 
       { lc: 328,
-        hints: ['You’re grouping by position, not by value: nodes 1, 3, 5, … first, then nodes 2, 4, 6, …', 'Build two chains in one pass with two pointers, `odd` and `even`, each skipping a node: `odd.next = even.next`, then `even.next = odd.next`.', 'Remember where the even chain starts before you begin, and attach it after the last odd node.'],
+        hints: ['You’re grouping by position, not by value: nodes 1, 3, 5, … first, then nodes 2, 4, 6, …', 'Build two chains in one pass with two pointers, `odd` and `even`, each skipping a node: `odd.next = even.next` and advance `odd`, then `even.next = odd.next` and advance `even`.', 'Remember where the even chain starts before you begin, and attach it after the last odd node.'],
         solution: { explain: 'Two chains built in place, then joined. Save the even head first; it’s the only pointer to that chain once the odd chain starts skipping. O(n) time, O(1) space.', code: {
           py: `class Solution:
     def oddEvenList(self, head: Optional[ListNode]) -> Optional[ListNode]:

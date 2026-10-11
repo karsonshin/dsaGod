@@ -87,7 +87,7 @@
           ['server_ts', 'timestamp', 'Display time, not the order.']
         ] },
         { name: 'conversation_member', purpose: 'Who is in a conversation and how far each has read.', fields: [
-          ['conversation_id', 'string', ''], ['user_id', 'bigint', ''], ['last_read_seq', 'bigint', 'Drives read receipts and unread badges.'], ['role', 'string', 'Admin or member.']
+          ['conversation_id', 'string', ''], ['user_id', 'bigint', ''], ['delivered_seq', 'bigint', 'Highest sequence delivered to any of the member\'s devices (derived from the device cursors). Drives delivered ticks.'], ['last_read_seq', 'bigint', 'Drives read receipts and unread badges.'], ['role', 'string', 'Admin or member.']
         ] },
         { name: 'device_cursor', purpose: 'Per device: the highest sequence delivered in each conversation. Basis of sync.', fields: [
           ['device_id', 'string', ''], ['conversation_id', 'string', ''], ['delivered_seq', 'bigint', 'Updated by acknowledgements; batched.']
@@ -222,7 +222,7 @@
           { q: 'What if two people send at the same moment?', a: 'The owner serializes them: whichever it processes first gets the lower sequence number. Both senders see the same final order, which can differ from the order they typed in. That is acceptable and standard.' },
           { q: 'How do you keep the counter correct if the owner fails?', a: 'Store the counter durably (a conditional increment in the database, or a lease with a fencing token) so a new owner continues from the last committed number. Without fencing, two owners could hand out the same number.' },
           { q: 'Why not use timestamps?', a: 'Clock skew means two machines disagree on order, ties happen, and a lost message is invisible because nothing is missing from a timestamp sequence.' },
-          { q: 'What about a hot group chat?', a: 'One owner serializes it, which is fine up to thousands of messages a second per conversation, far above a human group. A very large broadcast group is a different design (a log with many readers).' }
+          { q: 'What about a hot group chat?', a: 'One owner serializes it, which is fine because a human group sends only a handful of messages a second (confirm by measuring the write throughput of one owner). A very large broadcast group is a different design (a log with many readers).' }
         ] },
       { id: 'delivery', title: 'Delivery guarantees and offline sync',
         question: 'How do you guarantee a message is never lost when the recipient is offline or the network drops mid-send?',

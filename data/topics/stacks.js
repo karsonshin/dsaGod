@@ -5,7 +5,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'stacks',
 
-    hook: 'A stack gives you one thing: the most recent item, instantly. That sounds small, but it’s exactly what nested structure needs: brackets, undo history, expressions, and the call stack that runs every recursive function. Matching brackets (LeetCode 20) is one of the most-asked warm-ups in phone screens, and NeetCode 150 gives stacks their own section. It’s also the doorway to the monotonic stack, one of the highest-value tricks after this.',
+    hook: 'A stack gives you one thing: the most recent item, instantly. That sounds small, but it’s exactly what nested structure needs: brackets, undo history, expressions, and the call stack that runs every recursive function. Matching brackets (LeetCode 20) is a classic warm-up question, and NeetCode 150 gives stacks their own section. It’s also the doorway to the monotonic stack, one of the highest-value tricks after this.',
 
     cues: [
       'Things must be undone, closed or resolved in the **reverse** of the order they were opened: brackets, tags, nested calls, “go back”.',
@@ -510,7 +510,7 @@ public:
         followups: [
           { q: 'Do you actually need the stack?', a: 'No, only the top is ever used, so one variable for the latest fleet’s time and a counter does the same job. The stack is the clearest way to see why. Say that, then offer the simplification.' },
           { q: 'Why is “equal times” a merge?', a: 'If the rear car reaches the target at the same moment, it caught up exactly at or before the finish, and the problem counts that as one fleet.' },
-          { q: 'Is floating point a risk here?', a: 'It can be for equality, since a tie like 4/3 versus 8/6 is rarely exact in doubles. You can compare by cross-multiplication in integers: `(target − p1) * s2` against `(target − p2) * s1`.' }
+          { q: 'Is floating point a risk here?', a: 'Rarely. Dividing two integers gives the correctly rounded double, so equal fractions such as 4/3 and 8/6 produce the identical value, and within the problem’s limits different fractions stay far enough apart. If you want to avoid floats entirely, compare by cross-multiplication in integers: `(target − p1) * s2` against `(target − p2) * s1`.' }
         ]
       }
     ],

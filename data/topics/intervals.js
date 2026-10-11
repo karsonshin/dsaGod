@@ -8,7 +8,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'intervals',
 
-    hook: 'Calendars, bookings, ranges of IDs, closed roads, video segments: a huge share of real data is “from here to there”, and interviewers know it. Interval questions look like a zoo (merge, insert, count rooms, remove the fewest, answer range queries) but nearly all of them are one move: **sort, then make a single pass** where the only question is “does this one start before the last one ended?”. They appear in almost every loop at companies that schedule things, they are short to code, and the traps (touching endpoints, which field to sort by) are exactly what a careful candidate talks through out loud.',
+    hook: 'Calendars, bookings, ranges of IDs, closed roads, video segments: a huge share of real data is “from here to there”, and interviewers know it. Interval questions look like a zoo (merge, insert, count rooms, remove the fewest, answer range queries) but nearly all of them are one move: **sort, then make a single pass** where the only question is “does this one start before the last one ended?”. They come up often at companies that schedule things, they are short to code, and the traps (touching endpoints, which field to sort by) are exactly what a careful candidate talks through out loud.',
 
     cues: [
       'The input is a list of **ranges**: `[start, end]` pairs, meetings, bookings, segments, closed stretches.',
@@ -1018,7 +1018,7 @@ public:
       '**Sorting events with the start before the end at the same time.** A meeting ending at 5 and one starting at 5 then look like an overlap and the room count is one too high. Sort `(time, -1)` before `(time, +1)`.',
       '**Mutating the list you are looping over.** Deleting or editing ranges during a pass skips the next one. Build a new answer list, or edit only the last element of it.',
       '**Starting the answer from an empty list without a guard.** `merged[-1]` on an empty list crashes. Either open with the first range (and handle empty input) or test `if not merged or start > merged[-1][1]`.',
-      '**Subtracting in a comparator.** `(a, b) -> a[1] - b[1]` overflows with values near the integer limits, and the sort quietly returns a wrong order. Use `Integer.compare` in Java, a comparison in C++ and JS.',
+      '**Subtracting in a comparator.** `(a, b) -> a[1] - b[1]` overflows with values near the integer limits, and the sort quietly returns a wrong order. Use `Integer.compare` in Java and a plain `<` comparison in C++. (JS numbers are doubles, so subtracting is safe there.)',
       '**Pushing an expired range’s answer in the query-with-heap problem.** The heap must drop a range once its end is before the query, not only compare sizes; otherwise the smallest range may not contain the query at all.',
       '**Using a difference array when coordinates are huge.** An array sized to the largest value is O(R) memory and time. If values reach 10⁹, sort the events instead.',
       '**Assuming the input is sorted.** The three-phase insert only works because the list is sorted and disjoint. Applying it to an unsorted list silently gives a wrong answer.'

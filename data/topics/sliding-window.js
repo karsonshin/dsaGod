@@ -5,7 +5,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'sliding-window',
 
-    hook: 'When a question says *contiguous* (a subarray, a substring, a run of days), test a sliding window first. It turns “check every start and every end” (O(n²) or worse) into one pass, and it’s among the most common patterns in phone screens and online assessments: NeetCode 150 gives it a section of its own.',
+    hook: 'When a question says *contiguous* (a subarray, a substring, a run of days), test a sliding window first. It turns “check every start and every end” (O(n²) or worse) into one pass, and it’s a staple of coding interviews: the NeetCode 150 list gives it a section of its own.',
 
     cues: [
       'The question is about a **contiguous** subarray or substring: the longest, the shortest, how many, or every window of size k.',

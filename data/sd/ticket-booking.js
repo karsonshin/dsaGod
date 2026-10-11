@@ -54,7 +54,7 @@
         { label: 'People arriving in the first minute', formula: 'assumed', result: '1,000,000 (about 16,700 arrivals/s)' },
         { label: 'Poll load from waiting users', formula: '1M waiting / 10 s poll interval', result: '~100,000 req/s, served from edge or in-memory, not the database' },
         { label: 'Buyers needed to sell out', formula: '50,000 seats / ~2.5 seats per order', result: '~20,000 orders' },
-        { label: 'Concurrent shoppers the booking tier allows', formula: 'chosen cap (about 100 per second of admits x ~50 s typical session)', result: '~5,000 active sessions' },
+        { label: 'Concurrent shoppers the booking tier allows', formula: 'chosen cap (about 100 per second of admits x ~50 s average time in the booking tier; most attempts end quickly in "taken" or abandonment, while buyers hold seats up to 8 minutes)', result: '~5,000 active sessions' },
         { label: 'Time to drain the queue (approximate)', formula: '20,000 orders / ~20 orders/s completed', result: '~1,000 s, about 17 minutes' },
         { label: 'Share of arrivals who can succeed', formula: '20,000 orders / 1,000,000 people', result: '~2%, so about 49 in 50 must be told "sold out" fast' }
       ],

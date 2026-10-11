@@ -64,7 +64,7 @@
 | B (3, 20) | 0 | 15 | 15 | 20 | 35 |
 | C (4, 30) | 0 | 15 | 15 | 20 | 35 |
 
-Check c=4 for B: skip gives 15, take gives \`dp[c=1] + 20 = 15 + 20 = 35\` (A and B together). For C at c=4: skip gives 35, take gives \`dp[c=0] + 30 = 30\`. The answer is 35, not the single big item. A value-per-weight greedy would also miss cases like this.`
+Check c=4 for B: skip gives 15, take gives \`dp[c=1] + 20 = 15 + 20 = 35\` (A and B together). For C at c=4: skip gives 35, take gives \`dp[c=0] + 30 = 30\`. The answer is 35, not the single big item. (A value-per-weight greedy happens to work on this tiny input, but it can fail on others, because items cannot be split.)`
       },
       {
         title: `6. Collapse to one list, and the direction rule`,

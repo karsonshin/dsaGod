@@ -60,7 +60,7 @@
         { label: 'Raw storage added per day', formula: '100,000 x 800 MB', result: '80 TB/day, about 29 PB a year' }
       ],
       notes: [
-        '**Egress is the problem.** Roughly 2 Tbit/s average cannot come from your own origin. It is served from CDN caches near viewers, and a cache hit ratio of 95%+ is what keeps the origin at tens of Gbit/s.',
+        '**Egress is the problem.** Roughly 2 Tbit/s average cannot come from your own origin. It is served from CDN caches near viewers, and a cache hit ratio of 95%+ is what keeps the origin at roughly 100 Gbit/s (5% of 1.9 Tbit/s), and less once a shield collapses duplicate misses.',
         'Request rate is modest: about 2,300 plays a second means the **metadata and manifest tier is small** (tens of servers). The bytes, not the QPS, drive the architecture.',
         'Storage grows about 29 PB a year at these assumptions, so you need **blob/object storage** with tiering. Old, rarely watched videos can move to cheaper cold storage or drop the biggest renditions.',
         'Transcoding is a **bursty batch workload**: thousands of cores at peak, near idle overnight. It fits a queue of independent jobs on autoscaled or spot machines, never the API servers.',

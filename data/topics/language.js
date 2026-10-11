@@ -91,7 +91,7 @@ public:
     variations: [
       {
         name: 'Heap: the k-th largest without sorting',
-        body: 'A **min-heap of size k** holds the k largest values seen so far. The root is the smallest of those, so when a new value pushes the size past k, you pop the root: it can’t be among the k largest. After the pass, the root is the k-th largest. That’s O(n log k) time and O(k) space. Three language facts matter here. Python’s `heapq` is **min-only**; for a max-heap, push negated values. Java’s `PriorityQueue` is a min-heap by default. C++’s `priority_queue` is a **max**-heap by default, so pass `greater<int>` to flip it. JavaScript has **no** heap at all: you write the 25 lines below, or say so out loud and ask whether you may assume one.',
+        body: 'A **min-heap of size k** holds the k largest values seen so far. The root is the smallest of those, so when a new value pushes the size past k, you pop the root: it can’t be among the k largest. After the pass, the root is the k-th largest. That’s O(n log k) time and O(k) space. Three language facts matter here. Python’s `heapq` is **min-only**; for a max-heap, push negated values. Java’s `PriorityQueue` is a min-heap by default. C++’s `priority_queue` is a **max**-heap by default, so pass `greater<int>` to flip it. JavaScript has **no** heap at all: you write the short class below, or say so out loud and ask whether you may assume one.',
         code: {
           py: `import heapq
 

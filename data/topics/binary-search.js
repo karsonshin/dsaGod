@@ -948,7 +948,7 @@ public:
     quiz: [
       { kind: 'complexity', q: 'Roughly how many probes does binary search need, at most, on a sorted array of 1,000,000 values?',
         choices: ['About 20', 'About 1,000', 'About 500,000', 'About 6'], answer: 0,
-        explain: 'Each probe halves the space, and 2²⁰ = 1,048,576 ≥ 1,000,000, so 20 probes (21 at worst by the strict count) are enough.' },
+        explain: 'Each probe halves the space, and 2²⁰ = 1,048,576 ≥ 1,000,000, so about 20 probes are enough.' },
       { kind: 'concept', q: 'Which loop condition and update pair is correct together?',
         choices: ['`while lo <= hi` with `hi = mid - 1`', '`while lo <= hi` with `hi = mid`', '`while lo < hi` with `hi = mid - 1`', '`while lo < hi` with `lo = mid`'], answer: 0,
         explain: 'A closed interval `[lo, hi]` needs `<=` and updates that skip `mid`. `lo <= hi` with `hi = mid` loops forever when `lo == hi`; `lo < hi` with `hi = mid - 1` throws away a candidate; and `lo = mid` never moves when the space has two elements.' },

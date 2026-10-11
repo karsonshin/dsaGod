@@ -12,7 +12,7 @@
     breakdown: [
       {
         title: 'Step 1: the list, and what is cheap on it',
-        body: `A list is boxes in a row, numbered from 0. Because the boxes sit side by side, jumping to box 5 is one step: \`a[5]\` is O(1). Adding at the end is O(1) amortized (when the row is full Python builds a row twice as long and copies once, which averages out).
+        body: `A list is boxes in a row, numbered from 0. Because the boxes sit side by side, jumping to box 5 is one step: \`a[5]\` is O(1). Adding at the end is O(1) amortized (when the row is full Python builds a bigger row and copies once, and growing by a constant factor makes that average out).
 
 Trace \`a = [4, 7, 9]\` then \`a.insert(0, 1)\`: 4, 7, 9 each slide one box right, giving \`[1, 4, 7, 9]\`. That is 3 moves for 3 items, so insert at the front is O(n). Same for \`pop(0)\` and for \`x in a\`, which looks at boxes one by one.
 

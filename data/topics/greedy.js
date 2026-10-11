@@ -156,7 +156,7 @@ public:
       },
       {
         name: 'When greedy fails: coin change',
-        body: 'Pick the biggest coin that still fits, repeat. With coins **1, 5, 10, 25** this is optimal (each coin is a multiple of the one below it, and an exchange argument works). With coins **1, 3, 4** and amount 6 it returns 4 + 1 + 1 = **3 coins**, while 3 + 3 = **2** is better. The greedy-choice property is false: the biggest coin blocks the best answer. When you cannot prove the choice safe, or you find a small counterexample like this one, switch to DP: the best answer for amount a is 1 + the best over each coin c of a − c (see [1-D DP](#/topic/dp-1d)). The code below is the greedy version, kept here so you can run it on 1, 3, 4 and watch it lose.',
+        body: 'Pick the biggest coin that still fits, repeat. With coins **1, 5, 10, 25** this is optimal (a well-behaved coin system; an exchange argument works, though 25 is not a multiple of 10, so it is not simply “each coin divides the next”). With coins **1, 3, 4** and amount 6 it returns 4 + 1 + 1 = **3 coins**, while 3 + 3 = **2** is better. The greedy-choice property is false: the biggest coin blocks the best answer. When you cannot prove the choice safe, or you find a small counterexample like this one, switch to DP: the best answer for amount a is 1 + the best over each coin c of a − c (see [1-D DP](#/topic/dp-1d)). The code below is the greedy version, kept here so you can run it on 1, 3, 4 and watch it lose.',
         code: {
           py: `def greedyCoins(coins, amount):
     count = 0
@@ -392,7 +392,7 @@ public:
         say: '“If total gas is less than total cost, no start works. Otherwise a start exists, and I find it in one pass: I keep the tank since my current candidate. When it goes negative at station i, every station from the candidate to i also fails, because they all arrived with at least an empty tank and would run dry at the same spot. So the candidate becomes i + 1 and the tank resets. The final candidate is the answer. O(n) time, O(1) space, versus O(n²) for trying every start.”',
         followups: [
           { q: 'Why does a start exist whenever the total is non-negative?', a: 'Take the point where the running sum of `gas[i] - cost[i]` (from station 0) is lowest. Starting just after it, every prefix sum of the rotated order is non-negative, because the circle’s total is non-negative and we began right after the deepest dip. That station is a valid start.' },
-          { q: 'Why is the answer unique when it exists?', a: 'The problem states uniqueness as a guarantee. With ties (a zero-net stretch) several starts could work; the scan returns the first candidate it settles on after the last reset.' }
+          { q: 'Why is the answer unique when it exists?', a: 'The problem states uniqueness as a guarantee. With ties (a zero-net stretch) several starts could work; the scan returns the candidate left after its last reset.' }
         ]
       },
 

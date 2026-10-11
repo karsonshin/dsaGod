@@ -36,7 +36,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'mst',
 
-    hook: 'A minimum spanning tree answers one question: *what is the cheapest way to wire everything together so that nothing is cut off?* Cable between offices, roads between towns, pipes between pumps: you must connect all the nodes, and every link has a price. The answer is always a tree (any extra link only adds cost and a loop), and it is found by a greedy rule that is provably safe: take the cheapest link that joins two things that aren’t yet joined. It is a small topic and a **low-frequency** one, but it is a favourite for showing you can pair union-find with sorting or a heap. When it shows up, it is usually one clean problem (Min Cost to Connect All Points) or a Hard that asks which edges are essential.',
+    hook: 'A minimum spanning tree answers one question: *what is the cheapest way to wire everything together so that nothing is cut off?* Cable between offices, roads between towns, pipes between pumps: you must connect all the nodes, and every link has a price. The answer is always a tree (any extra link only adds cost and a loop), and it is found by a greedy rule that is provably safe: take the cheapest link that joins two things that aren’t yet joined. It is a small topic, but it is a favourite for showing you can pair union-find with sorting or a heap. When it shows up, it is usually one clean problem (Min Cost to Connect All Points) or a Hard that asks which edges are essential.',
 
     cues: [
       'You must **connect all nodes** of an undirected weighted graph (or every point, city, server) and the goal is the **minimum total cost** of the links.',
@@ -913,7 +913,7 @@ public:
       { kind: 'complexity', q: 'You are given n = 2000 points on a plane and must connect them at least total Manhattan distance. Which approach has the best time and memory?',
         choices: ['Prim with an array: O(n²) time and O(n) memory', 'Kruskal over all pairs: O(n² log n) time and O(n²) memory', 'Dijkstra from every point: O(n³ log n)', 'Enumerate all spanning trees'], answer: 0,
         explain: 'The graph is complete (about 2 million pairs here), so building and sorting every edge is wasteful. The array form of Prim scans for the nearest outside point, so it needs no edge list at all.' },
-      { kind: 'bug', q: 'This Kruskal loop returns a total that is too low and sometimes marks the graph as connected when it is not. What’s wrong?',
+      { kind: 'bug', q: 'This Kruskal loop sometimes returns a total that is too high, because it keeps edges that close a cycle. What’s wrong?',
         code: `parent = list(range(n))
 def find(x):
     while parent[x] != x:
@@ -940,7 +940,7 @@ for u, v, w in sorted(edges, key=lambda e: e[2]):
     flashcards: [
       { id: 'tree-edges', front: 'A connected graph has n nodes. How many edges does a spanning tree have, and what if you keep fewer?', back: 'Exactly **n − 1**. Fewer edges leaves the graph disconnected (a forest with `n − edges` components); more creates a cycle.' },
       { id: 'cut-property', front: 'State the cut property.', back: 'For any split of the nodes into two non-empty groups, the **cheapest edge crossing the split** belongs to some MST. It is why both Kruskal and Prim are correct.' },
-      { id: 'cycle-property', front: 'State the cycle property.', back: 'The **heaviest edge on any cycle** is not needed: some MST leaves it out. Kruskal’s skip step applies it: an edge whose ends are already connected closes a cycle of cheaper edges.' },
+      { id: 'cycle-property', front: 'State the cycle property.', back: 'The **heaviest edge on any cycle** is not needed: some MST leaves it out. Kruskal’s skip step applies it: an edge whose ends are already connected closes a cycle in which it is the heaviest edge (or tied for heaviest), because the edges already kept were considered earlier and so weigh no more.' },
       { id: 'kruskal-steps', front: 'Kruskal in three lines.', back: 'Sort edges by weight. For each edge, if `find(u) != find(v)`, take it and union the groups; else skip it. Stop after n − 1 edges. O(E log E).' },
       { id: 'prim-steps', front: 'Prim in three lines.', back: 'Start at any node. Keep a min-heap of edges leaving the tree. Pop the cheapest; skip it if its far end is already in the tree, else take it and push that node’s edges. O(E log V).' },
       { id: 'kruskal-vs-prim', front: 'When do you choose Kruskal and when Prim?', back: 'Kruskal when you have a plain **edge list** (or the graph is sparse). Prim when the graph is **dense** or implicit (points on a plane): the array version is O(V²) with no edge list.' },

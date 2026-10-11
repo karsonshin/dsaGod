@@ -59,7 +59,7 @@
         ['`a.sort()`, `sorted(a)`', 'O(n log n); about O(n) if nearly sorted', 'Timsort, **stable**. `sort()` returns `None`; `sorted` copies.'],
         ['`a[i:j]`, `a[:]`, `a.copy()`, `a[::-1]`', 'O(size of the slice)', 'Slicing in a loop or recursion (`f(a[1:])`) copies every time: pass indices.'],
         ['`a.extend(b)`, `a += b`; `a + b`', 'O(len b) amortized; O(n+m) new list', '`a = a + b` in a loop is O(n²).'],
-        ['`s[i]`, `len(s)`; `s += c` in a loop', 'O(1); O(n²) overall', 'Strings are immutable. Append to a list, then `\'\'.join` (O(total)).'],
+        ['`s[i]`, `len(s)`; `s += c` in a loop', 'O(1); up to O(n²) overall', 'Strings are immutable. Append to a list, then `\'\'.join` (O(total)).'],
         ['`t in s`, `s.find(t)`', 'O(n·m) worst, usually near O(n)', '`in` on a str is a substring test; on a list, an item test.'],
         ['`d[k]`, `d[k] = v`, `k in d`, `d.get`, `del`, `pop(k)`; `set` `add`, `in`, `discard`', 'O(1) average, O(n) worst', 'Worst case needs mass hash collisions, so quote the average. Keys must be hashable. `s.remove` raises if absent.'],
         ['`for k in d`, `d.items()`; `len(d)`', 'O(n); O(1)', 'Adding or deleting keys while looping: `RuntimeError`. Loop over `list(d)`.'],
@@ -80,7 +80,7 @@
         h.cols(B('Dicts (insertion-ordered since 3.7)', 'dct'), B('Sets (unordered, unique, hashable items)', 'set')) +
         h.list([
           'Slice is `[start:stop:step]`, stop excluded; out-of-range bounds clamp. Falsy: `0`, `\'\'`, `[]`, `{}`, `set()`, `None`.',
-          'Chained compares: `0 <= r < R`. `and`/`or` return an operand: `x or default`. Walrus: `if (n := len(a)) > 3:`. Hashable: str, int, tuple, frozenset; not list, dict, set.',
+          'Chained compares: `0 <= r < R`. `and`/`or` return an operand: `x or default`. Walrus: `if (n := len(a)) > 3:`. Hashable: str, int, frozenset, tuple of hashables; not list, dict, set.',
         ])) +
       h.sec('3a. Library: collections and heapq',
         h.cols(B('collections', 'coll'), B('heapq: min-heap, max-heap by negation, top-k', 'heap')) +
@@ -122,7 +122,7 @@
       h.sec('8. Speed tips (and when they do not matter)',
         h.list([
           '**Fix the algorithm before the constants.** A set lookup or a heap beats any micro-tuning. Build the set once, outside the loop; use `deque`, not `pop(0)`; join strings once; pass indices, not slices. [[big-o]]',
-          '**Interviews run plain CPython, not PyPy:** about 10⁷ simple steps per second, tens of times slower than C++ on tight loops. At n = 10⁵ to 10⁶ aim for O(n) or O(n log n), and say the complexity aloud. Features marked 3.10+ (`pairwise`, `bit_count`, `bisect key=`) may be missing on older judges: ask the version. More: [[language]], [[arrays-hashing]].'
+          '**Interviews usually run plain CPython, not PyPy:** roughly 10⁷ simple steps per second, tens of times slower than C++ on tight loops. At n = 10⁵ to 10⁶ aim for O(n) or O(n log n), and say the complexity aloud. Features marked 3.10+ (`pairwise`, `bit_count`, `bisect key=`) may be missing on older judges: ask the version. More: [[language]], [[arrays-hashing]].'
         ])) +
       ''
     }

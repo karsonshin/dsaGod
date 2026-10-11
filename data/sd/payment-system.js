@@ -94,7 +94,7 @@
           ['created_at, updated_at', 'timestamp', '']
         ] },
         { name: 'idempotency_key', purpose: 'Makes a retried request return the original result instead of repeating the work.', fields: [
-          ['key', 'string', 'Client-supplied, scoped per merchant or per user.'],
+          ['key', 'string', 'Client-supplied. Scope it per merchant or per user (make the primary key the pair, or prefix the key) so different callers cannot collide.'],
           ['request_hash', 'string', 'Hash of the body: same key with a different body is an error.'],
           ['status', 'enum', '`IN_PROGRESS` or `DONE`.'],
           ['response', 'json, nullable', 'Stored once the work finishes, replayed on retry.'],

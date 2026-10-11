@@ -19,7 +19,7 @@
           ['Complexity (38-41)', q('Time is O(n): one pass with O(1) average lookups. Space is O(n) for the map. Worst case hashing is O(n) per lookup but that is rare.')],
           ['Follow-ups (41-45)', q('If the array is sorted, two pointers gets O(1) space.') + ' ' + q('If it does not fit in memory, I would ... ')]
         ], { cls: 'cs-tt1', label: 'Phases and phrases' })) +
-        h.sec('Twelve clarifying questions', h.T(['Input', 'Ask'], [
+        h.sec('Clarifying questions', h.T(['Input', 'Ask'], [
           ['Array', q('Can it be empty? Sorted? Duplicates? Negative numbers? Size range?')],
           ['String', q('ASCII or Unicode? Case sensitive? Spaces and punctuation?')],
           ['Number', q('Integer or float? Can it overflow? Is zero valid?')],

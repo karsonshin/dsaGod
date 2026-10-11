@@ -5,7 +5,7 @@
   (OR.topics = OR.topics || []).push({
     id: 'kadane',
 
-    hook: 'Maximum Subarray (53) is the cleanest example of a dynamic program that shrinks to a single variable, so interviewers use it to hear *why* the greedy step is safe, not just to see the loop. It and Maximum Product Subarray (152) are both on the NeetCode 150 and the Blind 75, and the follow-ups (a circular array, one allowed deletion, “now with products”) are favorites for the second round of questions.',
+    hook: 'Maximum Subarray (53) is the cleanest example of a dynamic program that shrinks to a single variable, so interviewers use it to hear *why* the greedy step is safe, not just to see the loop. It and Maximum Product Subarray (152) are both on the NeetCode 150 and the Blind 75, and the follow-ups (a circular array, one allowed deletion, “now with products”) are common follow-up questions.',
 
     cues: [
       'The question asks for the best **contiguous** subarray by its **sum**: the largest, the smallest, or the largest absolute value.',
